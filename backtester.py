@@ -1,0 +1,122 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+
+class Backtester:
+    def __init__(
+        self,
+        initial_capital=1000,
+        transaction_costs=0.001,
+        risk_free_rate=0.065,
+        trading_days=252,
+    ):
+        if initial_capital <= 0:
+            raise ValueError("Initial capital must be positive.")
+        if not 0 <= transaction_costs < 1:
+            raise ValueError("Transaction costs must be in [0, 1).")
+        if trading_days <= 0:
+            raise ValueError("Trading days must be positive.")
+
+        self.initial_capital = initial_capital
+        self.transaction_costs = transaction_costs
+        self.risk_free_rate = risk_free_rate
+        self.trading_days = trading_days
+
+        self.portfolio = None
+        self.strategy_returns = None
+
+    def run(self, daily_returns, positions):
+        daily_returns = pd.Series(daily_returns, dtype=float).reset_index(drop=True)
+        positions = pd.Series(positions, dtype=float).reset_index(drop=True)
+
+        if len(daily_returns) != len(positions):
+            raise ValueError("Daily returns and positions must have the same length.")
+        if daily_returns.isna().any() or positions.isna().any():
+            raise ValueError("Inputs must not contain missing values.")
+        if not np.isfinite(daily_returns).all() or not np.isfinite(positions).all():
+            raise ValueError("Inputs must contain finite values.")
+        if not positions.isin([0, 1]).all():
+            raise ValueError("Positions must be 0 (cash) or 1 (invested).")
+        if (daily_returns < -1).any():
+            raise ValueError("Daily returns cannot be below -100%.")
+
+        portfolio = [float(self.initial_capital)]
+        previous_position = 0
+
+        for market_return, position in zip(daily_returns, positions):
+            current_value = portfolio[-1] * (1 + position * market_return)
+
+            if position != previous_position:
+                current_value *= 1 - self.transaction_costs
+
+            portfolio.append(current_value)
+            previous_position = position
+
+        self.portfolio = pd.Series(portfolio)
+        self.strategy_returns = self.portfolio.pct_change().dropna()
+
+        return self.portfolio
+
+    def drawdown(self):
+
+        running_peak = self.portfolio.cummax()
+        drawdowns = (running_peak - self.portfolio) / running_peak
+        return drawdowns, float(drawdowns.max())
+
+    def sharpe(self):
+
+        daily_rf = (1 + self.risk_free_rate) ** (1 / self.trading_days) - 1
+        excess_returns = self.strategy_returns - daily_rf
+        std = excess_returns.std()
+
+        if len(excess_returns) < 2 or std == 0 or not np.isfinite(std):
+            return np.nan
+
+        return float(np.sqrt(self.trading_days) * excess_returns.mean() / std)
+
+    def evaluate(self):
+
+        n = len(self.strategy_returns)
+        initial = self.portfolio.iloc[0]
+        final = self.portfolio.iloc[-1]
+
+        total_return = final / initial - 1
+        years = n / self.trading_days
+
+        cagr = (final / initial) ** (1 / years) - 1 if years > 0 else np.nan
+        volatility = (
+            self.strategy_returns.std() * np.sqrt(self.trading_days)
+            if n >= 2
+            else np.nan
+        )
+        _, max_drawdown = self.drawdown()
+
+        return {
+            "Initial Capital": initial,
+            "Final Portfolio Value": final,
+            "Total Return": total_return,
+            "CAGR": cagr,
+            "Annualized Volatility": volatility,
+            "Annualized Sharpe": self.sharpe(),
+            "Maximum Drawdown": max_drawdown,
+        }
+
+
+backtester = Backtester(
+    initial_capital=1000, transaction_costs=0.001, risk_free_rate=0.065
+)
+
+
+test_returns = [0, 0, 0, 0, 0]
+positions = [0, 0, 1, 1, 0]
+portfolio = backtester.run(test_returns, positions)
+
+print(backtester.evaluate())
+
+portfolio.plot(title="Portfolio Equity Curve")
+plt.show()
+
+drawdowns, max_drawdown = backtester.drawdown()
+drawdowns.plot(title="Portfolio Drawdown")
+plt.show()
