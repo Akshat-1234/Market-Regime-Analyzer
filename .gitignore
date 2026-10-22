@@ -1,10 +1,22 @@
+# Node.js
 node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# Python
 .venv/
 backend/.venv/
 __pycache__/
 *.py[cod]
+
+# Secrets
 .env
 .env.*
 !.env.example
-frontend/dist/
+
+# OS and editors
 .DS_Store
+.vscode/
+
+# Logs
+*.log
