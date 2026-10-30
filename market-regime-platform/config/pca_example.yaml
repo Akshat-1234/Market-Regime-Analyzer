@@ -1,0 +1,26 @@
+# Optional exploratory alternative to the price-only default. Needs OHLC columns.
+# The scaler and PCA are fitted anew using the training data in each fold.
+# This is NOT the final/default strategy and is not a claim that PCA helps.
+hmm:
+  primary_model: pca_3
+  models:
+    - name: pca_3
+      n_states: 3
+      pca_components: 3
+      features:
+        - daily_return
+        - sign_persistence
+        - volatility_20
+        - trend_20
+        - return_5
+        - return_20
+        - return_60
+        - volatility_5
+        - volatility_60
+        - volatility_change
+        - ma_distance_50
+        - ma_distance_200
+        - high_low_range
+        - intraday_return
+        - overnight_gap
+        - return_skewness

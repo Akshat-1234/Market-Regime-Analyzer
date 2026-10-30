@@ -1,0 +1,7 @@
+{
+  "observed_statistic": 1.830368414974887,
+  "p_value": 0.12,
+  "samples": 1000,
+  "mean_block": 20,
+  "benchmark": "policy_trend_vol"
+}

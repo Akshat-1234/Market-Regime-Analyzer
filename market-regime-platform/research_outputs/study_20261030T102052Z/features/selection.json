@@ -1,0 +1,14 @@
+{
+  "selected_feature_set": "rv2",
+  "criterion": "mean inner held-out predictive log-density",
+  "delta_vs_rvd3": {
+    "rv2": 0.4847928395165826,
+    "rvd3": 0.0,
+    "rvd_mom": -1.3455503732013285,
+    "rvd_down": -0.24321405667964124,
+    "rvd_range": -0.49378319980190133,
+    "rvd_volvol": -1.095207554603115,
+    "accumulation": -3.004862623644809
+  },
+  "redundancy_note": "Downside/range volatility correlate > 0.9 with volatility_20."
+}

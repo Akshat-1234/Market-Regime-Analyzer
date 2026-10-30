@@ -1,0 +1,23 @@
+{
+  "rows": 4684,
+  "start": "2007-09-17",
+  "end": "2026-10-22",
+  "close_return_mean_daily": 0.00042920998813736463,
+  "close_return_sd_daily": 0.01291639889788772,
+  "annualised_volatility": 0.205041475909918,
+  "skewness": 0.059381494718513034,
+  "excess_kurtosis": 16.021813753598387,
+  "minimum_return": -0.12980466070471242,
+  "maximum_return": 0.17744066491310173,
+  "zero_return_days": 4,
+  "extreme_abs_gt_5pct_days": 43,
+  "weekday_sessions_without_row": 301,
+  "weekday_gap_caveat": "Weekdays include exchange holidays; not a verified gap count.",
+  "autocorrelation_abs_return_lag1": 0.2765659077094267,
+  "autocorrelation_abs_return_lag20": 0.2213794739561961,
+  "invalid_ohlc_rows": 0,
+  "high_low_available": true,
+  "open_within_1bp_of_previous_close": 315,
+  "open_within_1bp_and_intraday_gt_1pct": 122,
+  "open_data_warning": "Open prices look vendor-smoothed in part of the sample; Open-based features are excluded from research specs."
+}

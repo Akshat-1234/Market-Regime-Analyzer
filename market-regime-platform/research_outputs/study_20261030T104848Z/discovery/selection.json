@@ -1,0 +1,35 @@
+{
+  "criterion": "mean inner held-out predictive log-density (last 20% of each training window)",
+  "selected_n_states": 4,
+  "inner_predictive_loglik_by_k": {
+    "2": -2.0707105375762027,
+    "3": -1.4191149228363291,
+    "4": -1.181845642572042,
+    "5": -1.382936305487737,
+    "6": -1.3796095608106875,
+    "7": NaN
+  },
+  "bic_by_k": {
+    "2": 197721.95777719334,
+    "3": 145136.0261644796,
+    "4": 122132.83723816523,
+    "5": 105857.15078793441,
+    "6": 100490.86502473378,
+    "7": NaN
+  },
+  "note": "AIC/BIC and downstream Sharpe are reported but not used to select. Differences smaller than ~0.01 nats/day are not interpretable.",
+  "mean_seed_ari_by_k": {
+    "2": 0.9884500305568991,
+    "3": 0.7669260356148182,
+    "4": 0.720887290055271,
+    "5": 0.5740746815031365,
+    "6": 0.5626556291576271
+  },
+  "identity_alignment_fraction_by_k": {
+    "2": 1.0,
+    "3": 0.9285714285714286,
+    "4": 0.7857142857142857,
+    "5": 0.8571428571428571,
+    "6": 0.5714285714285714
+  }
+}

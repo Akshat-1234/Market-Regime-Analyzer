@@ -1,0 +1,13 @@
+{
+  "selected_spec": "gaussian_diag_k4",
+  "emission": "gaussian",
+  "sticky": 0.0,
+  "criterion": "mean inner held-out predictive log-density",
+  "inner_loglik_by_spec": {
+    "gaussian_diag_k4": -0.6970528030554595,
+    "gaussian_full_k4": -0.6978133756702949,
+    "student_t_k4": -0.7573516090332905,
+    "sticky5_k4": -0.736025153716002,
+    "sticky20_k4": -0.7359922594056905
+  }
+}

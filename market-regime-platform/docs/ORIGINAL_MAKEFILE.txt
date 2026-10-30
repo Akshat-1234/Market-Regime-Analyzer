@@ -1,0 +1,9 @@
+.PHONY: install test demo clean
+install:
+	python -m pip install -e '.[dev,download]'
+test:
+	python -m pytest -q
+demo:
+	python run.py --synthetic --output results/synthetic
+clean:
+	rm -rf results/run results/synthetic .pytest_cache

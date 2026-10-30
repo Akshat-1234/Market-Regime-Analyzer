@@ -1,0 +1,11 @@
+# Cross-platform core versions used in the included 2026-10-30 runs.
+# Python 3.13.16 was used. Numerical results can still vary with platform/BLAS.
+numpy==2.3.5
+pandas==2.2.3
+scipy==1.17.1
+scikit-learn==1.6.1
+hmmlearn==0.3.3
+matplotlib==3.10.9
+PyYAML==6.0.3
+threadpoolctl==3.7.0
+tzdata==2026.5

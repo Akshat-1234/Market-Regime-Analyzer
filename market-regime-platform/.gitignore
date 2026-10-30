@@ -1,0 +1,21 @@
+# Keep private/downloaded market data and generated reports out of git.
+data/raw/*
+!data/raw/.gitkeep
+!data/raw/README.md
+results/*
+!results/.gitkeep
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.pytest_cache/
+.coverage
+.DS_Store
+
+# Platform experiments and generated frontend dependencies/builds
+runs/
+frontend/node_modules/
+frontend/dist/
+frontend/test-results/
+frontend/playwright-report/
+frontend/*.tsbuildinfo

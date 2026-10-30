@@ -1,0 +1,35 @@
+{
+  "created_utc": "2026-10-30T07:41:43.006658+00:00",
+  "data_source": {
+    "kind": "csv",
+    "path": "NOT BUNDLED: see validation/independent_nifty/README.md",
+    "sha256": "8c1f1ca033c7e811fcee8a2f0f390dbf0a94fc765d84f810c7cb02e68724dd5b",
+    "url": "https://raw.githubusercontent.com/kaifahmedsiddiqui-47/nifty50-direction-forecasting/b366b4a55d6863f4641d559e58e24131ce0a33b2/nifty50_raw.csv",
+    "license_note": "Redistribution permission not established; raw CSV is not included."
+  },
+  "data_rows_analyzed": 4121,
+  "data_start": "2010-01-04",
+  "data_end": "2026-10-13",
+  "first_signal_date": "2013-01-31",
+  "last_signal_date": "2026-10-13",
+  "first_return_date": "2013-02-01",
+  "last_return_date": "2026-10-13",
+  "return_observations": 3365,
+  "primary_model": "rvd_3",
+  "oos_effective_regime_count": 2.517945816875172,
+  "oos_largest_regime_fraction": 0.47459138187221395,
+  "project_version": "0.1.0",
+  "core_source_sha256": "06bb73b701ec99388e042466266e9688be313c7eceb40950dc8d05a33c457397",
+  "python": "3.13.16",
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.6.1",
+    "hmmlearn": "0.3.3",
+    "matplotlib": "3.10.9",
+    "PyYAML": "6.0.3",
+    "threadpoolctl": "3.7.0",
+    "yfinance": "1.7.0"
+  }
+}

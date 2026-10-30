@@ -1,0 +1,25 @@
+{
+  "source": "/home/user/Market-Regime-Analyzer/market-regime-platform/runs/run_20261030_080824_12346d/signals.csv",
+  "probability_columns": [
+    "model_probability__rvd_3__0",
+    "model_probability__rvd_3__1",
+    "model_probability__rvd_3__2"
+  ],
+  "median_normalised_entropy": 0.0012125457275884537,
+  "p90_normalised_entropy": 0.09046334244113682,
+  "fraction_max_probability_above_0.99": 0.8756191524490919,
+  "fraction_max_probability_above_0.999": 0.7619702806824435,
+  "median_max_probability": 0.9998665082420838,
+  "label_switches_per_year": 5.755641166758393,
+  "state_occupancy": {
+    "rank_0": 0.5599889928453495,
+    "rank_1": 0.3937809576224546,
+    "rank_2": 0.04623004953219593
+  },
+  "r2_exposure_on_inverse_vol": 0.4248692629424847,
+  "correlation_exposure_inverse_vol": 0.651819962061983,
+  "correlation_with_observable_vol_target": 0.6687936949855303,
+  "mean_exposure": 0.7591187726671492,
+  "min_exposure": 0.2983330749024929,
+  "max_exposure": 0.9999748836295844
+}

@@ -1,0 +1,33 @@
+{
+  "created_utc": "2026-10-30T07:49:38.870643+00:00",
+  "data_source": {
+    "kind": "synthetic",
+    "path": "generated in memory (seed=314159, n=2200)",
+    "sha256": "2dbacf1f11fa2b6f9073690df06e1d93c45c3fe924a23d3df4e9fbc72f2e6423"
+  },
+  "data_rows_analyzed": 2200,
+  "data_start": "2008-01-01",
+  "data_end": "2016-06-06",
+  "first_signal_date": "2010-11-23",
+  "last_signal_date": "2016-06-06",
+  "first_return_date": "2010-11-24",
+  "last_return_date": "2016-06-06",
+  "return_observations": 1444,
+  "primary_model": "rvd_3",
+  "oos_effective_regime_count": 2.5912804440058954,
+  "oos_largest_regime_fraction": 0.44598337950138506,
+  "project_version": "0.1.0",
+  "core_source_sha256": "300bbc2034e34ddb4ceb64a595f070411ab126f4581479f90b4c1f1caa67acb9",
+  "python": "3.13.16",
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.6.1",
+    "hmmlearn": "0.3.3",
+    "matplotlib": "3.10.9",
+    "PyYAML": "6.0.3",
+    "threadpoolctl": "3.7.0",
+    "yfinance": "1.7.0"
+  }
+}

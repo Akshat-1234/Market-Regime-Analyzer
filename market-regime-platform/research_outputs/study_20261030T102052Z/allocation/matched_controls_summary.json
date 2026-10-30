@@ -1,0 +1,67 @@
+{
+  "policy_vol_state__phase_shift": {
+    "real_sharpe": 0.26013627278302015,
+    "control_median_sharpe": 0.3417475609772447,
+    "control_p05": 0.2636279761032639,
+    "control_p95": 0.43222854814566675,
+    "fraction_real_above_control": 0.045,
+    "control_simulations": 200,
+    "median_exposure_ks": 0.0,
+    "mean_exposure_real": 0.7929246325260249,
+    "mean_exposure_control": 0.7929246325260247,
+    "mean_turnover_real": 2.2360786981419696,
+    "mean_turnover_control": 2.2516666708591937
+  },
+  "policy_vol_state__markov_path": {
+    "real_sharpe": 0.26013627278302015,
+    "control_median_sharpe": 0.3010894495949522,
+    "control_p05": 0.16600237049341496,
+    "control_p95": 0.45131466894718536,
+    "fraction_real_above_control": 0.295,
+    "control_simulations": 200,
+    "median_exposure_ks": 0.2596973032471106,
+    "mean_exposure_real": 0.7929246325260249,
+    "mean_exposure_control": 0.6849192870953402,
+    "mean_turnover_real": 2.2360786981419696,
+    "mean_turnover_control": 2.052598606391809
+  },
+  "policy_vol_state__vol_matched": {
+    "real_sharpe": 0.26013627278302015,
+    "control_median_sharpe": 0.23524418158171448,
+    "control_p05": 0.23524418158171448,
+    "control_p95": 0.23524418158171448,
+    "fraction_real_above_control": 1.0,
+    "control_simulations": 1,
+    "median_exposure_ks": 0.12850853054485414,
+    "mean_exposure_real": 0.7929246325260249,
+    "mean_exposure_control": 0.7719825743339694,
+    "mean_turnover_real": 2.2360786981419696,
+    "mean_turnover_control": 2.988572994316459
+  },
+  "policy_return_tilt__phase_shift": {
+    "real_sharpe": 0.06956145890836797,
+    "control_median_sharpe": 0.30089278406771736,
+    "control_p05": 0.1138848965810493,
+    "control_p95": 0.5001909085469899,
+    "fraction_real_above_control": 0.015,
+    "control_simulations": 200,
+    "median_exposure_ks": 0.0,
+    "mean_exposure_real": 0.6279342357724982,
+    "mean_exposure_control": 0.6279342357724982,
+    "mean_turnover_real": 4.6375866637782766,
+    "mean_turnover_control": 4.630451967654061
+  },
+  "policy_return_tilt__markov_path": {
+    "real_sharpe": 0.06956145890836797,
+    "control_median_sharpe": 0.3152084145620333,
+    "control_p05": 0.17326267161941197,
+    "control_p95": 0.43949941031039924,
+    "fraction_real_above_control": 0.0,
+    "control_simulations": 200,
+    "median_exposure_ks": 0.23724958723170061,
+    "mean_exposure_real": 0.6279342357724982,
+    "mean_exposure_control": 0.6853353075300004,
+    "mean_turnover_real": 4.6375866637782766,
+    "mean_turnover_control": 2.0525835833504296
+  }
+}
