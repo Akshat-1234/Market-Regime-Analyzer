@@ -29,6 +29,20 @@ Everything else follows from that:
 
 The new experiments address (1)–(4) directly. Their conclusion, stated in advance of the allocation results, is that the data do contain a persistent two-to-four-state volatility structure with real out-of-sample density gains over one or two states, but that **causal state information does not improve out-of-sample return or volatility forecasts beyond conventional observables, and its allocation timing does not beat strong matched controls** (§8–§10).
 
+**Headline results** (all from `research_outputs/study_20261030T111521Z/`; the paragraph above was written before these were computed, and the results confirm it with one addition marked †):
+
+| Result | Number | Section |
+| --- | --- | --- |
+| Best state count by held-out density | K = 4 (−0.697 nats/day at the selected feature set); BIC keeps improving to K = 6 and K = 7 is unidentifiable | §6 |
+| Best feature set | `daily_return + volatility_20`; the shipped 3-feature model is 0.485 nats/day **worse**, and every other feature family is worse still | §7 |
+| Best emission family | Gaussian diagonal; Student-t fits ν ≈ 74–100 and sticky transitions lower held-out density; geometric durations rejected (χ² = 26.5, p ≈ 7 × 10⁻⁵) | §9.4 |
+| Regime information vs observables, in-sample | +1.2 pp R² at the 20-day return horizon, joint Wald p = 0.057 (entropy, t = −2.09) | §8.2 |
+| Regime information vs observables, out-of-sample | OOS R² −0.005 to −0.027, Diebold–Mariano p ≥ 0.13 → **no gain** | §8.3 |
+| Allocation | regime vol-state Sharpe 0.260 vs Trend 50 0.286; paired interval −0.334 to +0.325 → **indistinguishable** | §9.1 |
+| † Exposure-timing test | real exposure path sits at the **4.5th percentile** of 200 circular shifts with identical marginal and turnover → **timing worse than random** | §9.2 |
+| Family-wide reality check (17 strategies) | observed 1.830, **p = 0.12** | §9.3 |
+| Defects found / fixed during the programme | 11 found, 4 fixed (including a −243 OOS R² that was an estimator artefact, and a cash-rate scale error that reversed several paired comparisons) | §8.1, §9.1, `VERIFICATION.md` |
+
 ---
 
 ## 2. Verified baseline (reproduction, not quotation)
