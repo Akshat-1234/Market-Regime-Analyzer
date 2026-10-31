@@ -27,8 +27,6 @@ def causal_regime_predictions(model, X_train, X_test):
     for observation in X_test:
         history = np.vstack([history, observation])
 
-        # Posterior probabilities for the latest observation
-        # using the available historical prefix only.
         posterior = model.predict_proba(history)[-1]
 
         probabilities.append(posterior)
@@ -123,7 +121,7 @@ def train_hmm():
         .agg(
             mean_daily_return=("daily_return", "mean"),
             mean_volatility=("volatility_20", "mean"),
-            mean_trend=("trend_strength", "mean"),
+            mean_trend=("return_20", "mean"),
             observations=("Close", "size"),
         )
         .round(6)
@@ -139,13 +137,9 @@ if __name__ == "__main__":
     print("NIFTY 50 - HMM MARKET REGIME ANALYSIS")
     print("=" * 55)
 
-    print("\nFeatures:")
-    print(", ".join([
-        "daily_return",
-        "volatility_20",
-        "trend_strength",
-        "sign_persistence",
-    ]))
+    print("\nHMM INPUT FEATURES:")
+    for feature in scaler.feature_names_in_:
+        print("-", feature)
 
     print("\nModel configuration:")
     print("Model: GaussianHMM")
@@ -177,8 +171,9 @@ if __name__ == "__main__":
     columns_to_show = [
         "Date",
         "daily_return",
+        "return_20",
         "volatility_20",
-        "trend_strength",
+        "ma_distance_200",
         "regime",
         "regime_confidence",
     ]

@@ -5,6 +5,7 @@ const NAV = [
   { to: "/", label: "Strategy Lab", icon: "◫", end: true },
   { to: "/performance", label: "Performance", icon: "⌁" },
   { to: "/data", label: "Data Explorer", icon: "▤" },
+  { to: "/regimes", label: "Regime Explorer", icon: "◉" },
 ];
 
 export default function Sidebar() {
@@ -36,8 +37,6 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-
-      
     </aside>
   );
 }

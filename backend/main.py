@@ -1,4 +1,3 @@
-
 from pathlib import Path
 import math
 
@@ -19,10 +18,10 @@ from backend.adaptive_backtest import run_adaptive_backtest
 app = FastAPI(
     title="Quant Backtester API",
     description=(
-        "Backtest baseline trading strategies and an "
+        "Backtest eight baseline trading strategies and an "
         "HMM regime-based adaptive strategy on NIFTY data."
     ),
-    version="1.1.0",
+    version="1.2.0",
 )
 
 app.add_middleware(
@@ -44,6 +43,9 @@ BASELINE_STRATEGIES = {
     "mean_reversion",
     "ma_crossover",
     "rsi_mean_reversion",
+    "donchian_breakout",
+    "adx_trend",
+    "atr_targeting",
 }
 
 
@@ -78,27 +80,37 @@ def load_data():
 
     df = pd.read_csv(DATA_FILE)
 
-    required_columns = {"Date", "Close"}
+    required_columns = {"Date", "Open", "High", "Low", "Close"}
     if not required_columns.issubset(df.columns):
+        missing = sorted(required_columns - set(df.columns))
         raise ValueError(
-            "CSV must contain Date and Close columns."
+            "CSV must contain Date, Open, High, Low and Close columns. "
+            f"Missing: {missing}"
         )
 
     df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
-    df["Close"] = pd.to_numeric(df["Close"], errors="coerce")
+
+    for column in ["Open", "High", "Low", "Close"]:
+        df[column] = pd.to_numeric(df[column], errors="coerce")
 
     df = (
-        df.dropna(subset=["Date", "Close"])
+        df.dropna(
+            subset=["Date", "Open", "High", "Low", "Close"]
+        )
         .sort_values("Date")
         .drop_duplicates(subset=["Date"], keep="last")
         .reset_index(drop=True)
     )
 
     if len(df) < 3:
-        raise ValueError("Not enough valid historical price data.")
+        raise ValueError("Not enough valid historical OHLC data.")
 
-    if (df["Close"] <= 0).any():
-        raise ValueError("Closing prices must be positive.")
+    price_columns = ["Open", "High", "Low", "Close"]
+    if (df[price_columns] <= 0).any().any():
+        raise ValueError("OHLC prices must be positive.")
+
+    if (df["High"] < df["Low"]).any():
+        raise ValueError("High prices cannot be below Low prices.")
 
     df["Returns"] = df["Close"].pct_change()
 
@@ -145,11 +157,98 @@ def make_equity_curve(dates, portfolio):
 
 
 # --------------------------------------------------
+# Indicator helpers
+# --------------------------------------------------
+
+def calculate_true_range(high, low, close):
+    """Calculate True Range using current high/low and prior close."""
+    previous_close = close.shift(1)
+
+    return pd.concat(
+        [
+            high - low,
+            (high - previous_close).abs(),
+            (low - previous_close).abs(),
+        ],
+        axis=1,
+    ).max(axis=1)
+
+
+def calculate_adx(high, low, close, period=14):
+    """Calculate Wilder-style +DI, -DI and ADX using EWM smoothing."""
+    true_range = calculate_true_range(high, low, close)
+
+    upward_move = high.diff()
+    downward_move = -low.diff()
+
+    positive_dm = pd.Series(
+        np.where(
+            (upward_move > downward_move) & (upward_move > 0),
+            upward_move,
+            0.0,
+        ),
+        index=high.index,
+        dtype=float,
+    )
+
+    negative_dm = pd.Series(
+        np.where(
+            (downward_move > upward_move) & (downward_move > 0),
+            downward_move,
+            0.0,
+        ),
+        index=low.index,
+        dtype=float,
+    )
+
+    smoothed_tr = true_range.ewm(
+        alpha=1 / period,
+        min_periods=period,
+        adjust=False,
+    ).mean()
+
+    smoothed_positive_dm = positive_dm.ewm(
+        alpha=1 / period,
+        min_periods=period,
+        adjust=False,
+    ).mean()
+
+    smoothed_negative_dm = negative_dm.ewm(
+        alpha=1 / period,
+        min_periods=period,
+        adjust=False,
+    ).mean()
+
+    positive_di = 100 * smoothed_positive_dm / smoothed_tr.replace(0, np.nan)
+    negative_di = 100 * smoothed_negative_dm / smoothed_tr.replace(0, np.nan)
+
+    di_sum = (positive_di + negative_di).replace(0, np.nan)
+    dx = 100 * (positive_di - negative_di).abs() / di_sum
+
+    adx = dx.ewm(
+        alpha=1 / period,
+        min_periods=period,
+        adjust=False,
+    ).mean()
+
+    return adx, positive_di, negative_di
+
+
+# --------------------------------------------------
 # Baseline strategy signals
 # --------------------------------------------------
 
 def generate_positions(df, strategy, lookback):
+    """
+    Generate long-only exposure signals.
+
+    Each raw signal is shifted by one trading day at the end so
+    that a signal calculated using today's close is only applied
+    to the next trading day's return. Positions are in [0, 1].
+    """
     close = df["Close"]
+    high = df["High"]
+    low = df["Low"]
 
     if strategy == "buy_hold":
         raw_positions = pd.Series(1.0, index=df.index)
@@ -215,10 +314,80 @@ def generate_positions(df, strategy, lookback):
             rsi < 30
         ).astype(float)
 
+    # 6. Donchian Channel Breakout
+    elif strategy == "donchian_breakout":
+        entry_channel = high.rolling(
+            window=20,
+            min_periods=20,
+        ).max().shift(1)
+
+        exit_channel = low.rolling(
+            window=10,
+            min_periods=10,
+        ).min().shift(1)
+
+        raw_values = np.zeros(len(df), dtype=float)
+        invested = 0.0
+
+        for i in range(len(df)):
+            entry_level = entry_channel.iloc[i]
+            exit_level = exit_channel.iloc[i]
+            current_close = close.iloc[i]
+
+            if pd.notna(entry_level) and current_close > entry_level:
+                invested = 1.0
+            elif pd.notna(exit_level) and current_close < exit_level:
+                invested = 0.0
+
+            raw_values[i] = invested
+
+        raw_positions = pd.Series(raw_values, index=df.index)
+
+    # 7. ADX + Directional Movement
+    elif strategy == "adx_trend":
+        adx, positive_di, negative_di = calculate_adx(
+            high,
+            low,
+            close,
+            period=14,
+        )
+
+        raw_positions = (
+            (adx >= 25)
+            & (positive_di > negative_di)
+        ).astype(float)
+
+    # 8. ATR-Based Volatility Targeting
+    elif strategy == "atr_targeting":
+        true_range = calculate_true_range(high, low, close)
+
+        atr = true_range.ewm(
+            alpha=1 / 14,
+            min_periods=14,
+            adjust=False,
+        ).mean()
+
+        atr_percentage = atr / close
+
+        # ATR percentage is used as a daily range-based risk proxy.
+        # Exposure is scaled to a 15% annualized target proxy and capped
+        # at 100%. This is not identical to realized-volatility targeting.
+        target_annualized_risk = 0.15
+        target_daily_risk_proxy = (
+            target_annualized_risk / np.sqrt(252)
+        )
+
+        raw_positions = (
+            target_daily_risk_proxy
+            / atr_percentage.replace(0, np.nan)
+        ).clip(lower=0.0, upper=1.0)
+
+        raw_positions = raw_positions.fillna(0.0)
+
     else:
         raise ValueError(f"Unknown strategy: {strategy}")
 
-    # Use yesterday's signal for today's return.
+    # Use yesterday's signal/exposure for today's return.
     return raw_positions.shift(1)
 
 
@@ -274,6 +443,30 @@ def list_strategies():
                 "id": "rsi_mean_reversion",
                 "name": "RSI Mean Reversion",
                 "description": "Invest when the 14-day RSI falls below 30.",
+            },
+            {
+                "id": "donchian_breakout",
+                "name": "Donchian Channel Breakout",
+                "description": (
+                    "Enter above the previous 20-day high and exit "
+                    "below the previous 10-day low."
+                ),
+            },
+            {
+                "id": "adx_trend",
+                "name": "ADX Trend",
+                "description": (
+                    "Invest when ADX indicates a strong trend and "
+                    "positive directional movement dominates."
+                ),
+            },
+            {
+                "id": "atr_targeting",
+                "name": "ATR Volatility Targeting",
+                "description": (
+                    "Scale long exposure using a 14-day ATR risk proxy "
+                    "and a 15% annualized target, capped at 100%."
+                ),
             },
             {
                 "id": "hmm_adaptive",
@@ -426,7 +619,7 @@ def run_hmm_adaptive_backtest(
                     regime_data["volatility_20"].mean()
                 ),
                 "mean_trend": json_number(
-                    regime_data["trend_strength"].mean()
+                    regime_data["return_20"].mean()
                 ),
                 "mean_confidence": json_number(
                     regime_data["regime_confidence"].mean()
@@ -451,6 +644,10 @@ def run_hmm_adaptive_backtest(
             .to_dict(orient="records")
         )
 
+        feature_names = list(
+            getattr(result["scaler"], "feature_names_in_", [])
+        )
+        
         return {
             "strategy": "hmm_adaptive",
             "parameters": {
@@ -458,13 +655,8 @@ def run_hmm_adaptive_backtest(
                 "transaction_costs": request.transaction_costs,
                 "risk_free_rate": request.risk_free_rate,
                 "training_fraction": request.training_fraction,
-                "hidden_states": 3,
-                "features": [
-                    "daily_return",
-                    "volatility_20",
-                    "trend_strength",
-                    "sign_persistence",
-                ],
+                "hidden_states": int(result["model"].n_components),
+                "features": feature_names,
             },
             "period": {
                 "start": test["Date"].iloc[0].strftime("%Y-%m-%d"),
@@ -492,6 +684,9 @@ def run_hmm_adaptive_backtest(
                     [
                         "Date",
                         "daily_return",
+                        "return_20",
+                        "volatility_20",
+                        "ma_distance_200",
                         "regime",
                         "regime_confidence",
                         "selected_strategy",

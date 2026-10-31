@@ -5,6 +5,7 @@ import Footer from "./components/layout/Footer.jsx";
 import StrategyLab from "./pages/StrategyLab.jsx";
 import Performance from "./pages/Performance.jsx";
 import DataExplorer from "./pages/DataExplorer.jsx";
+import RegimeExplorer from "./pages/RegimeExplorer.jsx";
 import NotFound from "./pages/NotFound.jsx";
 
 export default function App() {
@@ -18,6 +19,7 @@ export default function App() {
             <Route path="/" element={<StrategyLab />} />
             <Route path="/performance" element={<Performance />} />
             <Route path="/data" element={<DataExplorer />} />
+            <Route path="/regimes" element={<RegimeExplorer />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </div>

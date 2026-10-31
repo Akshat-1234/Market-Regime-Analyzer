@@ -9,6 +9,9 @@ const STRATEGIES = [
   "mean_reversion",
   "ma_crossover",
   "rsi_mean_reversion",
+  "donchian_breakout",
+  "adx_trend",
+  "atr_targeting",
   "hmm_adaptive",
 ];
 
@@ -164,9 +167,9 @@ export default function EquityPanel() {
 
       {isHmmAdaptive &&
         comparisonCurves.length > 0 &&
-        comparisonCurves.length < 6 && (
+        comparisonCurves.length < STRATEGIES.length && (
           <p className="chart-notice">
-            The API returned {comparisonCurves.length} of 6 strategy curves.
+            The API returned {comparisonCurves.length} of {STRATEGIES.length} strategy curves.
             The backend must return the remaining equity curves for the full
             comparison.
           </p>
