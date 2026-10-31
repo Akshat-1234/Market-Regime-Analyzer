@@ -8,7 +8,7 @@ const TITLES = {
 
 export default function Topbar() {
   const { pathname } = useLocation();
-  const title = TITLES[pathname] ?? "Not found";
+  const title = TITLES[pathname] ?? "Regime Explorer";
 
   return (
     <header className="topbar">

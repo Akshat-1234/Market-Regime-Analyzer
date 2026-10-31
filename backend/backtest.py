@@ -70,9 +70,9 @@ class Backtester:
         if not np.isfinite(positions).all():
             raise ValueError("Positions must contain finite values.")
 
-        if not positions.isin([0, 1]).all():
+        if ((positions < 0) | (positions > 1)).any():
             raise ValueError(
-                "Positions must be 0 (cash) or 1 (invested)."
+                "Positions must be between 0 (cash) and 1 (fully invested)."
             )
 
         if (daily_returns < -1).any():
@@ -81,21 +81,20 @@ class Backtester:
             )
 
         portfolio = [self.initial_capital]
-        previous_position = 0
+        previous_position = 0.0
 
         for market_return, position in zip(
             daily_returns, positions
         ):
-            # Apply the position to the day's market return.
             current_value = portfolio[-1] * (
                 1 + position * market_return
             )
 
-            # Charge transaction costs on entries and exits.
-            if position != previous_position:
-                current_value *= (
-                    1 - self.transaction_costs
-                )
+            turnover = abs(position - previous_position)
+
+            current_value *= (
+                1 - self.transaction_costs * turnover
+            )
 
             portfolio.append(current_value)
             previous_position = position
@@ -201,8 +200,8 @@ if __name__ == "__main__":
         risk_free_rate=0.065,
     )
 
-    test_returns = [0, 0, 0, 0, 0]
-    positions = [0, 0, 1, 1, 0]
+    test_returns = [0.01, -0.02, 0.015, 0.01, -0.005]
+    positions = [0.5, 0.75, 1.0, 0.4, 0.0]
 
     portfolio = backtester.run(
         test_returns,

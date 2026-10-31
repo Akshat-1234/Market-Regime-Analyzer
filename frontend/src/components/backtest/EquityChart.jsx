@@ -11,6 +11,9 @@ const STRATEGY_COLORS = {
   mean_reversion: "#fbbf24",
   ma_crossover: "#c084fc",
   rsi_mean_reversion: "#fb7185",
+  donchian_breakout: "#f97316",
+  adx_trend: "#22d3ee",
+  atr_targeting: "#a3e635",
   hmm_adaptive: "#ffffff",
 };
 
@@ -20,6 +23,9 @@ const STRATEGY_LABELS = {
   mean_reversion: "Mean Reversion",
   ma_crossover: "MA Crossover",
   rsi_mean_reversion: "RSI Mean Reversion",
+  donchian_breakout: "Donchian Breakout",
+  adx_trend: "ADX Trend",
+  atr_targeting: "ATR Targeting",
   hmm_adaptive: "HMM Adaptive",
 };
 
@@ -134,7 +140,7 @@ export default function EquityChart({ points = [], curves = [] }) {
         role="img"
         aria-label={
           chart.multiple
-            ? "Comparison of six strategy equity curves"
+            ? `Comparison of ${chart.curves.length} strategy equity curves`
             : "Portfolio equity curve"
         }
       >
