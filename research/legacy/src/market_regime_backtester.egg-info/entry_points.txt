@@ -1,0 +1,2 @@
+[console_scripts]
+regime-bt = regime_backtester.cli:main

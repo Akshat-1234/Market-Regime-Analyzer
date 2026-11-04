@@ -1,0 +1,57 @@
+# Research defaults, not the unavailable exact configuration from the old chat.
+data:
+  csv: data/raw/nifty_index.csv
+  date_column: Date
+  price_column: Close
+
+walkforward:
+  min_train_days: 504          # feature-valid trading observations
+  max_train_days: null         # null = expanding history; integer = rolling
+  start_date: null             # first eligible signal, YYYY-MM-DD
+  end_date: null               # last included price date, YYYY-MM-DD
+
+hmm:
+  primary_model: rvd_3
+  covariance_type: diag
+  n_iter: 250
+  tol: 0.05
+  min_covar: 0.001
+  min_state_fraction: 0.02
+  seeds: [2, 42]
+  target_volatility: 0.12
+  volatility_floor: 0.03
+  models:
+    - name: rv_2
+      n_states: 2
+      features: [daily_return, volatility_20]
+    - name: rv_3
+      n_states: 3
+      features: [daily_return, volatility_20]
+    - name: rvd_2
+      n_states: 2
+      features: [daily_return, volatility_20, drawdown_252]
+    - name: rvd_3
+      n_states: 3
+      features: [daily_return, volatility_20, drawdown_252]
+
+backtest:
+  initial_capital: 1000.0
+  annual_risk_free_rate: 0.065
+  trading_days_per_year: 252
+  transaction_cost_bps: 10.0 # one-way, per unit traded; includes entry
+  execution_delay_sessions: 0 # 0 assumes same-close fill; 1 is more conservative
+  trend_weight_in_blend: 0.5
+  trend_window: 50
+  momentum_window: 20
+  mean_reversion_window: 20
+  mean_reversion_entry_band: 0.02
+  vol_target: 0.12
+
+bootstrap:
+  samples: 1000
+  block_length: 20
+  seed: 42
+  confidence: 0.95
+
+output:
+  directory: results/run
