@@ -157,3 +157,16 @@ def test_dashboard_build_assets_when_available():
     response = TestClient(app).get(asset.group(1))
     assert response.status_code == 200
     assert 'javascript' in response.headers['content-type']
+
+
+def test_project_download(tmp_path, monkeypatch):
+    import backend.research_api as api
+    monkeypatch.setattr(api, 'ROOT', tmp_path)
+    client = TestClient(app)
+    assert client.head('/api/download').status_code == 404
+    (tmp_path/'Market-Regime-Research.zip').write_bytes(b'archive')
+    assert client.head('/api/download').status_code == 200
+    result = client.get('/api/download')
+    assert result.status_code == 200
+    assert result.headers['content-type'] == 'application/zip'
+    assert result.content == b'archive'
