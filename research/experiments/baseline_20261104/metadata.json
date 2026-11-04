@@ -1,0 +1,33 @@
+{
+  "created_utc": "2026-11-04T18:11:38.993329+00:00",
+  "data_source": {
+    "kind": "csv",
+    "path": "/tmp/mra-archive/market-regime-platform/data/raw/nifty_index.csv",
+    "sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4"
+  },
+  "data_rows_analyzed": 4684,
+  "data_start": "2007-09-17",
+  "data_end": "2026-10-22",
+  "first_signal_date": "2012-01-03",
+  "last_signal_date": "2026-10-22",
+  "first_return_date": "2012-01-05",
+  "last_return_date": "2026-10-22",
+  "return_observations": 3632,
+  "primary_model": "rvd_3",
+  "oos_effective_regime_count": 2.123713311942867,
+  "oos_largest_regime_fraction": 0.5602973568281938,
+  "project_version": "0.1.0",
+  "core_source_sha256": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e",
+  "python": "3.11.2",
+  "packages": {
+    "numpy": "2.4.6",
+    "pandas": "2.3.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "hmmlearn": "0.3.3",
+    "matplotlib": "3.11.2",
+    "PyYAML": "6.0.3",
+    "threadpoolctl": "3.7.0",
+    "yfinance": null
+  }
+}

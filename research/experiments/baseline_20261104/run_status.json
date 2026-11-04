@@ -1,0 +1,7 @@
+{
+  "run_id": "mra-baseline-reproduction",
+  "status": "completed",
+  "kind": "legacy_pipeline",
+  "data_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+  "source_code_sha256": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e"
+}

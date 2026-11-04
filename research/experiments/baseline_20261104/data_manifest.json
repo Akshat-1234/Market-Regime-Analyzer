@@ -1,0 +1,8 @@
+{
+  "input": {
+    "kind": "csv",
+    "path": "/tmp/mra-archive/market-regime-platform/data/raw/nifty_index.csv",
+    "sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4"
+  },
+  "input_snapshot": "inputs/prices.csv"
+}
