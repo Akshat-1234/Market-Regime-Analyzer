@@ -1,30 +1,69 @@
-import { Route, Routes } from "react-router-dom";
-import Sidebar from "./components/layout/Sidebar.jsx";
-import Topbar from "./components/layout/Topbar.jsx";
-import Footer from "./components/layout/Footer.jsx";
-import StrategyLab from "./pages/StrategyLab.jsx";
-import Performance from "./pages/Performance.jsx";
-import DataExplorer from "./pages/DataExplorer.jsx";
-import RegimeExplorer from "./pages/RegimeExplorer.jsx";
-import NotFound from "./pages/NotFound.jsx";
+import { useEffect, useState } from 'react';
+import { NavLink, Route, Routes } from 'react-router-dom';
 
-export default function App() {
-  return (
-    <div className="app-shell">
-      <Sidebar />
-      <main className="main-content">
-        <Topbar />
-        <div className="page-body">
-          <Routes>
-            <Route path="/" element={<StrategyLab />} />
-            <Route path="/performance" element={<Performance />} />
-            <Route path="/data" element={<DataExplorer />} />
-            <Route path="/regimes" element={<RegimeExplorer />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-        <Footer />
-      </main>
-    </div>
-  );
+const pct = (n, digits=2) => n == null ? '—' : `${(100*n).toFixed(digits)}%`;
+const num = (n, digits=2) => n == null ? '—' : Number(n).toFixed(digits);
+const artifact = (name, label) => <a href={`/api/artifacts/${name}`}>{label} ↗</a>;
+const colors = ['#688de7','#e9a35c','#bd7bd5'];
+
+function Overview({d}) {
+  const trend = d.bootstrap.find(x => x.control === 'Trend 50');
+  return <><header><p className="eyebrow">RESEARCH OVERVIEW / 01</p><h1>What does the evidence support?</h1><p className="lead">A retrospective investigation into latent market states and their incremental decision value.</p></header>
+  <div className="notice"><strong>Exploratory, not validated.</strong> The historical sample has been inspected before. There is no untouched prospective holdout and no model has been declared globally optimal.</div>
+  <div className="stats"><div><small>DATASET</small><strong>NIFTY 50 index</strong><span>{d.metadata.data_start} — {d.metadata.data_end}</span></div><div><small>OOS RETURN PERIOD</small><strong>{d.metadata.return_observations.toLocaleString()} sessions</strong><span>{d.metadata.first_return_date} — {d.metadata.last_return_date}</span></div><div><small>PRIMARY MODEL</small><strong>{d.metadata.primary_model}</strong><span>3-state diagonal Gaussian HMM</span></div><div><small>WALK-FORWARD</small><strong>{d.analysis.folds} annual refits</strong><span>expanding training windows</span></div></div>
+  <section><div className="section-head"><div><p className="eyebrow">THE CENTRAL QUESTION</p><h2>Distinction is not an edge</h2></div><span className="tag">HISTORICAL REPRODUCTION</span></div>
+  <div className="columns"><div><h3>Discovery & characterisation</h3><p>The primary model separates observations into local volatility-ranked states. The highest rank is rare; ranks are recalibrated at each refit and are not stable economic identities. Different state characteristics do not establish forecasting ability.</p></div><div><h3>Decision usefulness</h3><p>HMM + Trend minus Trend Sharpe: <strong>{num(trend?.observed_sharpe_difference,4)}</strong>, paired 95% block-bootstrap interval <strong>[{num(trend?.lower,3)}, {num(trend?.upper,3)}]</strong>. This interval includes zero and does not adjust for previous model search.</p></div></div></section>
+  <section><h2>Forecasting comparison</h2><p>In a separate retrospective ridge experiment, indicator-only and indicator-plus-regime forecasts all had negative out-of-sample R² against an expanding historical-mean benchmark across the tested horizons. This is not a universal conclusion; see Data & Validation for the specification and intervals.</p></section>
+  <section><h2>What remains unresolved</h2><ul>{d.limitations.map(x=><li key={x}>{x}</li>)}</ul><p>In particular, E7's original four specifications and full protocol were not supplied. A positive E7 claim cannot be made.</p></section>
+  <section className="sources"><h2>Inspect the evidence</h2>{artifact('report','Run report')}{artifact('config','Run configuration')}{artifact('fits','Model fits')}{artifact('bootstrap','Bootstrap results')}{artifact('metadata','Metadata')}</section></>;
+}
+function Timeline({rows}) {
+  return <div className="timeline" aria-label="Filtered regime timeline">{rows.filter((_,i)=>i%5===0).map(x=><span key={x.date} title={`${x.date}: rank ${x.rank}; confidence ${pct(x.confidence)}`} style={{background:colors[x.rank]}} />)}</div>;
+}
+function Regimes({d}) {
+  const [selected,setSelected] = useState(0); const s=d.analysis.states[selected];
+  return <><header><p className="eyebrow">REGIME EXPLORER / 02</p><h1>Understand the states.</h1><p className="lead">Filtered probabilities after each close, pooled by local training-volatility rank across 15 independently refitted models.</p></header>
+  <div className="notice">Ranks are not permanent state identities. Descriptions are posterior-weighted contemporaneous observations, not model predictions. Refits break episode and transition counts.</div>
+  <section><div className="section-head"><h2>Timeline</h2><span className="muted">Every fifth saved decision · 2012–2026</span></div><Timeline rows={d.analysis.timeline}/><div className="legend">{d.analysis.states.map(x=><span key={x.rank}><i style={{background:colors[x.rank]}}/>Rank {x.rank}</span>)}</div></section>
+  <section><div className="section-head"><h2>Explore a rank</h2><div className="tabs">{d.analysis.states.map(x=><button className={selected===x.rank?'active':''} onClick={()=>setSelected(x.rank)} key={x.rank}>Rank {x.rank}</button>)}</div></div>
+  <h3>{s.title} {s.rare_flag && <span className="tag warning">RARE STATE</span>}</h3><p>{s.description}</p>
+  <div className="measure-grid">{[['Assigned observations',s.hard_observations],['Mean daily return',pct(s.mean_return,3)],['Median daily return',pct(s.median_return,3)],['5th percentile daily return',pct(s.return_q05)],['Positive days',pct(s.positive_day_frequency,1)],['20-session momentum',pct(s.momentum_20)],['60-session momentum',pct(s.momentum_60)],['200-day MA distance',pct(s.ma_distance_200)],['20-day annualized volatility',pct(s.volatility_20,1)],['Downside volatility',pct(s.downside_volatility_20,1)],['252-day drawdown',pct(s.drawdown_252)],['Mean drawdown duration',`${num(s.drawdown_duration,1)} sessions`],['Mean episode',`${num(s.mean_episode_length,1)} sessions`],['Median episode',`${num(s.median_episode_length,1)} sessions`],['Mean assigned confidence',pct(s.mean_confidence_when_assigned,1)],['Normalized posterior entropy',num(s.mean_entropy_when_assigned,3)],['Ambiguous assignments (<60%)',pct(s.ambiguous_fraction_when_assigned,1)],['Mean daily range',pct(s.daily_range)]].map(([label,value])=><div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div>
+  <p className="footnote">Volatility, momentum, drawdown, MA, range and other measures are diagnostics; only daily return, 20-day volatility and trailing 252-day drawdown were model inputs. OHLC-derived measures require vendor verification. Episodes are censored by refit boundaries. Low occupancy and identity instability limit reliability.</p></section>
+  <section><h2>Empirical transitions</h2><p>Hard assignments, pooled within years only; not the fitted transition matrix and not evidence of stable identities. See {artifact('transitions','per-refit model matrices')}.</p><div className="table-wrap"><table><thead><tr><th>From / to</th>{d.analysis.states.map(x=><th key={x.rank}>Rank {x.rank}</th>)}</tr></thead><tbody>{d.analysis.transition_probabilities.map((row,i)=><tr key={i}><th>Rank {i}</th>{row.map((v,j)=><td key={j}>{pct(v,1)}</td>)}</tr>)}</tbody></table></div></section>
+  <section><h2>Forward behaviour <span className="tag warning">DESCRIPTIVE ONLY</span></h2><p>Posterior-weighted returns after the decision close; horizons overlap. No bootstrap, multiplicity adjustment, or causal inference is provided.</p><div className="table-wrap"><table><thead><tr><th>Horizon</th><th>Mean return</th><th>Positive frequency</th></tr></thead><tbody>{Object.entries(s.forward).map(([h,v])=><tr key={h}><th>{h} sessions</th><td>{pct(v.mean_return)}</td><td>{pct(v.positive_probability,1)}</td></tr>)}</tbody></table></div></section>
+  <section className="sources">{artifact('characterization','Full analysis and provenance')}{artifact('signals','Filtered signal series')}{artifact('fits','Fold fits')}</section></>;
+}
+function Chart({rows,selected}) {
+  if (!rows.length) return null;
+  const vals=rows.flatMap(r=>selected.map(k=>r[k])).filter(Number.isFinite); if(!vals.length)return null;
+  const min=Math.min(...vals), max=Math.max(...vals), range=max-min || 1;
+  return <svg viewBox="0 0 1000 240" role="img" aria-label="Sampled equity curves" preserveAspectRatio="none"><line x1="0" y1="239" x2="1000" y2="239" stroke="#dce4e8"/>{selected.map((k,i)=><polyline key={k} fill="none" stroke={['#367766','#dc9b52','#647ec7'][i]} strokeWidth="2.5" points={rows.map((r,j)=>`${j*1000/(rows.length-1)},${230-(r[k]-min)/range*220}`).join(' ')}/>)}</svg>;
+}
+function Strategies({d}) {
+ const shown=['Buy & Hold','Trend 50','HMM + Trend'];
+ return <><header><p className="eyebrow">STRATEGY EVALUATION / 03</p><h1>Compare, don't assume.</h1><p className="lead">Common historical evaluation period, one-session execution delay, 10 bps one-way costs and a fixed 6.5% annual cash assumption.</p></header>
+ <div className="notice">Lower historical drawdown alone is not evidence of incremental HMM information. Exposure- and turnover-matched controls and adaptive strategy selection are not independently reproduced here.</div>
+ <section><div className="section-head"><h2>Equity curves</h2><span className="muted">Initial capital 1,000 · every tenth observation</span></div><Chart rows={d.curves} selected={shown}/><div className="legend">{shown.map((x,i)=><span key={x}><i style={{background:['#367766','#dc9b52','#647ec7'][i]}}/>{x}</span>)}</div></section>
+ <section><h2>Performance comparison</h2><div className="table-wrap"><table><thead><tr><th>Strategy</th><th>CAGR</th><th>Vol.</th><th>Sharpe</th><th>Sortino</th><th>Max DD</th><th>Calmar</th><th>Exposure</th><th>Turnover / yr</th><th>Cost sum</th></tr></thead><tbody>{d.performance.map(x=><tr key={x.strategy}><th>{x.strategy}</th><td>{pct(x.cagr)}</td><td>{pct(x.annual_volatility)}</td><td>{num(x.sharpe)}</td><td>{num(x.sortino)}</td><td>{pct(x.max_drawdown)}</td><td>{num(x.calmar)}</td><td>{pct(x.mean_exposure,1)}</td><td>{num(x.turnover_per_year)}</td><td>{pct(x.total_cost_fraction_sum)}</td></tr>)}</tbody></table></div><p className="footnote">Cost sum is the sum of daily cost fractions, not a compounded return. Sharpe uses the stated fixed risk-free rate; no dividends or taxes.</p></section>
+ <section><h2>Paired Sharpe differences</h2><p>1,000 paired 20-session block-bootstrap resamples. These are exploratory intervals, not family-wise corrected results.</p><div className="table-wrap"><table><thead><tr><th>Comparison</th><th>Difference</th><th>95% interval</th></tr></thead><tbody>{d.bootstrap.map(x=><tr key={x.control}><th>{x.candidate} vs {x.control}</th><td>{num(x.observed_sharpe_difference,3)}</td><td>[{num(x.lower,3)}, {num(x.upper,3)}]</td></tr>)}</tbody></table></div></section>
+ <section className="sources">{artifact('performance','Performance CSV')}{artifact('daily-backtests','Daily decisions, costs & returns')}{artifact('bootstrap','Bootstrap CSV')}</section></>;
+}
+function GridTable({rows}) {
+ const groups={};
+ rows.forEach(x=>{const key=`${x.features}|${x.k}|${x.covariance}`; (groups[key] ||= []).push(x);});
+ return <div className="table-wrap"><table><thead><tr><th>Features</th><th>States</th><th>Covariance</th><th>Accepted folds</th><th>Mean log density</th><th>Zero-occupancy folds</th><th>Seed agreement</th></tr></thead><tbody>{Object.entries(groups).map(([key,values])=>{const [feature,k,cov]=key.split('|');const accepted=values.filter(x=>x.status==='accepted');const n=accepted.reduce((a,x)=>a+x.test_n,0);const score=n?accepted.reduce((a,x)=>a+x.mean_log_density*x.test_n,0)/n:null;const agreement=accepted.filter(x=>x.seed_train_label_agreement!=null); return <tr key={key}><th>{feature.toUpperCase()}</th><td>{k}</td><td>{cov}</td><td>{accepted.length}/{values.length}</td><td>{num(score,3)}</td><td>{accepted.filter(x=>x.min_test_occupancy===0).length}</td><td>{agreement.length ? pct(agreement.reduce((a,x)=>a+x.seed_train_label_agreement,0)/agreement.length,1):'—'}</td></tr>})}</tbody></table></div>;
+}
+function Validation({d}) {
+ return <><header><p className="eyebrow">DATA & VALIDATION / 04</p><h1>Trace every result.</h1><p className="lead">Provenance, timing assumptions and the limits of the current evidence.</p></header>
+ <section><h2>Experiment inspector</h2><div className="measure-grid">{[['Experiment',d.experiment_id],['Source type',d.metadata.data_source.kind],['Price rows',d.metadata.data_rows_analyzed],['Primary model',d.metadata.primary_model],['First OOS signal',d.metadata.first_signal_date],['First earned return',d.metadata.first_return_date],['Python',d.metadata.python],['Data SHA-256',d.analysis.provenance.data_sha256],['Signals SHA-256',d.analysis.provenance.signals_sha256]].map(([k,v])=><div key={k}><span>{k}</span><strong className="break">{v}</strong></div>)}</div><p>At close t, the model observes features through t. The decision executes at the next session close and first earns the subsequent close-to-close return. Features and scaling are fit or computed causally; annual fits use prior observations only.</p></section>
+ <section><h2>Features and uncertainty</h2><p>Primary HMM inputs: {d.analysis.provenance.inputs.join(', ')}. Other indicators are post-fit diagnostics. Missing feature warm-up rows are excluded; input source is user supplied and not independently verified. This price index is not a total-return investable portfolio.</p><p>Gaussian HMMs assume geometric state durations. Volatility ranking after each refit is a heuristic; evidence of rank differences does not establish reproducible state identity. Prospective freeze verification is invalid if code or data hashes change.</p></section>
+ <section><h2>Model investigation</h2>{d.grid ? <><p>Exploratory joint grid of features, state counts and covariance types. Raw-space log densities can be compared only within the same feature set. Rejected fits are excluded, not replaced with hindsight. Historical data has been repeatedly inspected.</p><p>{d.grid.filter(x=>x.status==='accepted').length} accepted specification-folds of {d.grid.length} attempted. RV uses return and 20-day volatility; RVD adds trailing drawdown. Seed agreement is training-label agreement after Hungarian alignment, not out-of-sample state identity stability.</p><GridTable rows={d.grid}/><p>{artifact('grid-folds','Grid fold scores')} · {artifact('grid-fits','Seed fits and rejections')} · {artifact('grid-config','Grid configuration')}</p></> : <p>The exploratory joint grid has not completed. No state count, feature set or covariance type has been certified as optimal.</p>}</section>
+ <section><h2>Forecasting beyond indicators</h2>{d.forecast_metrics ? <><p>Expanding annual fits on past filtered OOS signals; labels mature strictly before each test year. Ridge forecasts are made at the decision close, not trade returns. R² is relative to the expanding training mean; common dates across horizons.</p><div className="table-wrap"><table><thead><tr><th>Horizon</th><th>Model</th><th>OOS R²</th><th>RMSE</th><th>Observations</th></tr></thead><tbody>{d.forecast_metrics.filter(x=>x.year==='all').map(x=><tr key={`${x.horizon}-${x.model}`}><th>{x.horizon} sessions</th><td>{x.model.replaceAll('_',' ')}</td><td>{num(x.oos_r2_vs_expanding_mean,3)}</td><td>{pct(x.rmse)}</td><td>{x.n}</td></tr>)}</tbody></table></div><p>Simultaneous stationary-bootstrap intervals below are for MSE reduction relative to indicators alone, across eight horizon/model comparisons. Positive favors added regime information. Overlapping targets, nonstationarity and previous research search limit inference.</p><div className="table-wrap"><table><thead><tr><th>Horizon / model</th><th>MSE improvement</th><th>Simultaneous 95% interval</th></tr></thead><tbody>{d.forecast_intervals.map(x=><tr key={`${x.horizon}-${x.model}`}><th>{x.horizon} / {x.model.replaceAll('_',' ')}</th><td>{num(x.mean_squared_error_improvement,7)}</td><td>[{num(x.simultaneous_95_lower,7)}, {num(x.simultaneous_95_upper,7)}]</td></tr>)}</tbody></table></div><p>{artifact('forecast-metrics','Metrics by fold')} · {artifact('forecast-intervals','Simultaneous intervals')} · {artifact('forecast-predictions','OOS predictions')} · {artifact('forecast-config','Forecast configuration')}</p></> : <p>Forecast experiment unavailable.</p>}</section>
+ <section><h2>Known limitations</h2><ul>{d.limitations.map(x=><li key={x}>{x}</li>)}</ul><p>No claim of prospective validation, robust predictive value, E7 success or matched-control superiority is made.</p></section>
+ <section className="sources"><h2>Source artifacts</h2>{artifact('config','Configuration')}{artifact('fits','Fold model metadata')}{artifact('data-quality','Data quality by year')}{artifact('signals','Filtered probabilities')}{artifact('characterization','State analysis')}{artifact('report','Full run report')}</section></>;
+}
+export default function App(){
+ const [d,setD]=useState(null),[error,setError]=useState(null);
+ useEffect(()=>{fetch('/api/research').then(r=>{if(!r.ok)throw Error(`Artifact API returned ${r.status}`);return r.json()}).then(setD).catch(e=>setError(e.message));},[]);
+ return <div className="shell"><aside><div className="brand"><span className="brand-mark">M<span>R</span></span><div><b>MARKET REGIME</b><small>RESEARCH PLATFORM</small></div></div><p className="nav-label">RESEARCH</p><nav><NavLink to="/" end>01 <span>Overview</span></NavLink><NavLink to="/regimes">02 <span>Regime Explorer</span></NavLink><NavLink to="/strategies">03 <span>Strategy Evaluation</span></NavLink><NavLink to="/validation">04 <span>Data & Validation</span></NavLink></nav><div className="side-note"><span className="dot"/> RETROSPECTIVE STUDY<br/><small>Not investment advice</small></div></aside><main><div className="topline"><span>QUANTITATIVE RESEARCH / NIFTY 50</span><span>EXPERIMENT {d?.experiment_id || '—'}</span></div><article>{error ? <div className="notice error"><strong>Unable to load research artifacts.</strong><p>{error}. Start the research API and verify the experiment files.</p></div> : !d ? <p>Loading research artifacts…</p> : <Routes><Route path="/" element={<Overview d={d}/>}/><Route path="/regimes" element={<Regimes d={d}/>}/><Route path="/strategies" element={<Strategies d={d}/>}/><Route path="/validation" element={<Validation d={d}/>}/><Route path="*" element={<p>Page not found. Use the research navigation.</p>}/></Routes>}</article><footer>MARKET REGIME RESEARCH <span>Evidence before narrative · historical analysis only</span></footer></main></div>
 }
