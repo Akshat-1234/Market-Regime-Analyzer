@@ -7,6 +7,7 @@ from pathlib import Path
 import pandas as pd
 from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 ROOT = Path(__file__).resolve().parents[1]
 RUN = ROOT / 'research/experiments/baseline_20261104'
@@ -14,6 +15,7 @@ ANALYSIS = ROOT / 'research/experiments/characterization_20261104/analysis.json'
 GRID = ROOT / 'research/experiments/model_grid_20261104'
 FORECAST = ROOT / 'research/experiments/forecast_20261104'
 MANIFEST = ROOT / 'research/experiments/artifact_manifest.json'
+FRONTEND_DIST = ROOT / 'frontend/dist'
 app = FastAPI(title='Market regime research artifacts', version='0.1.0')
 
 
@@ -98,3 +100,19 @@ def artifact(name: str):
     if name not in ARTIFACTS:
         raise HTTPException(404, 'Unknown artifact')
     return FileResponse(RUN/ARTIFACTS[name], filename=ARTIFACTS[name])
+
+
+# Serve the production dashboard on the same origin as its API. The Vite dev
+# server remains available separately for frontend development.
+app.mount('/assets', StaticFiles(directory=FRONTEND_DIST / 'assets', check_dir=False), name='frontend-assets')
+
+
+@app.get('/{path:path}', include_in_schema=False)
+def dashboard(path: str):
+    # Do not turn missing API endpoints into misleading HTML responses.
+    if path not in {'', 'regimes', 'strategies', 'validation'}:
+        raise HTTPException(404, 'Unknown route')
+    index = FRONTEND_DIST / 'index.html'
+    if not index.is_file():
+        raise HTTPException(503, 'Dashboard build missing: run npm ci and npm run build in frontend')
+    return FileResponse(index)
