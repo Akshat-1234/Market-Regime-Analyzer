@@ -13,6 +13,7 @@ RUN = ROOT / 'research/experiments/baseline_20261104'
 ANALYSIS = ROOT / 'research/experiments/characterization_20261104/analysis.json'
 GRID = ROOT / 'research/experiments/model_grid_20261104'
 FORECAST = ROOT / 'research/experiments/forecast_20261104'
+MANIFEST = ROOT / 'research/experiments/artifact_manifest.json'
 app = FastAPI(title='Market regime research artifacts', version='0.1.0')
 
 
@@ -27,6 +28,10 @@ def records(path):
 
 def check():
     try:
+        manifest = json.loads(MANIFEST.read_text())
+        for relative, expected in manifest.items():
+            if sha(ROOT / 'research/experiments' / relative) != expected:
+                raise ValueError(f'Artifact hash mismatch: {relative}')
         a = json.loads(ANALYSIS.read_text())
         meta = json.loads((RUN / 'metadata.json').read_text())
         if (sha(RUN/'inputs/prices.csv') != a['provenance']['data_sha256'] or
@@ -34,6 +39,13 @@ def check():
             sha(ROOT/'research/analysis/characterize.py') != a['provenance']['analysis_source_sha256'] or
             meta['data_source']['sha256'] != a['provenance']['data_sha256']):
             raise ValueError('Artifact provenance mismatch')
+        for folder, script in ((GRID, 'model_grid.py'), (FORECAST, 'forecast.py')):
+            if folder.exists():
+                config = json.loads((folder/'config.json').read_text())
+                if config['data_sha256'] != a['provenance']['data_sha256'] or sha(ROOT/'research/analysis'/script) != config['source_sha256']:
+                    raise ValueError(f'Experiment provenance mismatch: {folder.name}')
+                if folder == FORECAST and config['signals_sha256'] != a['provenance']['signals_sha256']:
+                    raise ValueError('Forecast signals do not match baseline')
         return a, meta
     except (OSError, ValueError, KeyError) as exc:
         raise HTTPException(503, f'Research artifacts missing or inconsistent: {exc}') from exc
