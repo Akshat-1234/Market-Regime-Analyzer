@@ -102,6 +102,14 @@ def artifact(name: str):
     return FileResponse(RUN/ARTIFACTS[name], filename=ARTIFACTS[name])
 
 
+@app.api_route('/api/download', methods=['GET', 'HEAD'])
+def download_project():
+    archive = ROOT / 'Market-Regime-Research.zip'
+    if not archive.is_file():
+        raise HTTPException(404, 'Project archive has not been created')
+    return FileResponse(archive, media_type='application/zip', filename=archive.name)
+
+
 # Serve the production dashboard on the same origin as its API. The Vite dev
 # server remains available separately for frontend development.
 app.mount('/assets', StaticFiles(directory=FRONTEND_DIST / 'assets', check_dir=False), name='frontend-assets')
