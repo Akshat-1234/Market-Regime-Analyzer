@@ -1,0 +1,56 @@
+{
+  "run": "baseline_20261104",
+  "data_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+  "signals_sha256": "92b5698c3ea6212220c976b626b55f71ebca510bcc398b4d465cfb45bcc36975",
+  "source_sha256": "719ccdc95a3160a4fb48b68a4392d8dbf7b6d86ee99bb33b88c3f3b4da1e44a9",
+  "period": "2014\u20132026; common dates with available 60-session outcome",
+  "horizons": [
+    1,
+    5,
+    20,
+    60
+  ],
+  "indicators": [
+    "daily_return",
+    "volatility_20",
+    "return_20",
+    "return_60",
+    "drawdown_252"
+  ],
+  "models": {
+    "indicators": [
+      "daily_return",
+      "volatility_20",
+      "return_20",
+      "return_60",
+      "drawdown_252"
+    ],
+    "plus_regimes": [
+      "daily_return",
+      "volatility_20",
+      "return_20",
+      "return_60",
+      "drawdown_252",
+      "p_state_0",
+      "p_state_1"
+    ],
+    "plus_regimes_entropy": [
+      "daily_return",
+      "volatility_20",
+      "return_20",
+      "return_60",
+      "drawdown_252",
+      "p_state_0",
+      "p_state_1",
+      "entropy"
+    ]
+  },
+  "ridge_alpha": 10,
+  "training": "expanding previous OOS signals with target end strictly before test start",
+  "baseline": "expanding training mean, same fold and horizon",
+  "inference": "synchronized circular stationary bootstrap, centered max absolute standardized statistic, simultaneous intervals across 8 comparisons; expected block length 60, stationary approximation",
+  "bootstrap_samples": 1000,
+  "seed": 1701,
+  "critical_value": 2.270437126770364,
+  "caveat": "Retrospective exploratory analysis after previous research; not corrected for earlier specification search. Forecast after close is not executable P&L."
+}
