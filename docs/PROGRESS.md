@@ -19,3 +19,7 @@ Added read-only `backend/research_api.py` and replaced the active frontend entry
 
 ## Phase 7 — partial verification, no release
 Tests and reproducibility commands are in `docs/TEST_AND_VALIDATION.md`. A release tag is intentionally not created: the requested research and acceptance criteria are incomplete, including E7, comprehensive forecasting, matched controls, full inference, browser E2E and a validated clean prospective holdout. This is a work-in-progress, not a complete release.
+
+## Repository cleanup
+
+The original tracked project at commit `31902b7` was archived, hash-verified, and removed from the active tree; the unchanged later Arena archive was moved to `historical/`. The active frontend no longer contains disconnected legacy pages. See `historical/README.md` for the exact preservation and recovery procedure. Research experiments, inputs and provenance snapshots remain in place.

@@ -1,6 +1,6 @@
 # Methodology, empirical findings, and limitations
 
-Status: **exploratory; not a release or prospective validation**. This is a price-index research exercise, not trading advice. All prior research remains in `market-regime-platform.zip` and root notebooks/CSVs. New results are in separate experiment directories.
+Status: **exploratory; not a release or prospective validation**. This is a price-index research exercise, not trading advice. Prior research is preserved in `historical/arena-market-regime-platform.zip` and `historical/original-project-31902b7.zip`; see `historical/README.md`. New results are in separate experiment directories.
 
 ## Data and information set
 

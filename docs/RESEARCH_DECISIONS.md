@@ -2,6 +2,8 @@
 
 ## Phase 0 — inventory (2026-11-04)
 
+The inventory below describes the repository before cleanup. Its original files are now preserved in `historical/original-project-31902b7.zip`; the later Arena ZIP is at `historical/arena-market-regime-platform.zip`. See `historical/README.md` for hashes and inspection instructions.
+
 The root repository is the original notebooks, serialized model, CSV outputs, a Python backtester, FastAPI backend and React/Vite frontend. `market-regime-platform.zip` is a separate later Arena project; it remains unchanged and is the archival source for its `src/regime_backtester`, configs, tests, reports, synthetic example, historical result CSVs and two purported runs. Its bundled `.venv` is not research source. No other ZIP was supplied. Root notebooks/CSVs and the legacy implementation are retained, not silently rewritten.
 
 The attached CSV has SHA-256 `ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4`, 4,684 rows, 2007-09-17–2026-10-22, byte-identical to the archive's raw file. Root `nifty_index.csv` has the same stated range and row count but a different byte hash (line endings); `backend/nifty_index.csv` ends 2026-10-16 (4,682 rows). No independent vendor verification or total-return series was supplied. Preserve the attachment verbatim as the new research input. OHLC quality, especially early opens, needs independent vendor verification.
