@@ -6,7 +6,7 @@ A historical NIFTY 50 latent-state research workspace. **Exploratory work in pro
 - [Audit and decision log](docs/RESEARCH_DECISIONS.md)
 - [Progress by phase](docs/PROGRESS.md)
 - [Tests and validation](docs/TEST_AND_VALIDATION.md)
-- Original notebooks, outputs and `market-regime-platform.zip` are retained. The original README is in Git history; archive reports and experiments remain inside the ZIP.
+- Original notebooks, datasets, legacy code and outputs are preserved in [historical archives](historical/README.md), including the unchanged Arena project ZIP. New experiments remain under `research/`.
 
 ## Setup and dashboard
 
@@ -20,7 +20,7 @@ cd frontend && npm ci && npm run build && cd ..
 python -m uvicorn backend.research_api:app --host 0.0.0.0 --port 8000
 ```
 
-Open the app at `http://localhost:8000`. The API serves the built frontend and the browser uses same-origin `/api` URLs. For frontend development, start `cd frontend && npm run dev -- --host 0.0.0.0` in another terminal and open port 5173; Vite proxies `/api` to port 8000. This local read-only API has no authentication; do not expose publicly. The dashboard fails closed if displayed artifacts, data, signals or analysis source do not match their recorded hashes. Reports and source artifacts are downloadable from the UI. The legacy `backend.main` and legacy frontend pages remain in the repository as historical code; they are not the new research application.
+Open the app at `http://localhost:8000`. The API serves the built frontend and the browser uses same-origin `/api` URLs. For frontend development, start `cd frontend && npm run dev -- --host 0.0.0.0` in another terminal and open port 5173; Vite proxies `/api` to port 8000. This local read-only API has no authentication; do not expose publicly. The dashboard fails closed if displayed artifacts, data, signals or analysis source do not match their recorded hashes. Reports and source artifacts are downloadable from the UI. The legacy backend and frontend are preserved in the historical archive and are not the current application.
 
 ## Reproduce
 

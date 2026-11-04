@@ -15,3 +15,7 @@ No Playwright/browser end-to-end run, visual accessibility audit, mobile device 
 ## Port 8000 preview repair
 
 The built dashboard is now served by the research API on port 8000, with `/api` remaining same-origin. After rebuilding, all four dashboard routes, the JavaScript asset, and `/api/research` returned 200 using a preview-style Host header; unknown API routes returned 404. The updated backend suite passed **11 tests**, including the missing-build response and same-origin dashboard routes. This was an HTTP smoke test, not browser automation.
+
+## Repository cleanup validation
+
+The 68 archived original files were checked byte-for-byte against the original Git blobs. The relocated Arena ZIP's SHA-256 was also verified against its original Git blob. Automated tests check the historical archive and its per-file manifest. The active frontend build and backend test suite passed after removing the archived legacy files; no new research results were generated.
