@@ -16,13 +16,11 @@ Python 3.11 and Node 20.19+ (or 22.12+) recommended. From the repository root:
 python -m venv .venv
 . .venv/bin/activate                # Windows: .venv\Scripts\activate
 python -m pip install -r requirements-research.txt
-cd frontend && npm ci && cd ..
+cd frontend && npm ci && npm run build && cd ..
 python -m uvicorn backend.research_api:app --host 0.0.0.0 --port 8000
-# In another terminal:
-cd frontend && npm run dev -- --host 0.0.0.0
 ```
 
-Open the frontend at `http://localhost:5173`. The browser uses relative `/api` URLs through Vite's proxy. This local read-only API has no authentication; do not expose publicly. The dashboard fails closed if displayed artifacts, data, signals or analysis source do not match their recorded hashes. Reports and source artifacts are downloadable from the UI. The legacy `backend.main` and legacy frontend pages remain in the repository as historical code; they are not the new research application.
+Open the app at `http://localhost:8000`. The API serves the built frontend and the browser uses same-origin `/api` URLs. For frontend development, start `cd frontend && npm run dev -- --host 0.0.0.0` in another terminal and open port 5173; Vite proxies `/api` to port 8000. This local read-only API has no authentication; do not expose publicly. The dashboard fails closed if displayed artifacts, data, signals or analysis source do not match their recorded hashes. Reports and source artifacts are downloadable from the UI. The legacy `backend.main` and legacy frontend pages remain in the repository as historical code; they are not the new research application.
 
 ## Reproduce
 

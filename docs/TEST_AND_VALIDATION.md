@@ -11,3 +11,7 @@
 ## Not yet verified
 
 No Playwright/browser end-to-end run, visual accessibility audit, mobile device test, Windows setup test, production security audit or clean-room installation beyond the new venv and npm ci. Historical archived test counts and ZIP README statements are not substituted for current checks. More temporal-leakage tests, failure-injection, statistical simulation validation and external dataset verification are needed. Research acceptance criteria including corrected E7, forecasting, matched-control tests and prospective validation remain unsatisfied. No release tag is warranted yet.
+
+## Port 8000 preview repair
+
+The built dashboard is now served by the research API on port 8000, with `/api` remaining same-origin. After rebuilding, all four dashboard routes, the JavaScript asset, and `/api/research` returned 200 using a preview-style Host header; unknown API routes returned 404. The updated backend suite passed **11 tests**, including the missing-build response and same-origin dashboard routes. This was an HTTP smoke test, not browser automation.

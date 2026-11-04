@@ -129,3 +129,31 @@ def test_api_rejects_changed_signal_file(tmp_path, monkeypatch):
     with (copied/'signals.csv').open('a') as f: f.write('corrupt')
     monkeypatch.setattr(api,'RUN',copied)
     assert TestClient(app).get('/api/research').status_code==503
+
+
+def test_dashboard_same_origin_routes_and_missing_build(tmp_path, monkeypatch):
+    import backend.research_api as api
+    monkeypatch.setattr(api, 'FRONTEND_DIST', tmp_path)
+    client = TestClient(app)
+    assert client.get('/').status_code == 503
+    (tmp_path/'index.html').write_text('<html>dashboard</html>')
+    for route in ('/', '/regimes', '/strategies', '/validation'):
+        response = client.get(route)
+        assert response.status_code == 200
+        assert response.headers['content-type'].startswith('text/html')
+        assert 'dashboard' in response.text
+    assert client.get('/api/not-a-route').status_code == 404
+    assert client.get('/api/research').status_code == 200
+
+
+def test_dashboard_build_assets_when_available():
+    from backend.research_api import FRONTEND_DIST
+    import re
+    index = FRONTEND_DIST/'index.html'
+    if not index.is_file():
+        pytest.skip('Frontend has not been built')
+    asset = re.search(r'src="(/assets/[^"]+\.js)"', index.read_text())
+    assert asset is not None
+    response = TestClient(app).get(asset.group(1))
+    assert response.status_code == 200
+    assert 'javascript' in response.headers['content-type']
