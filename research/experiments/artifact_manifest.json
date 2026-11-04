@@ -1,0 +1,14 @@
+{
+  "baseline_20261104/inputs/prices.csv": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+  "baseline_20261104/signals.csv": "92b5698c3ea6212220c976b626b55f71ebca510bcc398b4d465cfb45bcc36975",
+  "baseline_20261104/metadata.json": "63fac04d2a28b47485277036bced6e69a52dfa7d18b2b6efed73163e954daca4",
+  "baseline_20261104/performance.csv": "9054268149d48b0cf1f3770960eb402b5237baf868889e07e7a1b9df980f73d6",
+  "baseline_20261104/bootstrap.csv": "2beddbc1106e0c9933a43273acceabb2fa00245055429138b1ffff5560a22c08",
+  "baseline_20261104/equity_curves.csv": "f090863a0c8dc7683c441bf913ec2f258ac6581713e12c4bb6682e1624a53f7c",
+  "characterization_20261104/analysis.json": "68a30d5ebb8747429d4c7fa4e9f88de48ab50a8aef5c62fdb1fbceff19a43c74",
+  "model_grid_20261104/config.json": "f8c3a0aac1790ba0719b529be0ff482a5b37456a4d768193a1cc466203d0a727",
+  "model_grid_20261104/fold_scores.csv": "15b44e24886b695a175f83cea8ed665703c63d73807e5d8582c4ff27e6019862",
+  "forecast_20261104/config.json": "51f97aa7379942722de61f59b04c1a48d2abfa22678e50516560482071e3306e",
+  "forecast_20261104/metrics.csv": "ffb0f92db291df8009040d89aebbcb7d2bfe9d22b8fcb5e50bc5cc6c64fb61ee",
+  "forecast_20261104/simultaneous_intervals.csv": "bedc80e2e50f1b0fff3ff0f41f5fb5f4bc7efb919da7709410297888f408a15a"
+}
