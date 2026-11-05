@@ -1,0 +1,78 @@
+{
+  "schema": "market-regime-task1-source-branches-v1",
+  "captured_at_utc": "2026-11-05T13:50:34Z",
+  "repository": {
+    "github": "Akshat-1234/Market-Regime-Analyzer",
+    "origin_url": "https://github.com/Akshat-1234/Market-Regime-Analyzer.git",
+    "local_root": "/home/user/Market-Regime-Analyzer"
+  },
+  "preferred_integration_ref": "refs/heads/integration/market-regime-platform",
+  "actual_integration_ref": "refs/heads/arena/6b4913f3-market-regime-analyzer",
+  "branch_name_deviation": "Arena fixes this session to arena/6b4913f3-market-regime-analyzer. No branch was created, renamed, or switched. The authorized fixed-branch fast-forward fallback was used.",
+  "source_refs": {
+    "f10": {
+      "ref": "refs/heads/arena/f10f6e2d-market-regime-analyzer",
+      "expected_commit": "9bb7f92d5785462462971d0479595c1d4166868c",
+      "tree": "86d56f5564f51ca5e0cbd7554e6d9018baf168ff",
+      "github_api_before_fetch": "9bb7f92d5785462462971d0479595c1d4166868c",
+      "ls_remote_before_fetch": "9bb7f92d5785462462971d0479595c1d4166868c",
+      "ls_remote_after_fast_forward": "9bb7f92d5785462462971d0479595c1d4166868c",
+      "ls_remote_at_capture": "9bb7f92d5785462462971d0479595c1d4166868c",
+      "preservation_status": "VERIFIED_UNCHANGED"
+    },
+    "1c": {
+      "ref": "refs/heads/arena/1c6dd054-market-regime-analyzer",
+      "expected_commit": "c46541e9ab8611330489a920c46cdb00342931d5",
+      "tree": "7150991d675831f9659138b664a2f7bd813833fe",
+      "github_api_before_fetch": "c46541e9ab8611330489a920c46cdb00342931d5",
+      "ls_remote_before_fetch": "c46541e9ab8611330489a920c46cdb00342931d5",
+      "ls_remote_after_fast_forward": "c46541e9ab8611330489a920c46cdb00342931d5",
+      "ls_remote_at_capture": "c46541e9ab8611330489a920c46cdb00342931d5",
+      "preservation_status": "VERIFIED_UNCHANGED"
+    }
+  },
+  "ancestry": {
+    "expected_merge_base": "f1602c5c95c14e4bd7795433ca6ecfd3d98794d6",
+    "local_git_merge_base_all": [
+      "f1602c5c95c14e4bd7795433ca6ecfd3d98794d6"
+    ],
+    "github_compare_merge_base": "f1602c5c95c14e4bd7795433ca6ecfd3d98794d6",
+    "github_compare_status": "diverged",
+    "github_compare_1c_ahead_by": 2,
+    "github_compare_1c_behind_by": 12,
+    "f10_is_ancestor_of_1c": false,
+    "1c_is_ancestor_of_f10": false,
+    "verification": "VERIFIED_INDEPENDENTLY_LOCALLY_AND_BY_GITHUB"
+  },
+  "fixed_branch_fallback": {
+    "initial_head": "31902b7cdec9409f805784d9634d3bfd5f25c03f",
+    "initial_worktree_clean": true,
+    "distinct_from_f10_and_1c": true,
+    "initial_head_is_ancestor_of_exact_f10": true,
+    "initial_fixed_branch_only_commit_count": 0,
+    "fast_forward_commit_count": 9,
+    "both_source_refs_independently_verified_beforehand": true,
+    "eligible": true,
+    "command": "git merge --ff-only 9bb7f92d5785462462971d0479595c1d4166868c",
+    "resulting_head_before_task1_documentation": "9bb7f92d5785462462971d0479595c1d4166868c",
+    "resulting_tree_before_task1_documentation": "86d56f5564f51ca5e0cbd7554e6d9018baf168ff",
+    "resulting_worktree_clean_before_task1_documentation": true,
+    "reset_rebase_force_push_or_source_ref_update_used": false
+  },
+  "fetch_safety": {
+    "command": "git fetch --no-tags --deepen=100 origin 9bb7f92d5785462462971d0479595c1d4166868c c46541e9ab8611330489a920c46cdb00342931d5",
+    "destination_refspec_used": false,
+    "updated_fetch_head_only": true,
+    "local_source_branches_created": false
+  },
+  "other_local_refs_observed_unchanged_by_fast_forward": {
+    "refs/heads/main": "31902b7cdec9409f805784d9634d3bfd5f25c03f",
+    "refs/remotes/origin/main": "31902b7cdec9409f805784d9634d3bfd5f25c03f"
+  },
+  "task0_handoff": {
+    "original_attachment": "/tmp/arena-coding-uploads/Phase-0-Integration-Audit.md",
+    "preserved_path": "historical/task0/Phase-0-Integration-Audit.md",
+    "sha256": "cb6a1314d2b33868705ac81b7d577c2306ca5fcbaf5f27daaaeba270dce5b00b",
+    "byte_identical_copy": true
+  }
+}
