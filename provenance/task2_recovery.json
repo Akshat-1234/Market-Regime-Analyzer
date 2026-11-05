@@ -1,0 +1,67 @@
+{
+  "schema": "market-regime-task2-recovery-v1",
+  "captured_at_utc": "2026-11-05T19:37:05Z",
+  "original_checkout": {
+    "path": "/home/user/Market-Regime-Analyzer",
+    "branch": "arena/6b4913f3-market-regime-analyzer",
+    "head": "31902b7cdec9409f805784d9634d3bfd5f25c03f",
+    "status_porcelain_sha256": "29902921f5066b9f7431d106139e6aaf4ca33e1a1b2039d1d5c4b9ed404a031a",
+    "status_porcelain_sha256_format": "git status --porcelain=v1 text bytes",
+    "status_porcelain_nul_sha256": "9cbf626be26dd7788bd32ecf714af9a33cde0e92a47616e33982bc56a5a4ca9f",
+    "status_porcelain_nul_snapshot_byte_identical_at_final_verification": true,
+    "staged_diff_empty": true,
+    "dirty": true,
+    "left_files_and_git_refs_untouched": true
+  },
+  "preservation": {
+    "directory": "/home/user/mra-task2-recovery-20261105T193705Z",
+    "archive": "/home/user/mra-task2-recovery-20261105T193705Z/original-dirty-checkout.tar.gz",
+    "archive_sha256": "19a856146d659cc2f9c63b9996b0abd68e66ba590ebb7ce97bcc8780349fc345",
+    "archive_bytes": 42144858,
+    "archive_member_count": 198,
+    "gzip_integrity_verified": true,
+    "includes_git_directory_untracked_and_ignored_files": true,
+    "status_snapshot": "status-porcelain-v1.z",
+    "staged_patch": "staged-tracked.patch",
+    "unstaged_patch": "unstaged-tracked.patch",
+    "untracked_list": "untracked-files.z"
+  },
+  "dirty_content_comparison": {
+    "authoritative_task1_commit": "57ae0c238e497a059ce85f83da398477be705e8a",
+    "remote_task1_file_count": 122,
+    "dirty_checkout_file_count_excluding_git": 122,
+    "byte_identical_count": 122,
+    "different_count": 0,
+    "missing_count": 0,
+    "local_only_count_excluding_git": 0,
+    "unique_local_content_not_on_task1_remote": false,
+    "evidence": "/home/user/mra-task2-recovery-20261105T193705Z/dirty-vs-task1-content.json"
+  },
+  "recovered_workspace": {
+    "method": "independent clean clone of the same fixed integration branch",
+    "reason": "A second checkout of the already-checked-out branch would share and move the original branch ref. An independent clone preserves the original checkout files and Git state while keeping all Task 2 work on the mandated branch name.",
+    "path": "/home/user/mra-task2-clean",
+    "branch": "arena/6b4913f3-market-regime-analyzer",
+    "head": "57ae0c238e497a059ce85f83da398477be705e8a",
+    "task1_is_ancestor": true,
+    "worktree_clean": true,
+    "shallow": false,
+    "tree": "30cabeef6b26f7f876073e95c33bb0db4a317fe5",
+    "origin": "https://github.com/Akshat-1234/Market-Regime-Analyzer.git",
+    "verification_log": "/home/user/mra-task2-recovery-20261105T193705Z/clean-workspace-verification.log"
+  },
+  "source_refs_at_recovery": {
+    "f10": "9bb7f92d5785462462971d0479595c1d4166868c",
+    "1c": "c46541e9ab8611330489a920c46cdb00342931d5"
+  },
+  "prohibited_operations_used": {
+    "reset_hard": false,
+    "git_clean": false,
+    "force_push": false,
+    "overwrite_dirty_files": false,
+    "delete_untracked_files": false,
+    "stash": false,
+    "rebase": false,
+    "source_ref_update": false
+  }
+}
