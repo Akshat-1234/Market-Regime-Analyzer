@@ -1,0 +1,415 @@
+{
+  "cases": [
+    {
+      "all_original_comparisons_bitwise_equal": true,
+      "backward_log_beta": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          160,
+          2
+        ]
+      },
+      "configuration": {
+        "covariance_type": "diag",
+        "dof": null,
+        "emission": "gaussian",
+        "min_covar": 0.0001,
+        "n_iter": 7,
+        "n_states": 2,
+        "seed": 7,
+        "sticky": 2.0,
+        "tol": 0.0
+      },
+      "convergence_equal": true,
+      "dof_equal": true,
+      "emissions": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          12,
+          2
+        ]
+      },
+      "filtered_predictive_log_density": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          60
+        ]
+      },
+      "filtered_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          60,
+          2
+        ]
+      },
+      "final_log_alpha": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          2
+        ]
+      },
+      "final_log_likelihood_absolute_difference": 0.0,
+      "fit": {
+        "covars": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        "history": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            7
+          ]
+        },
+        "means": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        "startprob": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2
+          ]
+        },
+        "transmat": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2
+          ]
+        }
+      },
+      "id": "gaussian-diag",
+      "iterations_equal": true,
+      "oos_filtered_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          100,
+          2
+        ]
+      },
+      "oos_predictive_log_density": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          100
+        ]
+      },
+      "regularization_events_new_diagnostic": 0,
+      "smoothed_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          160,
+          2
+        ]
+      }
+    },
+    {
+      "all_original_comparisons_bitwise_equal": true,
+      "backward_log_beta": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          160,
+          2
+        ]
+      },
+      "configuration": {
+        "covariance_type": "full",
+        "dof": null,
+        "emission": "gaussian",
+        "min_covar": 0.0001,
+        "n_iter": 7,
+        "n_states": 2,
+        "seed": 7,
+        "sticky": 2.0,
+        "tol": 0.0
+      },
+      "convergence_equal": true,
+      "dof_equal": true,
+      "emissions": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          12,
+          2
+        ]
+      },
+      "filtered_predictive_log_density": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          60
+        ]
+      },
+      "filtered_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          60,
+          2
+        ]
+      },
+      "final_log_alpha": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          2
+        ]
+      },
+      "final_log_likelihood_absolute_difference": 0.0,
+      "fit": {
+        "covars": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2,
+            2
+          ]
+        },
+        "history": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            7
+          ]
+        },
+        "means": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        "startprob": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2
+          ]
+        },
+        "transmat": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2
+          ]
+        }
+      },
+      "id": "gaussian-full",
+      "iterations_equal": true,
+      "oos_filtered_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          100,
+          2
+        ]
+      },
+      "oos_predictive_log_density": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          100
+        ]
+      },
+      "regularization_events_new_diagnostic": 14,
+      "smoothed_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          160,
+          2
+        ]
+      }
+    },
+    {
+      "all_original_comparisons_bitwise_equal": true,
+      "backward_log_beta": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          160,
+          2
+        ]
+      },
+      "configuration": {
+        "covariance_type": "diag",
+        "dof": 6.0,
+        "emission": "student_t",
+        "min_covar": 0.0001,
+        "n_iter": 7,
+        "n_states": 2,
+        "seed": 7,
+        "sticky": 2.0,
+        "tol": 0.0
+      },
+      "convergence_equal": true,
+      "dof_equal": true,
+      "emissions": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          12,
+          2
+        ]
+      },
+      "filtered_predictive_log_density": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          60
+        ]
+      },
+      "filtered_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          60,
+          2
+        ]
+      },
+      "final_log_alpha": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          2
+        ]
+      },
+      "final_log_likelihood_absolute_difference": 0.0,
+      "fit": {
+        "covars": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        "history": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            7
+          ]
+        },
+        "means": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2
+          ]
+        },
+        "startprob": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2
+          ]
+        },
+        "transmat": {
+          "bitwise_equal": true,
+          "max_absolute_difference": 0.0,
+          "shape": [
+            2,
+            2
+          ]
+        }
+      },
+      "id": "student_t-diag",
+      "iterations_equal": true,
+      "oos_filtered_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          100,
+          2
+        ]
+      },
+      "oos_predictive_log_density": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          100
+        ]
+      },
+      "regularization_events_new_diagnostic": 0,
+      "smoothed_probabilities": {
+        "bitwise_equal": true,
+        "max_absolute_difference": 0.0,
+        "shape": [
+          160,
+          2
+        ]
+      }
+    }
+  ],
+  "correctness_hardening_separate_from_parity": [
+    "reject NaN/inf and invalid covariance/probability inputs",
+    "reject invalid covariance rather than silently repairing it outside original EM regularization",
+    "count covariance regularization events in diagnostics",
+    "no nonconverged-to-accepted fallback"
+  ],
+  "divergences": [],
+  "environment": {
+    "numpy": "2.4.6",
+    "python": "3.11.2"
+  },
+  "excluded_family": "Student-t full covariance was unsupported by exact 1c and remains rejected",
+  "independent_hmmlearn_reference": {
+    "library": "hmmlearn",
+    "log_likelihood_absolute_difference": 0.0,
+    "log_likelihood_atol": 1e-09,
+    "log_likelihood_rtol": 1e-11,
+    "log_likelihood_within_tolerance": true,
+    "model": "GaussianHMM-full-log-implementation",
+    "smoothed_probabilities": {
+      "bitwise_equal": false,
+      "max_absolute_difference": 1.354472090042691e-14,
+      "shape": [
+        40,
+        2
+      ]
+    },
+    "smoothed_probabilities_within_tolerance": true,
+    "smoothed_probability_atol": 1e-10,
+    "smoothed_probability_rtol": 1e-10
+  },
+  "original_valid_input_tolerance": {
+    "atol": 0.0,
+    "requirement": "bitwise equality",
+    "rtol": 0.0
+  },
+  "result": {
+    "all_original_cases_bitwise_equal": true,
+    "independent_reference_within_predeclared_tolerance": true
+  },
+  "schema": "task3-hmm-parity-v1",
+  "scope": "numerical equivalence and independent mathematics only; no predictive or economic claim",
+  "source": {
+    "commit": "c46541e9ab8611330489a920c46cdb00342931d5",
+    "path": "market-regime-platform/src/regime_backtester/emhmm.py",
+    "sha256": "181d251fb8b3b78c907c6518a1714898041dbcb048275f82bd5dd308c2d1f6c9"
+  }
+}
