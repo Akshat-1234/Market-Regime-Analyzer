@@ -292,3 +292,23 @@ def test_removed_project_download_route():
     client = TestClient(app)
     assert client.get('/api/download').status_code == 404
     assert '/api/download' not in {route.path for route in app.routes}
+
+
+def test_frontend_uses_external_research_terminology():
+    source = (ROOT/'frontend/src/App.jsx').read_text()
+    for section in ('Overview', 'Historical Baseline Regimes', 'Regime Discovery & Model Stability',
+                    'Historical Strategy Evaluation', 'Predictive Evaluation & Validation'):
+        assert section in source
+    for obsolete in ('Task 4 Discovery', 'Local volatility rank', 'ZERO-OCCUPANCY STATES'):
+        assert obsolete not in source
+    assert 'EMPTY FOLD-STATE CELLS' in source
+    assert 'Local state rank {row.rank}' in source
+
+
+def test_frontend_chart_tooltip_and_inspection_regressions():
+    source = (ROOT/'frontend/src/App.jsx').read_text()
+    assert "index === rows.length - 1 ? ' · final saved observation' : ''" in source
+    assert 'index % 10' not in source
+    assert 'className="timeline-hit-area"' in source
+    assert 'label="Inspect sampled assignment"' in source
+    assert 'label="Inspect saved equity sample"' in source
