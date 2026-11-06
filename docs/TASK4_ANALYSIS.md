@@ -30,7 +30,7 @@ The persisted candidate, selection, diagnostic, and alignment JSONL records must
 - `state_episodes.csv`: contiguous hard-state episodes within each annual outer test. Episodes do not cross annual fold boundaries because raw IDs are fold-local and aligned IDs can be unmatched or ambiguous.
 - `stability_analysis.json`: candidate-persistence episodes and durations, candidate/seed change counts, seed-winner agreement, rare and zero-occupancy fold-state counts, duration distributions overall and by selected candidate, alignment status counts, agreement/unmatched/distance distributions, and explicit descriptive/nonclaim notes.
 
-The rare-state flag is the predeclared Task 2 rule (`hard_count < 100` and `hard_fraction < 0.05`). It is not a retrospective quality or selection threshold. Duration summaries use sessions, not calendar time, and are descriptive rather than evidence of forecastability or economic value.
+The rare-state flag is the predeclared Task 2 rule (`hard_count < 100` or `hard_fraction < 0.05`). It is not a retrospective quality or selection threshold. Duration summaries use sessions, not calendar time, and are descriptive rather than evidence of forecastability or economic value.
 
 ## Reproducibility comparison
 
