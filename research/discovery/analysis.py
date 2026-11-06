@@ -335,7 +335,7 @@ def analyze_run(run_dir, output_dir, comparison_run=None):
             "zero_hard_assignment_fold_state_rows": sum(row["hard_count"] == 0 for row in outer_occupancy),
             "rare_fold_state_row_fraction": (sum(row["rare"] for row in outer_occupancy) / len(outer_occupancy)
                                                if outer_occupancy else None),
-            "rare_rule": "Task 2 hard_count < 100 and hard_fraction < 0.05; descriptive, not a new selection rule",
+            "rare_rule": "Task 2 hard_count < 100 or hard_fraction < 0.05; descriptive, not a new selection rule",
         },
         "outer_hard_state_durations": {
             "all_episodes": summarize_values(lengths),
