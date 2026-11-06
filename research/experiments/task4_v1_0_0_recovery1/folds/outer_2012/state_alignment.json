@@ -1,0 +1,66 @@
+{
+  "agreement": null,
+  "current_fold_id": "outer_2012",
+  "current_to_aligned": {
+    "local_0": "structure_outer_2012_local_0",
+    "local_1": "structure_outer_2012_local_1",
+    "local_2": "structure_outer_2012_local_2",
+    "local_3": "structure_outer_2012_local_3",
+    "local_4": "structure_outer_2012_local_4"
+  },
+  "distance_matrix": null,
+  "maximum_accepted_distance": 2.0,
+  "method": "training-posterior-profile-hungarian-v1",
+  "minimum_margin": 0.25,
+  "outer_test_used": false,
+  "records": [
+    {
+      "aligned_state_id": "structure_outer_2012_local_0",
+      "confidence": null,
+      "distance": null,
+      "local_state_id": "local_0",
+      "margin": null,
+      "proposed_reference_local_id": null,
+      "status": "initial_unaligned"
+    },
+    {
+      "aligned_state_id": "structure_outer_2012_local_1",
+      "confidence": null,
+      "distance": null,
+      "local_state_id": "local_1",
+      "margin": null,
+      "proposed_reference_local_id": null,
+      "status": "initial_unaligned"
+    },
+    {
+      "aligned_state_id": "structure_outer_2012_local_2",
+      "confidence": null,
+      "distance": null,
+      "local_state_id": "local_2",
+      "margin": null,
+      "proposed_reference_local_id": null,
+      "status": "initial_unaligned"
+    },
+    {
+      "aligned_state_id": "structure_outer_2012_local_3",
+      "confidence": null,
+      "distance": null,
+      "local_state_id": "local_3",
+      "margin": null,
+      "proposed_reference_local_id": null,
+      "status": "initial_unaligned"
+    },
+    {
+      "aligned_state_id": "structure_outer_2012_local_4",
+      "confidence": null,
+      "distance": null,
+      "local_state_id": "local_4",
+      "margin": null,
+      "proposed_reference_local_id": null,
+      "status": "initial_unaligned"
+    }
+  ],
+  "reference_fold_id": null,
+  "schema": "task4-state-alignment-v1",
+  "unmatched_frequency": 0.0
+}
