@@ -1,0 +1,118 @@
+{
+  "candidate_scores": {
+    "k2_gaussian_diag": 4.226002427545571,
+    "k2_gaussian_full": 4.221851818716711,
+    "k2_student_t_diag": 4.2666351175803445,
+    "k3_gaussian_diag": 4.570818028384834,
+    "k3_gaussian_full": 4.599410877865605,
+    "k3_student_t_diag": 4.572381781525208,
+    "k4_gaussian_diag": 4.744016620524145,
+    "k4_gaussian_full": 4.742819228829529,
+    "k4_student_t_diag": 4.745378223809682,
+    "k5_gaussian_diag": 4.820799159193696,
+    "k5_gaussian_full": 4.819825933672635,
+    "k5_student_t_diag": 4.81232149919702
+  },
+  "covariance_type": "diag",
+  "eligible_candidates": [
+    "k2_gaussian_diag",
+    "k2_gaussian_full",
+    "k2_student_t_diag",
+    "k3_gaussian_diag",
+    "k3_gaussian_full",
+    "k3_student_t_diag",
+    "k4_gaussian_diag",
+    "k4_gaussian_full",
+    "k4_student_t_diag",
+    "k5_gaussian_diag",
+    "k5_gaussian_full",
+    "k5_student_t_diag"
+  ],
+  "emission": "gaussian",
+  "fold_id": "outer_2015",
+  "mean_inner_raw_log_density_per_observation": 4.820799159193696,
+  "outer_test_used": false,
+  "schema": "task4-inner-selection-v1",
+  "seed_scores": {
+    "k2_gaussian_diag": {
+      "2": 4.225999640230184,
+      "42": 4.226003821203265,
+      "7": 4.226003821203265
+    },
+    "k2_gaussian_full": {
+      "2": 4.221848405358613,
+      "42": 4.221853525395761,
+      "7": 4.221853525395761
+    },
+    "k2_student_t_diag": {
+      "2": 4.266634255285402,
+      "42": 4.266635548727816,
+      "7": 4.266635548727816
+    },
+    "k3_gaussian_diag": {
+      "2": 4.570863229439676,
+      "42": 4.570772434092777,
+      "7": 4.570818421622049
+    },
+    "k3_gaussian_full": {
+      "2": 4.575420273123014,
+      "42": 4.611275969998555,
+      "7": 4.611536390475248
+    },
+    "k3_student_t_diag": {
+      "2": 4.571998736637109,
+      "42": 4.57247169470043,
+      "7": 4.572674913238085
+    },
+    "k4_gaussian_diag": {
+      "2": 4.74136150453931,
+      "42": 4.741230607227173,
+      "7": 4.749457749805951
+    },
+    "k4_gaussian_full": {
+      "2": 4.739545151248871,
+      "42": 4.739595868512377,
+      "7": 4.749316666727343
+    },
+    "k4_student_t_diag": {
+      "2": 4.742385601088925,
+      "42": 4.742961103639476,
+      "7": 4.7507879667006465
+    },
+    "k5_gaussian_diag": {
+      "2": 4.836335931431383,
+      "42": 4.812970446664385,
+      "7": 4.8130910994853195
+    },
+    "k5_gaussian_full": {
+      "2": 4.812255701814003,
+      "42": 4.812394200885602,
+      "7": 4.834827898318301
+    },
+    "k5_student_t_diag": {
+      "2": 4.812049176908947,
+      "42": 4.8124909828714175,
+      "7": 4.812424337810692
+    }
+  },
+  "selected_candidate_id": "k5_gaussian_diag",
+  "selected_candidate_seed_scores": {
+    "2": 4.836335931431383,
+    "42": 4.812970446664385,
+    "7": 4.8130910994853195
+  },
+  "selected_seed": 2,
+  "state_count": 5,
+  "status": "selected",
+  "validation_fold_ids": [
+    "outer_2015_inner_01",
+    "outer_2015_inner_02",
+    "outer_2015_inner_03",
+    "outer_2015_inner_01",
+    "outer_2015_inner_02",
+    "outer_2015_inner_03",
+    "outer_2015_inner_01",
+    "outer_2015_inner_02",
+    "outer_2015_inner_03"
+  ]
+}

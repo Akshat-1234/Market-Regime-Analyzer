@@ -1,0 +1,27 @@
+{
+  "accepted_fold_diagnostics": 14,
+  "actual_attempts": 1526,
+  "actual_inner_attempts": 1512,
+  "actual_outer_refit_attempts": 14,
+  "alignment_records": 14,
+  "all_inner_attempts_have_three_complete_temporal_blocks": true,
+  "candidate_fit_status_counts": {
+    "accepted": 1526
+  },
+  "converged_counts": {
+    "True": 1526
+  },
+  "expected_attempts": 1526,
+  "expected_inner_attempts": 1512,
+  "expected_outer_refit_attempts": 14,
+  "failed_rejected_and_nonconverged_records_retained": true,
+  "failure_reason_counts": {},
+  "outer_folds": 14,
+  "outer_test_used_for_selection": false,
+  "raw_density_contracts_compatible_within_each_inner_fold": true,
+  "rejection_reason_counts": {},
+  "schema": "task4-coverage-verification-v1",
+  "selection_records": 14,
+  "unique_fit_ids": true,
+  "verified": true
+}

@@ -1,0 +1,15 @@
+fold_id,selected_candidate_id,selected_seed,previous_candidate_id,previous_seed,candidate_changed,seed_changed,mean_inner_raw_log_density_per_observation,single_seed_winners_all_agree
+outer_2012,k5_gaussian_full,42,,,False,False,4.512179938406446,True
+outer_2013,k5_gaussian_full,42,k5_gaussian_full,42,False,False,4.61808330476488,True
+outer_2014,k5_gaussian_full,42,k5_gaussian_full,42,False,False,4.530789551953776,False
+outer_2015,k5_gaussian_diag,2,k5_gaussian_full,42,True,True,4.820799159193696,False
+outer_2016,k5_gaussian_full,7,k5_gaussian_diag,2,True,True,4.683168276309479,True
+outer_2017,k5_gaussian_diag,2,k5_gaussian_full,7,True,True,4.977516017709892,False
+outer_2018,k5_gaussian_diag,42,k5_gaussian_diag,2,False,True,4.914586841117643,True
+outer_2019,k5_student_t_diag,42,k5_gaussian_diag,42,True,False,5.122788020021513,True
+outer_2020,k5_gaussian_diag,2,k5_student_t_diag,42,True,True,4.971172954021231,True
+outer_2021,k5_student_t_diag,7,k5_gaussian_diag,2,True,True,4.925748052457692,True
+outer_2022,k5_gaussian_full,7,k5_student_t_diag,7,True,False,5.051823625146491,True
+outer_2023,k5_gaussian_full,7,k5_gaussian_full,7,False,False,5.223019942859965,True
+outer_2024,k5_student_t_diag,42,k5_gaussian_full,7,True,True,5.193461870479213,True
+outer_2025,k5_student_t_diag,42,k5_student_t_diag,42,False,False,4.777124714679242,True

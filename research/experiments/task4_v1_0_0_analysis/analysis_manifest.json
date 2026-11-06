@@ -1,0 +1,27 @@
+{
+  "artifacts": {
+    "candidate_rankings.csv": "a95620dde8ce213cad8cbeb7e6ebc5210ef7bf355d305142a824c2a499982563",
+    "coverage_verification.json": "1cfbf56d894060eb6e21b1547d5d006573901db1d82d610ae47500348af0459a",
+    "reproducibility_comparison.json": "0b30f04571f312bb22d0a5f79b49ba68a859a2dd0cfa5f3319736e88311fabed",
+    "seed_sensitivity.csv": "456236ec0d4646ce74a0c6b00667f39ee49782f8fc4ba435581feae69648bead",
+    "selected_model_path.csv": "e9302e5196cf1c1701b0362b84dbc59ec78f66c50b3d4f27e719f8edfa2a4c1b",
+    "stability_analysis.json": "cdf2ea0d1cb717a13cedc320693425ac985ce04d70dce2227c4566357b8c5b3f",
+    "state_episodes.csv": "a2b01700ae104cd5dcb4ac968b5ac2889784f955330cab9b51c504d0cf0a8e68",
+    "state_occupancy.csv": "d0b6d4ebbd458dde3334cfbb0ceea848f6703b02e2cac00287bf7c9863862983"
+  },
+  "comparison_run": "/home/user/mra-task4-clean/research/experiments/task4_v1_0_0",
+  "execution": {
+    "command": "python -m research.discovery.analysis",
+    "finished_utc": "2026-11-06T10:08:26.654778+00:00",
+    "started_utc": "2026-11-06T10:08:26.465396+00:00"
+  },
+  "protocol_version": "task4-rv-nested-v1.0.0",
+  "schema": "task4-analysis-manifest-v1",
+  "source_commit": "1fe007d80bc4c13cf76e8c6098541f7e8b20ec73",
+  "source_run": "/home/user/mra-task4-clean/research/experiments/task4_v1_0_0_recovery1",
+  "source_run_manifest_sha256": "eb4e898dc402cc95bc82b7b9e0ebef2bf015ac12cbd8d6dc69b1455453d94fb1",
+  "status": "completed",
+  "warnings": [
+    "Derived descriptive reports only; no candidate was reselected and no protocol threshold was changed."
+  ]
+}

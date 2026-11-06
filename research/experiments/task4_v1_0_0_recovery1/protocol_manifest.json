@@ -1,0 +1,182 @@
+{
+  "acceptance": {
+    "complete_inner_folds_per_seed": 3,
+    "minimum_complete_seeds_per_candidate": 2,
+    "minimum_hard_training_state_fraction": 0.02,
+    "unsuccessful_attempts_retained": true
+  },
+  "alignment": {
+    "ambiguous_mapping_not_forced": true,
+    "maximum_accepted_distance": 2.0,
+    "method": "training-posterior-profile-hungarian-v1",
+    "minimum_row_column_margin": 0.25,
+    "outer_test_used": false,
+    "profiles": "training-filtered posterior-weighted raw daily_return and volatility_20",
+    "rectangular_unmatched": true,
+    "scale": "sqrt(mean of adjacent training-only feature variances)"
+  },
+  "boundary_sensitivity": "annual fold distributions only; no alternate shifted-boundary protocol was predeclared",
+  "candidate_grid": [
+    {
+      "candidate_id": "k2_gaussian_diag",
+      "covariance_type": "diag",
+      "emission": "gaussian",
+      "state_count": 2
+    },
+    {
+      "candidate_id": "k2_gaussian_full",
+      "covariance_type": "full",
+      "emission": "gaussian",
+      "state_count": 2
+    },
+    {
+      "candidate_id": "k2_student_t_diag",
+      "covariance_type": "diag",
+      "emission": "student_t",
+      "state_count": 2
+    },
+    {
+      "candidate_id": "k3_gaussian_diag",
+      "covariance_type": "diag",
+      "emission": "gaussian",
+      "state_count": 3
+    },
+    {
+      "candidate_id": "k3_gaussian_full",
+      "covariance_type": "full",
+      "emission": "gaussian",
+      "state_count": 3
+    },
+    {
+      "candidate_id": "k3_student_t_diag",
+      "covariance_type": "diag",
+      "emission": "student_t",
+      "state_count": 3
+    },
+    {
+      "candidate_id": "k4_gaussian_diag",
+      "covariance_type": "diag",
+      "emission": "gaussian",
+      "state_count": 4
+    },
+    {
+      "candidate_id": "k4_gaussian_full",
+      "covariance_type": "full",
+      "emission": "gaussian",
+      "state_count": 4
+    },
+    {
+      "candidate_id": "k4_student_t_diag",
+      "covariance_type": "diag",
+      "emission": "student_t",
+      "state_count": 4
+    },
+    {
+      "candidate_id": "k5_gaussian_diag",
+      "covariance_type": "diag",
+      "emission": "gaussian",
+      "state_count": 5
+    },
+    {
+      "candidate_id": "k5_gaussian_full",
+      "covariance_type": "full",
+      "emission": "gaussian",
+      "state_count": 5
+    },
+    {
+      "candidate_id": "k5_student_t_diag",
+      "covariance_type": "diag",
+      "emission": "student_t",
+      "state_count": 5
+    }
+  ],
+  "dataset": {
+    "end": "2026-10-22",
+    "path": "research/data/nifty_index.csv",
+    "raw_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+    "rows": 4684,
+    "start": "2007-09-17"
+  },
+  "density": {
+    "comparison_space": "raw",
+    "fit_space": "training-only-zscore-ddof0",
+    "jacobian_included": true,
+    "raw_conversion": "scaled_log_density_minus_sum_log_training_scales",
+    "units": "nats_per_observation"
+  },
+  "engine_freeze_sha256": "53f61c24e75ddda81e374ce4629cb88cf1fb521a5dc8c1d91d1a68ce95cd0ea9",
+  "engine_version": "task3-hmm-engine-v1.1",
+  "features": {
+    "close_only": true,
+    "contract_version": "f10-close-features-v1",
+    "family": "rv",
+    "internal_gap_imputation": false,
+    "ordered_names": [
+      "daily_return",
+      "volatility_20"
+    ]
+  },
+  "inner_folds": {
+    "construction": "three nonoverlapping subsequent validation blocks with expanding training",
+    "count": 3,
+    "endpoint_rule": "floor(linspace(min_train+validation_rows, outer_train_rows, 3))",
+    "minimum_train_rows": 504,
+    "validation_rows": 126
+  },
+  "nonclaims": [
+    "no forecasting or return prediction",
+    "no allocation/backtest/trading signal",
+    "no economic usefulness claim",
+    "no prospective holdout claim",
+    "no semantic regime labels"
+  ],
+  "numerical_settings": {
+    "min_covar": 0.0001,
+    "n_iter": 200,
+    "sticky": 0.0,
+    "student_t_initial_dof": 6.0,
+    "tol": 1e-05
+  },
+  "outer_folds": {
+    "construction": "expanding training; subsequent calendar-year nonoverlapping tests",
+    "minimum_training_rows": 756,
+    "partial_2026_excluded": true,
+    "years": [
+      2012,
+      2013,
+      2014,
+      2015,
+      2016,
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ]
+  },
+  "protocol_version": "task4-rv-nested-v1.0.0",
+  "rare_state_rule": {
+    "hard_count_less_than": 100,
+    "hard_fraction_less_than": 0.05
+  },
+  "research_question": "Do bounded HMM specifications produce occupied, identifiable and temporally reproducible latent states without outer-test selection leakage?",
+  "schema": "task4-discovery-protocol-v1",
+  "seeds": [
+    2,
+    42,
+    7
+  ],
+  "selection": {
+    "candidate_score": "mean over all eligible seed/fold scores using Task 2 SelectionDecision",
+    "candidate_tie_break": "Task 2 deterministic candidate-ID tie break",
+    "evidence": "inner validation only",
+    "metric": "mean per-observation raw-space predictive log density",
+    "outer_test_used": false,
+    "selected_seed": "highest mean inner score among complete seeds; smallest seed tie break"
+  },
+  "statistics": "descriptive fold distributions: n, mean, median, sample std, min, max; no independence/significance claim"
+}
