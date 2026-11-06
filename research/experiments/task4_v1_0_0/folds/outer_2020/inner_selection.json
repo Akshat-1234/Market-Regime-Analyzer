@@ -1,0 +1,118 @@
+{
+  "candidate_scores": {
+    "k2_gaussian_diag": 4.2404876229779305,
+    "k2_gaussian_full": 4.238952102160215,
+    "k2_student_t_diag": 4.28068218990792,
+    "k3_gaussian_diag": 4.654199044985662,
+    "k3_gaussian_full": 4.681383801618595,
+    "k3_student_t_diag": 4.669845535281011,
+    "k4_gaussian_diag": 4.842544450758748,
+    "k4_gaussian_full": 4.839733568152646,
+    "k4_student_t_diag": 4.842923571834409,
+    "k5_gaussian_diag": 4.971172954021231,
+    "k5_gaussian_full": 4.970160930517711,
+    "k5_student_t_diag": 4.970740775350458
+  },
+  "covariance_type": "diag",
+  "eligible_candidates": [
+    "k2_gaussian_diag",
+    "k2_gaussian_full",
+    "k2_student_t_diag",
+    "k3_gaussian_diag",
+    "k3_gaussian_full",
+    "k3_student_t_diag",
+    "k4_gaussian_diag",
+    "k4_gaussian_full",
+    "k4_student_t_diag",
+    "k5_gaussian_diag",
+    "k5_gaussian_full",
+    "k5_student_t_diag"
+  ],
+  "emission": "gaussian",
+  "fold_id": "outer_2020",
+  "mean_inner_raw_log_density_per_observation": 4.971172954021231,
+  "outer_test_used": false,
+  "schema": "task4-inner-selection-v1",
+  "seed_scores": {
+    "k2_gaussian_diag": {
+      "2": 4.240499377802133,
+      "42": 4.2404561451791025,
+      "7": 4.2405073459525555
+    },
+    "k2_gaussian_full": {
+      "2": 4.238963121939675,
+      "42": 4.238922511950572,
+      "7": 4.238970672590397
+    },
+    "k2_student_t_diag": {
+      "2": 4.280636964524834,
+      "42": 4.280770856434315,
+      "7": 4.280638748764614
+    },
+    "k3_gaussian_diag": {
+      "2": 4.654224367913306,
+      "42": 4.6541630860581975,
+      "7": 4.654209680985482
+    },
+    "k3_gaussian_full": {
+      "2": 4.657380902205543,
+      "42": 4.693237284467675,
+      "7": 4.693533218182566
+    },
+    "k3_student_t_diag": {
+      "2": 4.669429675874054,
+      "42": 4.669956970361802,
+      "7": 4.670149959607181
+    },
+    "k4_gaussian_diag": {
+      "2": 4.841793081518184,
+      "42": 4.844172796505148,
+      "7": 4.841667474252913
+    },
+    "k4_gaussian_full": {
+      "2": 4.838446685164571,
+      "42": 4.842242259862723,
+      "7": 4.838511759430645
+    },
+    "k4_student_t_diag": {
+      "2": 4.841937287327217,
+      "42": 4.845011764943097,
+      "7": 4.841821663232914
+    },
+    "k5_gaussian_diag": {
+      "2": 4.971224270129279,
+      "42": 4.971166692688811,
+      "7": 4.971127899245606
+    },
+    "k5_gaussian_full": {
+      "2": 4.970147573778862,
+      "42": 4.970179556784088,
+      "7": 4.970155660990182
+    },
+    "k5_student_t_diag": {
+      "2": 4.970740638236045,
+      "42": 4.970765212858954,
+      "7": 4.970716474956373
+    }
+  },
+  "selected_candidate_id": "k5_gaussian_diag",
+  "selected_candidate_seed_scores": {
+    "2": 4.971224270129279,
+    "42": 4.971166692688811,
+    "7": 4.971127899245606
+  },
+  "selected_seed": 2,
+  "state_count": 5,
+  "status": "selected",
+  "validation_fold_ids": [
+    "outer_2020_inner_01",
+    "outer_2020_inner_02",
+    "outer_2020_inner_03",
+    "outer_2020_inner_01",
+    "outer_2020_inner_02",
+    "outer_2020_inner_03",
+    "outer_2020_inner_01",
+    "outer_2020_inner_02",
+    "outer_2020_inner_03"
+  ]
+}

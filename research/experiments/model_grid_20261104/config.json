@@ -1,0 +1,33 @@
+{
+  "data_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+  "source_sha256": "cc77016d2f26d56a7761a7cfebda6176bee96581059adbc780477c7c81262445",
+  "features": {
+    "rv": [
+      "daily_return",
+      "volatility_20"
+    ],
+    "rvd": [
+      "daily_return",
+      "volatility_20",
+      "drawdown_252"
+    ]
+  },
+  "seeds": [
+    2,
+    42
+  ],
+  "state_counts": [
+    2,
+    3,
+    4
+  ],
+  "covariances": [
+    "diag",
+    "full"
+  ],
+  "years": "2012\u20132026",
+  "training": "expanding, fit through last session before each year",
+  "selection": "highest training likelihood among accepted seeds; test is conditional on train final filtered state",
+  "caveats": "Exploratory retrospective grid; raw-space log densities are only comparable within an identical feature set. No untouched holdout.",
+  "python": "3.11.2"
+}

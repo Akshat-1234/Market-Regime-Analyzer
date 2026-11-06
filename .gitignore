@@ -20,3 +20,6 @@ __pycache__/
 
 # Logs
 *.log
+
+# Local packaged research deliverable
+/Market-Regime-Research.zip

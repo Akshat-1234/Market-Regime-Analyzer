@@ -1,0 +1,546 @@
+{
+  "alignment": {
+    "agreement": 0.8,
+    "current_fold_id": "outer_2018",
+    "current_to_aligned": {
+      "local_0": "structure_outer_2014_local_1",
+      "local_1": "structure_outer_2012_local_1",
+      "local_2": null,
+      "local_3": "structure_outer_2012_local_4",
+      "local_4": "structure_outer_2014_local_4"
+    },
+    "distance_matrix": [
+      [
+        0.333392298651658,
+        3.838577394638993,
+        1.6825549701285545,
+        0.6323662156067195,
+        0.040015786316122647
+      ],
+      [
+        0.9501968233826346,
+        3.2178246649126288,
+        1.0642377171872528,
+        0.010474476380319002,
+        0.5844926370215568
+      ],
+      [
+        0.0998376076187612,
+        4.267057218194158,
+        2.1130118512086895,
+        1.0598661316099873,
+        0.47287539413046226
+      ],
+      [
+        4.167031834143758,
+        0.001142662728833853,
+        2.1563464129577623,
+        3.2063883348663,
+        3.799332505174796
+      ],
+      [
+        2.0102075750340203,
+        2.1606283380495377,
+        0.003344432260905246,
+        1.0504507746792142,
+        1.6406483911049372
+      ]
+    ],
+    "maximum_accepted_distance": 2.0,
+    "method": "training-posterior-profile-hungarian-v1",
+    "minimum_margin": 0.25,
+    "outer_test_used": false,
+    "records": [
+      {
+        "aligned_state_id": "structure_outer_2014_local_1",
+        "confidence": 0.9615238664233512,
+        "distance": 0.040015786316122647,
+        "local_state_id": "local_0",
+        "margin": 0.29337651233553536,
+        "proposed_reference_aligned_id": "structure_outer_2014_local_1",
+        "proposed_reference_local_id": "local_4",
+        "stability": {
+          "expected_duration_abs_difference": 2.4157677910788635,
+          "self_transition_abs_difference": 0.0031175851281420863,
+          "training_episode_mean_duration_abs_difference": 2.5809523809523824,
+          "training_posterior_occupancy_abs_difference": 0.022783622437954565,
+          "training_profile_distance": 0.040015786316122647
+        },
+        "status": "accepted"
+      },
+      {
+        "aligned_state_id": "structure_outer_2012_local_1",
+        "confidence": 0.9896341009840839,
+        "distance": 0.010474476380319002,
+        "local_state_id": "local_1",
+        "margin": 0.5740181606412379,
+        "proposed_reference_aligned_id": "structure_outer_2012_local_1",
+        "proposed_reference_local_id": "local_3",
+        "stability": {
+          "expected_duration_abs_difference": 0.7829092504993866,
+          "self_transition_abs_difference": 0.0010489590583092623,
+          "training_episode_mean_duration_abs_difference": 0.6666666666666643,
+          "training_posterior_occupancy_abs_difference": 0.017122230782208453,
+          "training_profile_distance": 0.010474476380319002
+        },
+        "status": "accepted"
+      },
+      {
+        "aligned_state_id": null,
+        "confidence": 0.9092251374865078,
+        "distance": 0.0998376076187612,
+        "local_state_id": "local_2",
+        "margin": 0.23355469103289678,
+        "proposed_reference_aligned_id": "structure_outer_2014_local_3",
+        "proposed_reference_local_id": "local_0",
+        "status": "ambiguous"
+      },
+      {
+        "aligned_state_id": "structure_outer_2012_local_4",
+        "confidence": 0.9988586414590312,
+        "distance": 0.001142662728833853,
+        "local_state_id": "local_3",
+        "margin": 2.1552037502289285,
+        "proposed_reference_aligned_id": "structure_outer_2012_local_4",
+        "proposed_reference_local_id": "local_1",
+        "stability": {
+          "expected_duration_abs_difference": 0.015262177557524126,
+          "self_transition_abs_difference": 2.757179941081933e-05,
+          "training_episode_mean_duration_abs_difference": 0.0,
+          "training_posterior_occupancy_abs_difference": 0.0042001818858967074,
+          "training_profile_distance": 0.001142662728833853
+        },
+        "status": "accepted"
+      },
+      {
+        "aligned_state_id": "structure_outer_2014_local_4",
+        "confidence": 0.9966667156827003,
+        "distance": 0.003344432260905246,
+        "local_state_id": "local_4",
+        "margin": 1.047106342418309,
+        "proposed_reference_aligned_id": "structure_outer_2014_local_4",
+        "proposed_reference_local_id": "local_2",
+        "stability": {
+          "expected_duration_abs_difference": 0.37180743768426794,
+          "self_transition_abs_difference": 0.0003398581205374951,
+          "training_episode_mean_duration_abs_difference": 2.8888888888888893,
+          "training_posterior_occupancy_abs_difference": 0.01142872449086793,
+          "training_profile_distance": 0.003344432260905246
+        },
+        "status": "accepted"
+      }
+    ],
+    "reference_fold_id": "outer_2017",
+    "schema": "task4-state-alignment-v1",
+    "unmatched_frequency": 0.2
+  },
+  "boundaries": {
+    "fold_id": "outer_2018",
+    "test_end": "2018-12-31",
+    "test_rows": 245,
+    "test_start": "2018-01-02",
+    "train_end": "2017-12-29",
+    "train_rows": 2495,
+    "train_start": "2007-10-16"
+  },
+  "fit": {
+    "converged": true,
+    "failure_reason": null,
+    "iterations": 24,
+    "regularization": {
+      "diagonal_variance_floor_hits": 0,
+      "eigenvalue_clipping_events": 0,
+      "full_covariance_floor_applications": 0,
+      "regularization_applications": 0,
+      "regularization_events": 0
+    },
+    "rejection_reason": null,
+    "status": "accepted",
+    "training_scaled_log_likelihood": -2587.9675785548093
+  },
+  "fold_id": "outer_2018",
+  "outer_density": {
+    "jacobian_included": true,
+    "raw_mean_per_observation": 5.704361265628409,
+    "raw_sum": 1397.5685100789601,
+    "scaled_mean_per_observation": -0.6365867668000665,
+    "scaled_sum": -155.9637578660163,
+    "units": "nats_per_observation"
+  },
+  "outer_state_metrics": {
+    "dates": {
+      "end": "2018-12-31",
+      "rows": 245,
+      "start": "2018-01-02"
+    },
+    "kind": "oos_filtered",
+    "mean_max_posterior_confidence": 0.9692988483659204,
+    "mean_posterior_entropy_nats": 0.07601022185693769,
+    "rare_state_fraction": 0.8,
+    "states": [
+      {
+        "effective_sample_size": 64.38216279234979,
+        "hard_count": 61,
+        "hard_fraction": 0.24897959183673468,
+        "local_state_id": "local_0",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9168394732327403,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.1921186148006368,
+        "posterior_weight": 0.23826704402488802,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.00018151651962389724,
+          "volatility_20": 0.14954691339455808
+        }
+      },
+      {
+        "effective_sample_size": 20.652850746853318,
+        "hard_count": 20,
+        "hard_fraction": 0.08163265306122448,
+        "local_state_id": "local_1",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9905914489989535,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.03811839022303483,
+        "posterior_weight": 0.08236688599533258,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.0013145137615278532,
+          "volatility_20": 0.2111367855616916
+        }
+      },
+      {
+        "effective_sample_size": 171.5839923164887,
+        "hard_count": 164,
+        "hard_fraction": 0.6693877551020408,
+        "local_state_id": "local_2",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9862145183077698,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.03744451858323286,
+        "posterior_weight": 0.6793637543526131,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": 1.1713007043461283e-05,
+          "volatility_20": 0.09750851433625646
+        }
+      },
+      {
+        "effective_sample_size": 18.36875096473354,
+        "hard_count": 0,
+        "hard_fraction": 0.0,
+        "local_state_id": "local_3",
+        "mean_max_posterior_confidence_on_hard_rows": null,
+        "mean_posterior_entropy_nats_on_hard_rows": null,
+        "posterior_weight": 1.1963009222631255e-07,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.004081262750888586,
+          "volatility_20": 0.21304799060570276
+        }
+      },
+      {
+        "effective_sample_size": 11.740644723490567,
+        "hard_count": 0,
+        "hard_fraction": 0.0,
+        "local_state_id": "local_4",
+        "mean_max_posterior_confidence_on_hard_rows": null,
+        "mean_posterior_entropy_nats_on_hard_rows": null,
+        "posterior_weight": 2.195997074135143e-06,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.006851541527193629,
+          "volatility_20": 0.22071087877574708
+        }
+      }
+    ]
+  },
+  "schema": "task4-fold-diagnostics-v1",
+  "selection": {
+    "candidate_scores": {
+      "k2_gaussian_diag": 4.025295498442526,
+      "k2_gaussian_full": 4.024768494813603,
+      "k2_student_t_diag": 4.114763087233772,
+      "k3_gaussian_diag": 4.678767012167942,
+      "k3_gaussian_full": 4.704949915362628,
+      "k3_student_t_diag": 4.669649822023811,
+      "k4_gaussian_diag": 4.842423246508015,
+      "k4_gaussian_full": 4.842945533835651,
+      "k4_student_t_diag": 4.840839026688819,
+      "k5_gaussian_diag": 4.914586841117643,
+      "k5_gaussian_full": 4.909074192176427,
+      "k5_student_t_diag": 4.913496734604225
+    },
+    "covariance_type": "diag",
+    "eligible_candidates": [
+      "k2_gaussian_diag",
+      "k2_gaussian_full",
+      "k2_student_t_diag",
+      "k3_gaussian_diag",
+      "k3_gaussian_full",
+      "k3_student_t_diag",
+      "k4_gaussian_diag",
+      "k4_gaussian_full",
+      "k4_student_t_diag",
+      "k5_gaussian_diag",
+      "k5_gaussian_full",
+      "k5_student_t_diag"
+    ],
+    "emission": "gaussian",
+    "fold_id": "outer_2018",
+    "mean_inner_raw_log_density_per_observation": 4.914586841117643,
+    "outer_test_used": false,
+    "schema": "task4-inner-selection-v1",
+    "seed_scores": {
+      "k2_gaussian_diag": {
+        "2": 4.025319683349943,
+        "42": 4.025247128627692,
+        "7": 4.025319683349943
+      },
+      "k2_gaussian_full": {
+        "2": 4.024775692571367,
+        "42": 4.024754099298078,
+        "7": 4.024775692571367
+      },
+      "k2_student_t_diag": {
+        "2": 4.114776991858574,
+        "42": 4.114735277984169,
+        "7": 4.114776991858574
+      },
+      "k3_gaussian_diag": {
+        "2": 4.678837213371924,
+        "42": 4.678729997572483,
+        "7": 4.678733825559421
+      },
+      "k3_gaussian_full": {
+        "2": 4.680945995948477,
+        "42": 4.716843030707926,
+        "7": 4.717060719431481
+      },
+      "k3_student_t_diag": {
+        "2": 4.66926169811849,
+        "42": 4.669741029261645,
+        "7": 4.669946738691301
+      },
+      "k4_gaussian_diag": {
+        "2": 4.842513946012431,
+        "42": 4.842437316266094,
+        "7": 4.842318477245519
+      },
+      "k4_gaussian_full": {
+        "2": 4.843049374874439,
+        "42": 4.843038919144275,
+        "7": 4.842748307488236
+      },
+      "k4_student_t_diag": {
+        "2": 4.840590504650369,
+        "42": 4.841264223219645,
+        "7": 4.840662352196442
+      },
+      "k5_gaussian_diag": {
+        "2": 4.9145272569067195,
+        "42": 4.914677926680962,
+        "7": 4.914555339765248
+      },
+      "k5_gaussian_full": {
+        "2": 4.90904436917283,
+        "42": 4.909030063622253,
+        "7": 4.909148143734199
+      },
+      "k5_student_t_diag": {
+        "2": 4.913530614431806,
+        "42": 4.913473974033452,
+        "7": 4.913485615347417
+      }
+    },
+    "selected_candidate_id": "k5_gaussian_diag",
+    "selected_candidate_seed_scores": {
+      "2": 4.9145272569067195,
+      "42": 4.914677926680962,
+      "7": 4.914555339765248
+    },
+    "selected_seed": 42,
+    "state_count": 5,
+    "status": "selected",
+    "validation_fold_ids": [
+      "outer_2018_inner_01",
+      "outer_2018_inner_02",
+      "outer_2018_inner_03",
+      "outer_2018_inner_01",
+      "outer_2018_inner_02",
+      "outer_2018_inner_03",
+      "outer_2018_inner_01",
+      "outer_2018_inner_02",
+      "outer_2018_inner_03"
+    ]
+  },
+  "smoothed_probabilities_used": false,
+  "status": "accepted",
+  "training_state_metrics": {
+    "dates": {
+      "end": "2017-12-29",
+      "rows": 2495,
+      "start": "2007-10-16"
+    },
+    "kind": "training_filtered",
+    "mean_max_posterior_confidence": 0.9694361480013663,
+    "mean_posterior_entropy_nats": 0.07962154130805246,
+    "rare_state_fraction": 0.2,
+    "states": [
+      {
+        "effective_sample_size": 887.432003250744,
+        "hard_count": 837,
+        "hard_fraction": 0.3354709418837675,
+        "local_state_id": "local_0",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9645337068325232,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.09780792793927716,
+        "posterior_weight": 0.33622096481976194,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": -0.00016370691739660018,
+          "volatility_20": 0.15939494120449313
+        }
+      },
+      {
+        "effective_sample_size": 511.646508758325,
+        "hard_count": 491,
+        "hard_fraction": 0.1967935871743487,
+        "local_state_id": "local_1",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9655971934569476,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.0865649466074632,
+        "posterior_weight": 0.1955142118604595,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": 0.0006993814507331068,
+          "volatility_20": 0.23477726894846165
+        }
+      },
+      {
+        "effective_sample_size": 833.1436616415011,
+        "hard_count": 801,
+        "hard_fraction": 0.3210420841683367,
+        "local_state_id": "local_2",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9745021878838991,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.06317733622479897,
+        "posterior_weight": 0.3210952616213274,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": 0.0005978188189894782,
+          "volatility_20": 0.1070250044079491
+        }
+      },
+      {
+        "effective_sample_size": 99.12297513325053,
+        "hard_count": 96,
+        "hard_fraction": 0.03847695390781563,
+        "local_state_id": "local_3",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9730258991653552,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.06177743731659808,
+        "posterior_weight": 0.03828543320782752,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.001967726013591356,
+          "volatility_20": 0.6262657757109834
+        }
+      },
+      {
+        "effective_sample_size": 283.1755169760658,
+        "hard_count": 270,
+        "hard_fraction": 0.10821643286573146,
+        "local_state_id": "local_4",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9753093179346247,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.0657460770210892,
+        "posterior_weight": 0.10888412849062322,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": 4.1151735281451325e-05,
+          "volatility_20": 0.3638204554078481
+        }
+      }
+    ]
+  },
+  "transition_metrics": {
+    "duration_note": "Implied geometric duration is not empirical persistence; hard episodes are descriptive and label-local.",
+    "empirical_episode_durations": {
+      "local_0": {
+        "episodes": 35,
+        "max": 101.0,
+        "mean": 23.914285714285715,
+        "median": 20.0,
+        "min": 2.0,
+        "std": 19.729600676575867
+      },
+      "local_1": {
+        "episodes": 21,
+        "max": 94.0,
+        "mean": 23.38095238095238,
+        "median": 20.0,
+        "min": 1.0,
+        "std": 20.357986615763824
+      },
+      "local_2": {
+        "episodes": 21,
+        "max": 254.0,
+        "mean": 38.142857142857146,
+        "median": 16.0,
+        "min": 1.0,
+        "std": 56.814862240689905
+      },
+      "local_3": {
+        "episodes": 4,
+        "max": 45.0,
+        "mean": 24.0,
+        "median": 22.0,
+        "min": 7.0,
+        "std": 15.769168230019828
+      },
+      "local_4": {
+        "episodes": 10,
+        "max": 47.0,
+        "mean": 27.0,
+        "median": 25.5,
+        "min": 1.0,
+        "std": 14.922019523732928
+      }
+    },
+    "expected_duration_sessions": {
+      "local_0": 29.070821471451087,
+      "local_1": 27.713991536061524,
+      "local_2": 54.1514382078896,
+      "local_3": 23.53512764848186,
+      "local_4": 33.26221501247134
+    },
+    "transition_matrix": [
+      [
+        0.9656012472512328,
+        0.014883108660697374,
+        0.01951564408782737,
+        1.2105117221355638e-13,
+        1.214595836750757e-13
+      ],
+      [
+        0.027541128725290458,
+        0.9639171427652781,
+        2.0973661203744545e-13,
+        0.002035878839186359,
+        0.00650584967003525
+      ],
+      [
+        0.018466730212049066,
+        1.3337279847632437e-13,
+        0.9815332697875732,
+        1.221188024597294e-13,
+        1.2212253863633958e-13
+      ],
+      [
+        1.0558524066132668e-12,
+        1.0573407269945278e-12,
+        1.05584401072265e-12,
+        0.9575103218076446,
+        0.04248967818918635
+      ],
+      [
+        3.6822942219003203e-13,
+        0.01886502660105757,
+        3.6821572668146414e-13,
+        0.011199116739984579,
+        0.9699358566582214
+      ]
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "feature_names": [
+    "daily_return",
+    "volatility_20"
+  ],
+  "mean": [
+    0.0004197581567630571,
+    0.18739655773654137
+  ],
+  "method": "training-only-zscore-ddof0-with-raw-jacobian-v1",
+  "scale_ddof0": [
+    0.01400886191697382,
+    0.12062862617152638
+  ],
+  "sum_log_scale": -6.383103813802782,
+  "train_end": "2021-12-31",
+  "train_rows": 3479,
+  "train_start": "2007-10-16"
+}

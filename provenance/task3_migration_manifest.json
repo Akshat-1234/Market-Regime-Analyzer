@@ -1,0 +1,197 @@
+{
+  "canonical_input": {
+    "dataset_id": "nifty_index__v3",
+    "limitations": [
+      "not vendor/corporate-action verified",
+      "not total-return data",
+      "calendar completeness and licensing unverified"
+    ],
+    "path": "research/data/nifty_index.csv",
+    "provenance": {
+      "columns": [
+        "Date",
+        "Close",
+        "High",
+        "Low",
+        "Open"
+      ],
+      "end_date": "2026-10-22",
+      "newline_style": "CRLF",
+      "parsed_sha256": "826e89327af5b44d40c74e3ea9396a4c8f953db11493be4f7818c14f382b2be9",
+      "raw_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+      "rows": 4684,
+      "start_date": "2007-09-17"
+    },
+    "sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+    "size_bytes": 328667,
+    "usage": "close-only RV canonical smoke"
+  },
+  "claims": "numerical parity and bounded integration only; no Task 4 claims",
+  "dependencies": {
+    "hmmlearn": "0.3.3",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "pytest": "8.4.2",
+    "python": "3.11.x",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.17.1"
+  },
+  "engine_version": "task3-hmm-engine-v1",
+  "exclusions": [
+    "discovery.py nonconverged fallback and migration",
+    "forecasting/allocation/backtests/dashboard/E7",
+    "historical performance or predictive endorsement"
+  ],
+  "modules": [
+    {
+      "path": "research/hmm/__init__.py",
+      "role": "public boundary",
+      "sha256": "b8484769300ce7d3f76b2cd06f3fd93a20b5e7ebc9ee2c9039d5998250142e1b",
+      "size_bytes": 1079,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/config.py",
+      "role": "EM configuration/support matrix",
+      "sha256": "47d34391a4a93cb86cf064041574207a42f8059dd36150c7f3f02c21f0435f15",
+      "size_bytes": 2093,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/parameters.py",
+      "role": "validated fit and causal inference",
+      "sha256": "9f9f831c016bfb28c0e2f779a9bcd77a22228f7ac226d37c36cdb75f0161b9f7",
+      "size_bytes": 6868,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/emissions.py",
+      "role": "Gaussian/Student-t diagonal likelihoods",
+      "sha256": "4cbb595d9dfa833d46f4fe70f06809bd5da700fab36e85accb99993d1fe7792d",
+      "size_bytes": 4358,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/forward_backward.py",
+      "role": "log-space forward/backward/posteriors",
+      "sha256": "2973840a20d3c20b471302e28847f6e3da4fd457d80a16fa221ca42e78fa70fe",
+      "size_bytes": 5441,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/em.py",
+      "role": "original initialization/EM/convergence",
+      "sha256": "a72afdc11bd4a01ccdbd1bd68dc37cb5b85cb7799499885ea3efe6f3f6f0001f",
+      "size_bytes": 7036,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/inference.py",
+      "role": "explicit retrospective smoothing",
+      "sha256": "bff26dbca5f1bfb16aaf876a5b1b4f48af0219dabdb2d4080b64738d29ff1702",
+      "size_bytes": 583,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/adapter.py",
+      "role": "Task 2 contract adapter",
+      "sha256": "99465dda981de933a28460ea7db5dea48562ca3a244fe4d880a0e44043fa2be0",
+      "size_bytes": 6903,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/serialization.py",
+      "role": "safe versioned JSON persistence",
+      "sha256": "b2905f0d54b8fb865176fdf2807179c4b93cfa3172f4e4122254d786db7b1ea7",
+      "size_bytes": 9074,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "research/hmm/smoke.py",
+      "role": "bounded canonical smoke",
+      "sha256": "cc1ef3de97f5b81c4229ae1e553f61cd2222dd80a9772ba88f15e136034336ac",
+      "size_bytes": 7009,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    },
+    {
+      "path": "scripts/verify_task3_parity.py",
+      "role": "original and independent parity verification",
+      "sha256": "a8e2ea8e957846f94e50b0fca13066b64ed3aea8b1c355a291a63399de66c7fa",
+      "size_bytes": 9464,
+      "source_origin": "selective 1c emhmm.py refactor; new hardening documented separately"
+    }
+  ],
+  "new_hardening": [
+    "nonfinite and invalid probability/covariance rejection",
+    "regularization diagnostics",
+    "strict artifact schema/hash/type checks",
+    "nonconvergence/occupancy fail-closed OOS"
+  ],
+  "parity_evidence": {
+    "path": "provenance/task3_parity.json",
+    "sha256": "ba9f8112b0b5137b1ec243824c9ce434102b52c72aa7259946c71dce32bbd130",
+    "size_bytes": 9817
+  },
+  "preserved_sources": [
+    {
+      "original_path": "market-regime-platform/src/regime_backtester/emhmm.py",
+      "path": "provenance/source/1c-c46541e/emhmm.py",
+      "provenance_kind": "verbatim tracked 1c Git blob",
+      "role": "exact 1c HMM reference",
+      "sha256": "181d251fb8b3b78c907c6518a1714898041dbcb048275f82bd5dd308c2d1f6c9",
+      "size_bytes": 16072
+    },
+    {
+      "original_path": "market-regime-platform/src/regime_backtester/discovery.py",
+      "path": "provenance/source/1c-c46541e/discovery.py",
+      "provenance_kind": "verbatim tracked 1c Git blob",
+      "role": "call-boundary and fallback exclusion reference",
+      "sha256": "c80ff9130f18106f2e354ed2a5c34d34111ad1d78d2682d0bab828518824fe27",
+      "size_bytes": 22228
+    },
+    {
+      "original_path": "market-regime-platform/research_outputs/study_20261030T111521Z/manifest.json",
+      "path": "provenance/source/1c-c46541e-manifests/study_manifest.json",
+      "provenance_kind": "verbatim tracked 1c Git blob",
+      "role": "historical configuration/lineage reference only",
+      "sha256": "c59d7e8d9119e4b23ef988b70e55e6b4c4fdd3f3593b2742412b55321844de6b",
+      "size_bytes": 3073
+    }
+  ],
+  "schema": "task3-hmm-migration-v1",
+  "source": {
+    "commit": "c46541e9ab8611330489a920c46cdb00342931d5",
+    "path": "market-regime-platform/src/regime_backtester/emhmm.py",
+    "sha256": "181d251fb8b3b78c907c6518a1714898041dbcb048275f82bd5dd308c2d1f6c9"
+  },
+  "source_inventory": {
+    "classification": "three verbatim source blobs; no historical manifest repair",
+    "files": [
+      {
+        "original_path": "market-regime-platform/src/regime_backtester/emhmm.py",
+        "path": "provenance/source/1c-c46541e/emhmm.py",
+        "provenance_kind": "verbatim tracked 1c Git blob",
+        "role": "exact 1c HMM reference",
+        "sha256": "181d251fb8b3b78c907c6518a1714898041dbcb048275f82bd5dd308c2d1f6c9",
+        "size_bytes": 16072
+      },
+      {
+        "original_path": "market-regime-platform/src/regime_backtester/discovery.py",
+        "path": "provenance/source/1c-c46541e/discovery.py",
+        "provenance_kind": "verbatim tracked 1c Git blob",
+        "role": "call-boundary and fallback exclusion reference",
+        "sha256": "c80ff9130f18106f2e354ed2a5c34d34111ad1d78d2682d0bab828518824fe27",
+        "size_bytes": 22228
+      },
+      {
+        "original_path": "market-regime-platform/research_outputs/study_20261030T111521Z/manifest.json",
+        "path": "provenance/source/1c-c46541e-manifests/study_manifest.json",
+        "provenance_kind": "verbatim tracked 1c Git blob",
+        "role": "historical configuration/lineage reference only",
+        "sha256": "c59d7e8d9119e4b23ef988b70e55e6b4c4fdd3f3593b2742412b55321844de6b",
+        "size_bytes": 3073
+      }
+    ],
+    "tracked_blob_inventory": "provenance/inventory/1c-c46541e-tracked-blobs.jsonl"
+  }
+}

@@ -1,0 +1,118 @@
+{
+  "candidate_scores": {
+    "k2_gaussian_diag": 4.089954738251475,
+    "k2_gaussian_full": 4.089433460586584,
+    "k2_student_t_diag": 4.098247417517517,
+    "k3_gaussian_diag": 4.398134889227321,
+    "k3_gaussian_full": 4.417854685884137,
+    "k3_student_t_diag": 4.548530189778869,
+    "k4_gaussian_diag": 4.76483798474001,
+    "k4_gaussian_full": 4.7600291389053115,
+    "k4_student_t_diag": 4.762768872458692,
+    "k5_gaussian_diag": 4.7742183202244615,
+    "k5_gaussian_full": 4.769037551635294,
+    "k5_student_t_diag": 4.777124714679242
+  },
+  "covariance_type": "diag",
+  "eligible_candidates": [
+    "k2_gaussian_diag",
+    "k2_gaussian_full",
+    "k2_student_t_diag",
+    "k3_gaussian_diag",
+    "k3_gaussian_full",
+    "k3_student_t_diag",
+    "k4_gaussian_diag",
+    "k4_gaussian_full",
+    "k4_student_t_diag",
+    "k5_gaussian_diag",
+    "k5_gaussian_full",
+    "k5_student_t_diag"
+  ],
+  "emission": "student_t",
+  "fold_id": "outer_2025",
+  "mean_inner_raw_log_density_per_observation": 4.777124714679242,
+  "outer_test_used": false,
+  "schema": "task4-inner-selection-v1",
+  "seed_scores": {
+    "k2_gaussian_diag": {
+      "2": 4.089954738251475,
+      "42": 4.089954738251475,
+      "7": 4.089954738251475
+    },
+    "k2_gaussian_full": {
+      "2": 4.089433460586584,
+      "42": 4.089433460586584,
+      "7": 4.089433460586584
+    },
+    "k2_student_t_diag": {
+      "2": 4.098247417517517,
+      "42": 4.098247417517517,
+      "7": 4.098247417517517
+    },
+    "k3_gaussian_diag": {
+      "2": 4.398397637659521,
+      "42": 4.398005923959645,
+      "7": 4.398001106062796
+    },
+    "k3_gaussian_full": {
+      "2": 4.393738187932625,
+      "42": 4.429896980913579,
+      "7": 4.429928888806207
+    },
+    "k3_student_t_diag": {
+      "2": 4.432103957679826,
+      "42": 4.6066365126817495,
+      "7": 4.606850098975028
+    },
+    "k4_gaussian_diag": {
+      "2": 4.764890837706415,
+      "42": 4.764917224144495,
+      "7": 4.764705892369123
+    },
+    "k4_gaussian_full": {
+      "2": 4.759856875460211,
+      "42": 4.760213468700226,
+      "7": 4.760017072555496
+    },
+    "k4_student_t_diag": {
+      "2": 4.762651856072075,
+      "42": 4.763128555906838,
+      "7": 4.762526205397166
+    },
+    "k5_gaussian_diag": {
+      "2": 4.7743128676264135,
+      "42": 4.774100672599309,
+      "7": 4.7742414204476615
+    },
+    "k5_gaussian_full": {
+      "2": 4.769072009725914,
+      "42": 4.768937226555461,
+      "7": 4.76910341862451
+    },
+    "k5_student_t_diag": {
+      "2": 4.77709359201778,
+      "42": 4.777196863203476,
+      "7": 4.777083688816469
+    }
+  },
+  "selected_candidate_id": "k5_student_t_diag",
+  "selected_candidate_seed_scores": {
+    "2": 4.77709359201778,
+    "42": 4.777196863203476,
+    "7": 4.777083688816469
+  },
+  "selected_seed": 42,
+  "state_count": 5,
+  "status": "selected",
+  "validation_fold_ids": [
+    "outer_2025_inner_01",
+    "outer_2025_inner_02",
+    "outer_2025_inner_03",
+    "outer_2025_inner_01",
+    "outer_2025_inner_02",
+    "outer_2025_inner_03",
+    "outer_2025_inner_01",
+    "outer_2025_inner_02",
+    "outer_2025_inner_03"
+  ]
+}

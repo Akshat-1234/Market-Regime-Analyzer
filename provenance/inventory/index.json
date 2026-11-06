@@ -1,0 +1,27 @@
+{
+  "hash_algorithm": "sha256",
+  "inventory_format": "jsonl-v1; one UTF-8 JSON object per tracked Git blob; path is the repository-relative path",
+  "schema": "market-regime-task1-inventory-index-v1",
+  "sources": {
+    "1c": {
+      "commit": "c46541e9ab8611330489a920c46cdb00342931d5",
+      "inventory_bytes": 72459,
+      "inventory_file": "1c-c46541e-tracked-blobs.jsonl",
+      "inventory_sha256": "0930c823258af150972d06379dc618fb3bcc4e10f81304baa47601bb29de09f1",
+      "source_ref": "refs/heads/arena/1c6dd054-market-regime-analyzer",
+      "total_blob_bytes": 28281675,
+      "tracked_blob_count": 278,
+      "tree": "7150991d675831f9659138b664a2f7bd813833fe"
+    },
+    "f10": {
+      "commit": "9bb7f92d5785462462971d0479595c1d4166868c",
+      "inventory_bytes": 26973,
+      "inventory_file": "f10-9bb7f92-tracked-blobs.jsonl",
+      "inventory_sha256": "263098e0f78ea4522a8ec0e9ffc6b408848e84fc96ef3b9c0ad9b6c043a2d3da",
+      "source_ref": "refs/heads/arena/f10f6e2d-market-regime-analyzer",
+      "total_blob_bytes": 31703381,
+      "tracked_blob_count": 107,
+      "tree": "86d56f5564f51ca5e0cbd7554e6d9018baf168ff"
+    }
+  }
+}

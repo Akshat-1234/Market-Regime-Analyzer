@@ -1,0 +1,137 @@
+{
+  "created_utc": "2026-10-30T11:15:21.832903+00:00",
+  "project_version": "0.1.0",
+  "python": "3.11.2",
+  "data": {
+    "kind": "csv",
+    "path": "/home/user/Market-Regime-Analyzer/market-regime-platform/data/raw/nifty_index.csv",
+    "sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4"
+  },
+  "start_date": "2012-01-01",
+  "seeds": [
+    2,
+    42,
+    7
+  ],
+  "simulations": 200,
+  "simulation_seed": 1701,
+  "config": {
+    "data": {
+      "csv": "data/raw/nifty_index.csv",
+      "date_column": "Date",
+      "price_column": "Close"
+    },
+    "walkforward": {
+      "min_train_days": 504,
+      "max_train_days": null,
+      "start_date": "2012-01-01",
+      "end_date": null
+    },
+    "hmm": {
+      "primary_model": "rvd_3",
+      "covariance_type": "diag",
+      "n_iter": 250,
+      "tol": 0.05,
+      "min_covar": 0.001,
+      "min_state_fraction": 0.02,
+      "seeds": [
+        2,
+        42
+      ],
+      "target_volatility": 0.12,
+      "volatility_floor": 0.03,
+      "models": [
+        {
+          "name": "rv_2",
+          "n_states": 2,
+          "features": [
+            "daily_return",
+            "volatility_20"
+          ]
+        },
+        {
+          "name": "rv_3",
+          "n_states": 3,
+          "features": [
+            "daily_return",
+            "volatility_20"
+          ]
+        },
+        {
+          "name": "rvd_2",
+          "n_states": 2,
+          "features": [
+            "daily_return",
+            "volatility_20",
+            "drawdown_252"
+          ]
+        },
+        {
+          "name": "rvd_3",
+          "n_states": 3,
+          "features": [
+            "daily_return",
+            "volatility_20",
+            "drawdown_252"
+          ]
+        }
+      ]
+    },
+    "backtest": {
+      "initial_capital": 1000.0,
+      "annual_risk_free_rate": 0.065,
+      "trading_days_per_year": 252,
+      "transaction_cost_bps": 10.0,
+      "execution_delay_sessions": 1,
+      "trend_weight_in_blend": 0.5,
+      "trend_window": 50,
+      "momentum_window": 20,
+      "mean_reversion_window": 20,
+      "mean_reversion_entry_band": 0.02,
+      "vol_target": 0.12
+    },
+    "bootstrap": {
+      "samples": 1000,
+      "block_length": 20,
+      "seed": 42,
+      "confidence": 0.95
+    },
+    "output": {
+      "directory": "results/run"
+    }
+  },
+  "packages": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.6.1",
+    "hmmlearn": "0.3.3",
+    "statsmodels": null
+  },
+  "stages": {
+    "audit": "completed",
+    "discovery": "completed",
+    "features": "completed",
+    "emissions": "completed",
+    "predictive": "completed",
+    "allocation": "completed",
+    "register": "completed"
+  },
+  "selected_specification": {
+    "name": "gaussian_diag_k4",
+    "features": [
+      "daily_return",
+      "volatility_20"
+    ],
+    "n_states": 4,
+    "covariance_type": "diag",
+    "emission": "gaussian",
+    "dof": null,
+    "sticky": 0.0
+  },
+  "selection": {
+    "n_states": 4,
+    "feature_set": "rv2",
+    "emission": "gaussian_diag_k4"
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "alignment": {
+    "accepted_state_distance_distribution": {
+      "max": 0.18717585509819212,
+      "mean": 0.02407385034643295,
+      "median": 0.011717291369838677,
+      "min": 0.0010348005774272135,
+      "n": 41,
+      "std": 0.033420694498959784
+    },
+    "agreement_distribution": {
+      "max": 1.0,
+      "mean": 0.6307692307692309,
+      "median": 0.8,
+      "min": 0.0,
+      "n": 13,
+      "std": 0.3727926487665214
+    },
+    "all_state_status_counts": {
+      "accepted": 41,
+      "ambiguous": 16,
+      "initial_unaligned": 5,
+      "new_unmatched": 8
+    },
+    "ambiguous_states_not_forced": true,
+    "initial_folds": 1,
+    "label_note": "Aligned IDs are structural references, not semantic regime names; unmatched/ambiguous states remain distinct or blank.",
+    "outer_test_used_for_alignment": false,
+    "subsequent_fold_pairs": 13,
+    "subsequent_state_status_counts": {
+      "accepted": 41,
+      "ambiguous": 16,
+      "new_unmatched": 8
+    },
+    "unmatched_frequency_distribution": {
+      "max": 1.0,
+      "mean": 0.3692307692307693,
+      "median": 0.2,
+      "min": 0.0,
+      "n": 13,
+      "std": 0.3727926487665214
+    }
+  },
+  "model_path": {
+    "candidate_change_fraction_of_adjacent_pairs": 0.6153846153846154,
+    "candidate_changes": 8,
+    "candidate_persistence_episodes": [
+      {
+        "end_fold_id": "outer_2014",
+        "folds": 3,
+        "selected_candidate_id": "k5_gaussian_full",
+        "start_fold_id": "outer_2012"
+      },
+      {
+        "end_fold_id": "outer_2015",
+        "folds": 1,
+        "selected_candidate_id": "k5_gaussian_diag",
+        "start_fold_id": "outer_2015"
+      },
+      {
+        "end_fold_id": "outer_2016",
+        "folds": 1,
+        "selected_candidate_id": "k5_gaussian_full",
+        "start_fold_id": "outer_2016"
+      },
+      {
+        "end_fold_id": "outer_2018",
+        "folds": 2,
+        "selected_candidate_id": "k5_gaussian_diag",
+        "start_fold_id": "outer_2017"
+      },
+      {
+        "end_fold_id": "outer_2019",
+        "folds": 1,
+        "selected_candidate_id": "k5_student_t_diag",
+        "start_fold_id": "outer_2019"
+      },
+      {
+        "end_fold_id": "outer_2020",
+        "folds": 1,
+        "selected_candidate_id": "k5_gaussian_diag",
+        "start_fold_id": "outer_2020"
+      },
+      {
+        "end_fold_id": "outer_2021",
+        "folds": 1,
+        "selected_candidate_id": "k5_student_t_diag",
+        "start_fold_id": "outer_2021"
+      },
+      {
+        "end_fold_id": "outer_2023",
+        "folds": 2,
+        "selected_candidate_id": "k5_gaussian_full",
+        "start_fold_id": "outer_2022"
+      },
+      {
+        "end_fold_id": "outer_2025",
+        "folds": 2,
+        "selected_candidate_id": "k5_student_t_diag",
+        "start_fold_id": "outer_2024"
+      }
+    ],
+    "candidate_persistence_fold_lengths": {
+      "max": 3.0,
+      "mean": 1.5555555555555556,
+      "median": 1.0,
+      "min": 1.0,
+      "n": 9,
+      "std": 0.7264831572567789
+    },
+    "counterfactual_note": "Single-seed winners are descriptive reuse of inner scores, not alternate outer refits or protocol changes.",
+    "folds_where_all_single_seed_winners_agree": 11,
+    "seed_changes": 7,
+    "selected_folds": 14,
+    "single_seed_winner_match_count": 38,
+    "single_seed_winner_match_denominator": 42
+  },
+  "no_significance_or_economic_claim": true,
+  "outer_hard_state_durations": {
+    "all_episodes": {
+      "max": 248.0,
+      "mean": 23.222972972972972,
+      "median": 13.0,
+      "min": 1.0,
+      "n": 148,
+      "std": 36.188061500762075
+    },
+    "boundary_note": "Episodes are computed within each annual outer test only; local state IDs are never joined naively across fold boundaries.",
+    "by_candidate": {
+      "k5_gaussian_diag": {
+        "max": 248.0,
+        "mean": 29.90909090909091,
+        "median": 18.0,
+        "min": 2.0,
+        "n": 33,
+        "std": 44.386346180697586
+      },
+      "k5_gaussian_full": {
+        "max": 233.0,
+        "mean": 23.26984126984127,
+        "median": 11.0,
+        "min": 1.0,
+        "n": 63,
+        "std": 38.75364971332934
+      },
+      "k5_student_t_diag": {
+        "max": 139.0,
+        "mean": 18.923076923076923,
+        "median": 13.0,
+        "min": 1.0,
+        "n": 52,
+        "std": 25.78633636808619
+      }
+    },
+    "one_session_episode_fraction": 0.0945945945945946
+  },
+  "outer_occupancy": {
+    "fold_state_rows": 70,
+    "rare_fold_state_row_fraction": 0.8285714285714286,
+    "rare_fold_state_rows": 58,
+    "rare_rule": "Task 2 hard_count < 100 or hard_fraction < 0.05; descriptive, not a new selection rule",
+    "zero_hard_assignment_fold_state_rows": 26
+  },
+  "schema": "task4-stability-analysis-v1",
+  "statistical_scope": "Descriptive annual-fold evidence only; overlapping daily rows and repeated candidates are not independent samples."
+}

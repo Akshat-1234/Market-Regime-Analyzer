@@ -1,0 +1,167 @@
+{
+  "base_interpreter": {
+    "collected_tests": 0,
+    "command": "/usr/bin/python -m pytest -q tests/contracts tests/regression",
+    "error": "/usr/bin/python: No module named pytest",
+    "exit_code": 1,
+    "path": "/usr/bin/python",
+    "pytest_status": "blocked before isolated-environment provisioning",
+    "version": "3.11.2"
+  },
+  "branch": "arena/6b4913f3-market-regime-analyzer",
+  "integrity": {
+    "canonical_csv_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+    "canonical_parsed_sha256": "826e89327af5b44d40c74e3ea9396a4c8f953db11493be4f7818c14f382b2be9",
+    "original_checkout": {
+      "archive_bytes": 42144858,
+      "archive_gzip_integrity": "verified",
+      "archive_member_count": 198,
+      "archive_sha256": "19a856146d659cc2f9c63b9996b0abd68e66ba590ebb7ce97bcc8780349fc345",
+      "head": "31902b7cdec9409f805784d9634d3bfd5f25c03f",
+      "nul_status_matches_preserved_snapshot": true,
+      "nul_status_sha256": "9cbf626be26dd7788bd32ecf714af9a33cde0e92a47616e33982bc56a5a4ca9f",
+      "path": "/home/user/Market-Regime-Analyzer",
+      "text_status_sha256": "29902921f5066b9f7431d106139e6aaf4ca33e1a1b2039d1d5c4b9ed404a031a"
+    },
+    "preserved_tracked_path_diff_exit_code": 0,
+    "preserved_tracked_paths": [
+      "research/data",
+      "historical",
+      "research/legacy",
+      "research/reference",
+      "backend",
+      "frontend"
+    ],
+    "remote_refs": {
+      "refs/heads/arena/1c6dd054-market-regime-analyzer": "c46541e9ab8611330489a920c46cdb00342931d5",
+      "refs/heads/arena/6b4913f3-market-regime-analyzer": "57ae0c238e497a059ce85f83da398477be705e8a",
+      "refs/heads/arena/f10f6e2d-market-regime-analyzer": "9bb7f92d5785462462971d0479595c1d4166868c"
+    },
+    "source_inventory_sha256sums": "both OK; 107 f10 + 278 1c = 385 records"
+  },
+  "interpretation": "Contract/regression verification only; no historical repair, predictive, statistical, profitability, production, or prospective claim.",
+  "isolated_environment": {
+    "direct_pins": {
+      "fastapi": "0.162.0",
+      "hmmlearn": "0.3.3",
+      "httpx": "0.28.1",
+      "numpy": "2.4.6",
+      "pandas": "2.3.3",
+      "pytest": "9.2.0",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.17.1",
+      "threadpoolctl": "3.7.0"
+    },
+    "installed_distributions": {
+      "Pygments": "2.21.0",
+      "annotated-doc": "0.0.5",
+      "annotated-types": "0.8.0",
+      "anyio": "4.16.0",
+      "certifi": "2026.10.23",
+      "cloudpickle": "3.1.2",
+      "fastapi": "0.162.0",
+      "h11": "0.16.0",
+      "hmmlearn": "0.3.3",
+      "httpcore": "1.0.9",
+      "httpx": "0.28.1",
+      "idna": "3.20",
+      "iniconfig": "2.3.1",
+      "joblib": "1.6.0",
+      "narwhals": "2.28.0",
+      "numpy": "2.4.6",
+      "opentelemetry-api": "1.45.2",
+      "packaging": "26.3",
+      "pandas": "2.3.3",
+      "pluggy": "1.7.0",
+      "pydantic": "2.14.3",
+      "pydantic_core": "2.50.4",
+      "pytest": "9.2.0",
+      "python-dateutil": "4.0.0",
+      "pytz": "2026.6",
+      "scikit-learn": "1.9.1",
+      "scipy": "1.17.1",
+      "starlette": "1.10.0",
+      "threadpoolctl": "3.7.0",
+      "typing-inspection": "0.4.5",
+      "typing_extensions": "4.16.0",
+      "tzdata": "2026.6"
+    },
+    "path": "/home/user/mra-task2-venv",
+    "pip_check": "No broken requirements found.",
+    "python": "3.11.2"
+  },
+  "not_executed": [
+    "frontend install/build/browser/E2E",
+    "historical NIFTY model fitting or study reproduction",
+    "forecast generation",
+    "discovery reranking",
+    "allocation/backtest/bootstrap simulation",
+    "custom 1c HMM migration",
+    "dashboard integration",
+    "E7",
+    "prospective evaluation",
+    "new data download or vendor/licensing verification"
+  ],
+  "schema": "task2-verification-v1",
+  "starting_and_verification_head": "57ae0c238e497a059ce85f83da398477be705e8a",
+  "static_checks": {
+    "compileall": "passed: research/contracts tests/contracts tests/regression",
+    "junit_evidence_generator": "initial root-element assumption failed with KeyError(tests); corrected to child testsuite and rerun; test results unchanged",
+    "pip_check": "passed"
+  },
+  "task1_ancestor": true,
+  "test_runs": {
+    "development_failures_resolved_before_final": [
+      {
+        "log": "/tmp/task2-first-pytest.log",
+        "observed": "60 passed, 10 failed"
+      },
+      {
+        "log": "/tmp/task2-second-pytest.log",
+        "observed": "67 passed, 3 failed"
+      },
+      {
+        "log": "/tmp/task2-third-pytest.log",
+        "observed": "69 passed, 1 failed"
+      },
+      {
+        "log": "/tmp/task2-focused-final-pre-docs.log",
+        "observed": "71 passed, 1 failed after overlap-contract addition"
+      }
+    ],
+    "focused_final": {
+      "command": "/home/user/mra-task2-venv/bin/python -m pytest -q tests/contracts tests/regression --junitxml=/tmp/task2-focused-junit.xml",
+      "junit_evidence": "/home/user/mra-task2-recovery-20261105T193705Z/task2-focused-junit.xml",
+      "observed": "72 passed in 1.72s",
+      "summary": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 0,
+        "tests": 72,
+        "time_seconds": 1.727
+      }
+    },
+    "full_final": {
+      "command": "/home/user/mra-task2-venv/bin/python -m pytest -q tests --junitxml=/tmp/task2-full-junit.xml",
+      "junit_evidence": "/home/user/mra-task2-recovery-20261105T193705Z/task2-full-junit.xml",
+      "observed": "85 passed, 1 skipped, 1 warning in 3.36s",
+      "skip_records": [
+        {
+          "classname": "tests.test_research_platform",
+          "name": "test_dashboard_build_assets_when_available",
+          "reason": "Frontend has not been built"
+        }
+      ],
+      "summary": {
+        "errors": 0,
+        "failures": 0,
+        "skipped": 1,
+        "tests": 86,
+        "time_seconds": 3.364
+      },
+      "warning": "StarletteDeprecationWarning: httpx with starlette.testclient is deprecated; install httpx2 instead."
+    }
+  },
+  "verified_at_utc": "2026-11-05T20:17:28.180270+00:00",
+  "workspace": "/home/user/mra-task2-clean"
+}

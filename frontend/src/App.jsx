@@ -1,30 +1,234 @@
-import { Route, Routes } from "react-router-dom";
-import Sidebar from "./components/layout/Sidebar.jsx";
-import Topbar from "./components/layout/Topbar.jsx";
-import Footer from "./components/layout/Footer.jsx";
-import StrategyLab from "./pages/StrategyLab.jsx";
-import Performance from "./pages/Performance.jsx";
-import DataExplorer from "./pages/DataExplorer.jsx";
-import RegimeExplorer from "./pages/RegimeExplorer.jsx";
-import NotFound from "./pages/NotFound.jsx";
+import { useEffect, useState } from 'react';
+import { Link, NavLink, Route, Routes } from 'react-router-dom';
+
+const pct = (value, digits = 2) => value == null ? '—' : `${(100 * Number(value)).toFixed(digits)}%`;
+const num = (value, digits = 2) => value == null ? '—' : Number(value).toFixed(digits);
+const integer = value => Number(value).toLocaleString();
+const artifact = (name, label) => <a href={`/api/artifacts/${name}`}>{label} ↗</a>;
+const rankColors = ['#70A5E8', '#2DD4BF', '#F5B84B'];
+const strategyColors = {
+  'Buy & Hold': '#70A5E8',
+  'Trend 50': '#2DD4BF',
+  'HMM Ensemble': '#F5B84B',
+  'HMM + Trend': '#B79CED',
+};
+const task4ModelNames = {
+  k5_gaussian_full: 'K5 Gaussian full',
+  k5_gaussian_diag: 'K5 Gaussian diagonal',
+  k5_student_t_diag: 'K5 Student-t diagonal',
+};
+const modelName = id => task4ModelNames[id] || String(id).replaceAll('_', ' ');
+
+function ErrorState({ title, error, children }) {
+  return <div className="notice error" role="alert"><strong>{title}</strong><p>{error}</p>{children}</div>;
+}
+
+function SampleInspector({ index, onChange, count, label, children }) {
+  return <div className="sample-inspector"><label><span>{label}</span><input type="range" min="0" max={count - 1} value={index} aria-label={label} onChange={event => onChange(Number(event.target.value))} /></label><output aria-live="polite" aria-atomic="true">{children}</output></div>;
+}
+
+function BaselineGate({ d, error, title, children }) {
+  if (d) return children(d);
+  return <><header><p className="eyebrow">HISTORICAL BASELINE</p><h1>{title}</h1></header>{error ? <ErrorState title="Baseline artifacts unavailable" error={error}><p>The discovery experiment is served independently and remains available without substituting baseline results.</p><Link to="/task4">Open Regime Discovery & Model Stability →</Link></ErrorState> : <p className="loading" role="status">Loading verified baseline artifacts…</p>}</>;
+}
+
+function Overview({ d, t, error, task4Error }) {
+  const trend = d?.bootstrap.find(row => row.control === 'Trend 50');
+  return <>
+    <header><p className="eyebrow">RESEARCH OVERVIEW / 01</p><h1>What does the evidence support?</h1><p className="lead">A retrospective NIFTY 50 research platform separating latent-state characterization, nested model discovery, and historical decision usefulness.</p></header>
+    {(error || task4Error) && <div className="notice warning-notice"><strong>Partial data state.</strong> {error && 'Baseline artifacts are unavailable. '} {task4Error && 'Discovery artifacts are unavailable. '} Available experiments remain shown independently; no substitute results are used.</div>}
+    <div className="stats">
+      {d ? <><div><small>DATASET</small><strong>NIFTY 50 index</strong><span>{d.metadata.data_start} — {d.metadata.data_end}</span></div><div><small>BASELINE OOS RETURNS</small><strong>{integer(d.metadata.return_observations)} sessions</strong><span>{d.metadata.first_return_date} — {d.metadata.last_return_date}</span></div><div><small>HISTORICAL BASELINE</small><strong>{d.metadata.primary_model}</strong><span>3-state RVD Gaussian HMM · {d.analysis.folds} refits</span></div></> : <div><small>BASELINE</small><strong>{error ? 'Unavailable' : 'Loading…'}</strong><span>{error ? 'See the independent discovery evidence' : 'Verified baseline response pending'}</span></div>}
+      {t ? <div><small>FIVE-STATE DISCOVERY</small><strong>K=5 in {t.summary.outer_folds}/{t.summary.outer_folds} folds</strong><span>{t.summary.outer_year_start}–{t.summary.outer_year_end} · close-only RV</span></div> : <div><small>FIVE-STATE DISCOVERY</small><strong>{task4Error ? 'Unavailable' : 'Loading…'}</strong><span>{task4Error ? 'No alternate result is substituted' : 'Verified discovery response pending'}</span></div>}
+    </div>
+
+    <section><div className="section-head"><div><p className="eyebrow">THE RESEARCH QUESTION</p><h2>Distinction is not an edge.</h2></div><span className="tag">RETROSPECTIVE EVIDENCE</span></div><div className="columns"><div><h3>What evidence exists?</h3><p>The platform preserves a three-state baseline characterization, an exploratory model grid and forecast study, and a separately frozen five-state nested discovery experiment. Each has its own artifacts and scope.</p></div><div><h3>What does it support?</h3><p>Density separation and numerical convergence are established within their respective runs. Stable economic identities, forecasting value, allocation value, and a trading edge are not established.</p></div></div></section>
+
+    {d ? <section><div className="section-head"><h2>Historical strategy evaluation</h2><Link to="/strategies">Inspect baseline strategy →</Link></div><p>HMM + Trend minus Trend Sharpe: <strong>{num(trend?.observed_sharpe_difference, 4)}</strong>, paired 95% block-bootstrap interval <strong>[{num(trend?.lower, 3)}, {num(trend?.upper, 3)}]</strong>. The interval includes zero and is not adjusted for previous model search. Lower drawdown alone does not isolate incremental HMM information.</p></section> : error ? <ErrorState title="Baseline evidence unavailable" error={error} /> : <p className="loading" role="status">Loading verified baseline evidence…</p>}
+    {t ? <section className="task4-callout"><div className="section-head"><div><p className="eyebrow">FIVE-STATE DISCOVERY / NESTED SELECTION</p><h2>Five components, not five proven regimes.</h2></div><span className="tag warning">MIXED / NEGATIVE RESULT</span></div><p>{t.conclusion}</p><p><strong>{t.occupancy.zero_hard_assignments}/{t.occupancy.fold_state_observations}</strong> outer fold-state rows had zero hard assignments; model form changed in <strong>{t.stability.candidate_changes}/{t.stability.subsequent_fold_pairs}</strong> adjacent-year comparisons.</p><Link to="/task4" className="text-link">Inspect occupancy, alignment and recovery →</Link></section> : task4Error ? <ErrorState title="Discovery evidence unavailable" error={task4Error} /> : <p className="loading" role="status">Loading verified discovery evidence…</p>}
+    {d && <section><div className="section-head"><h2>Forecasting evaluation</h2><Link to="/validation">Inspect forecast evidence →</Link></div><p>In the separate retrospective ridge study, indicator-only and regime-augmented models all had negative aggregate out-of-sample R² against an expanding-mean benchmark at the tested horizons. Regime additions generally worsened MSE. This is not a universal non-predictability claim, and it is not part of the discovery experiment.</p></section>}
+    <section><h2>What remains unresolved?</h2><ul>{(d?.limitations || ['No untouched prospective holdout or validated economic regime identity is established.', 'The exact historical E7 protocol remains unavailable.']).map(item => <li key={item}>{item}</li>)}</ul><p>The original E7 specifications were not supplied; no positive E7 claim is made.</p></section>
+    {d && <section className="sources"><h2>Baseline evidence</h2>{artifact('report', 'Run report')}{artifact('config', 'Run configuration')}{artifact('bootstrap', 'Bootstrap results')}{artifact('metadata', 'Metadata')}</section>}
+  </>;
+}
+
+function Timeline({ rows }) {
+  const [inspectedIndex, setInspectedIndex] = useState(Math.max(0, (rows?.length || 1) - 1));
+  if (!rows?.length) return null;
+  const sampled = rows.filter((_, index) => index % 5 === 0);
+  if (sampled.at(-1).date !== rows.at(-1).date) sampled.push(rows.at(-1));
+  const width = 1000, left = 65, right = 18, top = 16, trackHeight = 48, axisY = 83;
+  const start = Date.parse(rows[0].date), end = Date.parse(rows.at(-1).date);
+  const x = date => left + (Date.parse(date) - start) / Math.max(1, end - start) * (width - left - right);
+  const positions = sampled.map(row => x(row.date));
+  const inspected = sampled[inspectedIndex] || sampled.at(-1);
+  const inspectPointer = event => {
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const pointerX = left + (event.clientX - bounds.left) / Math.max(1, bounds.width) * (width - left - right);
+    let nearest = 0;
+    positions.forEach((position, index) => { if (Math.abs(position - pointerX) < Math.abs(positions[nearest] - pointerX)) nearest = index; });
+    setInspectedIndex(nearest);
+  };
+  const startYear = Number(rows[0].date.slice(0, 4)), endYear = Number(rows.at(-1).date.slice(0, 4));
+  const years = [];
+  for (let year = startYear; year <= endYear; year += 3) years.push(year);
+  if (years.at(-1) !== endYear) years.push(endYear);
+  return <><div className="chart-scroll"><svg className="timeline-chart" viewBox="0 0 1000 132" role="img" aria-label="Filtered local state-rank assignment timeline">
+    <rect x={left} y={top} width={width - left - right} height={trackHeight} fill="#0B1220" />
+    {sampled.map(row => <rect key={row.date} x={x(row.date)} y={top} width="2.4" height={trackHeight} fill={rankColors[row.rank]} pointerEvents="none" />)}
+    <rect className="timeline-hit-area" x={left} y={top} width={width - left - right} height={trackHeight} fill="transparent" onPointerMove={inspectPointer} onPointerDown={inspectPointer}><title>{`${inspected.date} · Local state rank ${inspected.rank} · confidence ${pct(inspected.confidence)}`}</title></rect>
+    <line x1={left} x2={width - right} y1={axisY} y2={axisY} className="axis-line" pointerEvents="none" />
+    {years.map(year => { const date = `${year}-01-01`; const tickX = Math.max(left, Math.min(width - right, x(date))); return <g key={year}><line x1={tickX} x2={tickX} y1={axisY - 4} y2={axisY + 4} className="axis-line" /><text x={tickX} y={axisY + 22} textAnchor={year === startYear ? 'start' : year === endYear ? 'end' : 'middle'} className="axis-text">{year}</text></g>; })}
+    <text x={left} y="126" className="axis-title">Decision date</text>
+  </svg></div><SampleInspector index={inspectedIndex} onChange={setInspectedIndex} count={sampled.length} label="Inspect sampled assignment"><span>{inspected.date}</span><span>Local state rank {inspected.rank}</span><span>Confidence {pct(inspected.confidence)}</span></SampleInspector></>;
+}
+
+function TransitionHeatmap({ values }) {
+  return <><div className="table-wrap"><table className="heatmap-table"><thead><tr><th>From / to</th>{[0, 1, 2].map(rank => <th key={rank}>Local state rank {rank}</th>)}</tr></thead><tbody>{values.map((row, i) => <tr key={i}><th>Local state rank {i}</th>{row.map((value, j) => <td key={j} style={{ background: `rgba(45, 212, 191, ${0.05 + value * 0.52})` }} title={`Local state rank ${i} → local state rank ${j}: ${pct(value, 2)} of empirical within-year transitions`}>{pct(value, 1)}</td>)}</tr>)}</tbody></table></div><div className="heat-legend"><span>Lower share</span><i className="heat-low" /><i className="heat-mid" /><i className="heat-high" /><span>Higher share · teal intensity</span></div></>;
+}
+
+function Regimes({ d }) {
+  const [selected, setSelected] = useState(0);
+  const state = d.analysis.states[selected];
+  return <>
+    <header><p className="eyebrow">HISTORICAL BASELINE REGIMES / 02</p><h1>Explore the original three states.</h1><p className="lead">The rvd_3 characterization uses daily return, 20-day volatility, and 252-day drawdown. Filtered probabilities are pooled by local state rank, ordered by training volatility, across 15 annual refits.</p></header>
+    <div className="notice"><strong>Baseline scope.</strong> These three states are not components from the separate five-state discovery experiment. Ranks are recalibrated at each refit and are not permanent economic identities.</div>
+    <section><div className="section-head"><h2>Filtered local state-rank assignments</h2><span className="muted">Every fifth saved decision plus the final observation</span></div><p>{d.analysis.timeline[0].date} — {d.analysis.timeline.at(-1).date}. Each stripe is one saved hard assignment; this is not a probability chart and unsampled decisions are not invented.</p><Timeline rows={d.analysis.timeline} /><div className="legend">{d.analysis.states.map(row => <span key={row.rank}><i style={{ background: rankColors[row.rank] }} />Local state rank {row.rank}</span>)}</div><p className="footnote">Hover or tap the timeline, or use the inspection slider, for an exact date, local state rank, and confidence. Colour distinguishes rank only; it does not label bull, bear, crisis, or recovery states.</p></section>
+    <section><div className="section-head"><h2>Explore a local state rank</h2><div className="tabs">{d.analysis.states.map(row => <button className={selected === row.rank ? 'active' : ''} onClick={() => setSelected(row.rank)} key={row.rank}>State rank {row.rank}</button>)}</div></div><h3>Local state rank {state.rank} {state.rare_flag && <span className="tag warning">RARE HEURISTIC</span>}</h3><p>{state.description}</p><div className="measure-grid">{[
+      ['Assigned observations', state.hard_observations], ['Mean daily return', pct(state.mean_return, 3)], ['Median daily return', pct(state.median_return, 3)], ['5th percentile daily return', pct(state.return_q05)], ['Positive days', pct(state.positive_day_frequency, 1)], ['20-session momentum', pct(state.momentum_20)], ['60-session momentum', pct(state.momentum_60)], ['200-day MA distance', pct(state.ma_distance_200)], ['20-day annualized volatility', pct(state.volatility_20, 1)], ['Downside volatility', pct(state.downside_volatility_20, 1)], ['252-day drawdown', pct(state.drawdown_252)], ['Mean drawdown duration', `${num(state.drawdown_duration, 1)} sessions`], ['Mean episode', `${num(state.mean_episode_length, 1)} sessions`], ['Median episode', `${num(state.median_episode_length, 1)} sessions`], ['Mean assigned confidence', pct(state.mean_confidence_when_assigned, 1)], ['Normalized posterior entropy', num(state.mean_entropy_when_assigned, 3)], ['Ambiguous assignments (<60%)', pct(state.ambiguous_fraction_when_assigned, 1)], ['Mean daily range', pct(state.daily_range)],
+    ].map(([label, value]) => <div key={label}><span>{label}</span><strong>{value}</strong></div>)}</div><p className="footnote">Only return, 20-day volatility, and 252-day drawdown were baseline model inputs. Other fields are contemporaneous diagnostics. Episodes are censored at refit boundaries.</p></section>
+    <section><h2>Empirical within-year transitions</h2><p>Hard-assignment transitions pooled within refit years. This heatmap is <strong>not</strong> the fitted HMM transition matrix and does not establish cross-year state identity. See {artifact('transitions', 'per-refit fitted matrices')}.</p><TransitionHeatmap values={d.analysis.transition_probabilities} /></section>
+    <section><h2>Forward behaviour <span className="tag warning">DESCRIPTIVE ONLY</span></h2><p>Posterior-weighted close returns after the decision close. Horizons overlap; no adjusted inference or causal effect is supplied.</p><div className="table-wrap"><table><thead><tr><th>Horizon</th><th>Mean return</th><th>Positive frequency</th></tr></thead><tbody>{Object.entries(state.forward).map(([horizon, value]) => <tr key={horizon}><th>{horizon} sessions</th><td>{pct(value.mean_return)}</td><td>{pct(value.positive_probability, 1)}</td></tr>)}</tbody></table></div></section>
+    <section className="sources"><h2>Baseline results and data</h2>{artifact('characterization', 'Full characterization')}{artifact('signals', 'Filtered signal series')}{artifact('fits', 'Fold fits')}</section>
+  </>;
+}
+
+function EquityChart({ rows }) {
+  const strategies = Object.keys(strategyColors);
+  const [inspectedIndex, setInspectedIndex] = useState(rows.length - 1);
+  const width = 1000, height = 360, left = 78, right = 22, top = 20, bottom = 58;
+  const start = Date.parse(rows[0].Date), end = Date.parse(rows.at(-1).Date);
+  const x = date => left + (Date.parse(date) - start) / Math.max(1, end - start) * (width - left - right);
+  const values = rows.flatMap(row => strategies.map(key => Number(row[key]))).filter(Number.isFinite);
+  const dataMin = Math.min(...values), dataMax = Math.max(...values);
+  const padding = Math.max(1, (dataMax - dataMin) * 0.06);
+  const min = Math.max(0, dataMin - padding), max = dataMax + padding;
+  const y = value => top + (max - value) / (max - min) * (height - top - bottom);
+  const startYear = Number(rows[0].Date.slice(0, 4)), endYear = Number(rows.at(-1).Date.slice(0, 4));
+  const years = [];
+  for (let year = startYear; year <= endYear; year += 3) years.push(year);
+  if (years.at(-1) !== endYear) years.push(endYear);
+  const yTicks = Array.from({ length: 6 }, (_, index) => min + (max - min) * index / 5).reverse();
+  const inspected = rows[inspectedIndex] || rows.at(-1);
+  return <><div className="chart-scroll"><svg className="equity-chart" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="Sampled saved account-equity curves for four baseline strategies">
+    {yTicks.map(value => <g key={value}><line x1={left} x2={width - right} y1={y(value)} y2={y(value)} className="grid-line" /><text x={left - 10} y={y(value) + 4} textAnchor="end" className="axis-text">{Math.round(value).toLocaleString()}</text></g>)}
+    <line x1={left} x2={width - right} y1={height - bottom} y2={height - bottom} className="axis-line" />
+    {years.map(year => { const tickX = Math.max(left, Math.min(width - right, x(`${year}-01-01`))); return <g key={year}><line x1={tickX} x2={tickX} y1={height - bottom} y2={height - bottom + 5} className="axis-line" /><text x={tickX} y={height - bottom + 23} textAnchor={year === startYear ? 'start' : year === endYear ? 'end' : 'middle'} className="axis-text">{year}</text></g>; })}
+    <text x={left} y={height - 5} className="axis-title">Decision / earned-return date</text><text transform={`translate(16 ${top + (height - top - bottom) / 2}) rotate(-90)`} textAnchor="middle" className="axis-title">Account value</text>
+    {strategies.map(strategy => <polyline key={strategy} fill="none" stroke={strategyColors[strategy]} strokeWidth="2" vectorEffect="non-scaling-stroke" points={rows.map(row => `${x(row.Date)},${y(Number(row[strategy]))}`).join(' ')} />)}
+    {strategies.map(strategy => rows.map((row, index) => <circle className="chart-hit" key={`${strategy}-${row.Date}`} cx={x(row.Date)} cy={y(Number(row[strategy]))} r="6" fill="transparent" onPointerEnter={() => setInspectedIndex(index)} onPointerDown={() => setInspectedIndex(index)}><title>{`${strategy} · ${row.Date} · account equity ${Number(row[strategy]).toFixed(4)}${index === rows.length - 1 ? ' · final saved observation' : ''}`}</title></circle>))}
+  </svg></div><SampleInspector index={inspectedIndex} onChange={setInspectedIndex} count={rows.length} label="Inspect saved equity sample"><span>{inspected.Date}{inspectedIndex === rows.length - 1 ? ' · final saved observation' : ''}</span>{strategies.map(strategy => <span key={strategy}>{strategy}: <strong>{Number(inspected[strategy]).toFixed(2)}</strong></span>)}</SampleInspector></>;
+}
+
+function IntervalPlot({ rows, scientific = false, positiveLabel, negativeLabel, label }) {
+  const lower = Math.min(0, ...rows.map(row => row.lower)), upper = Math.max(0, ...rows.map(row => row.upper));
+  const span = upper - lower || 1;
+  const min = lower - span * 0.06, max = upper + span * 0.06, range = max - min;
+  const position = value => (value - min) / range * 100;
+  const format = value => scientific ? Number(value).toExponential(2) : num(value, 3);
+  return <div className="plot-scroll"><div className="interval-plot" role="img" aria-label={label}>
+    <div className="interval-axis"><span className="axis-min">{format(min)}</span><span className="axis-zero" style={{ left: `${position(0)}%` }}>0</span><span className="axis-max">{format(max)}</span></div>
+    {rows.map(row => <div className="interval-row" key={row.id}><div className="interval-label" title={row.label}>{row.label}</div><div className="interval-track"><span className="zero-rule" style={{ left: `${position(0)}%` }} /><span className="interval-range" style={{ left: `${position(row.lower)}%`, width: `${Math.max(0.3, position(row.upper) - position(row.lower))}%` }} title={`${row.label} · observed ${format(row.value)} · 95% interval [${format(row.lower)}, ${format(row.upper)}]`} /><span className="interval-observed" style={{ left: `${position(row.value)}%` }} title={`Observed difference ${format(row.value)}`} /></div><div className="interval-value">{format(row.value)}</div></div>)}
+    <div className="interval-directions"><span>← {negativeLabel}</span><span>{positiveLabel} →</span></div>
+  </div></div>;
+}
+
+function Strategies({ d }) {
+  const intervals = d.bootstrap.map(row => ({ id: row.control, label: `${row.candidate} vs ${row.control}`, value: row.observed_sharpe_difference, lower: row.lower, upper: row.upper }));
+  return <>
+    <header><p className="eyebrow">HISTORICAL STRATEGY EVALUATION / 04</p><h1>Compare, don't assume.</h1><p className="lead">Common historical evaluation period, one-session execution delay, 10 bps one-way costs, and a fixed 6.5% annual cash assumption.</p></header>
+    <div className="notice"><strong>Baseline-only evaluation.</strong> The discovery experiment tested no allocation or strategy. Lower historical drawdown does not prove incremental HMM information or a trading edge.</div>
+    <section><div className="section-head"><h2>Account-equity curves</h2><span className="muted">Four primary comparisons · nine strategies retained below</span></div><p>{d.curve_sampling.start_date} — {d.curve_sampling.end_date}. Initial capital assumption: {integer(d.curve_sampling.initial_capital_assumption)}. The chart starts from actual saved observations and displays every tenth saved row plus the final row: <strong>{integer(d.curve_sampling.displayed_rows)} of {integer(d.curve_sampling.saved_rows)}</strong> saved observations. Straight segments connect samples; they are not additional observations.</p><EquityChart rows={d.curves} /><div className="legend">{Object.entries(strategyColors).map(([name, colour]) => <span key={name}><i style={{ background: colour }} />{name}</span>)}</div><p className="footnote">Hover or tap sampled points, or use the inspection slider, for exact dates and saved account equity. The vertical axis is account value, not daily return.</p></section>
+    <section><h2>Full performance comparison</h2><div className="table-wrap"><table><thead><tr><th>Strategy</th><th>CAGR</th><th>Vol.</th><th>Sharpe</th><th>Sortino</th><th>Max DD</th><th>Calmar</th><th>Exposure</th><th>Turnover / yr</th><th>Cost sum</th></tr></thead><tbody>{d.performance.map(row => <tr key={row.strategy}><th>{row.strategy}</th><td>{pct(row.cagr)}</td><td>{pct(row.annual_volatility)}</td><td>{num(row.sharpe)}</td><td>{num(row.sortino)}</td><td>{pct(row.max_drawdown)}</td><td>{num(row.calmar)}</td><td>{pct(row.mean_exposure, 1)}</td><td>{num(row.turnover_per_year)}</td><td>{pct(row.total_cost_fraction_sum)}</td></tr>)}</tbody></table></div><p className="footnote">All nine saved strategies are shown. Cost sum is the sum of daily cost fractions, not compounded return. Sharpe uses the fixed cash assumption; dividends and taxes are omitted.</p></section>
+    <section><h2>Paired Sharpe differences</h2><p>1,000 paired 20-session block-bootstrap resamples. Intervals are exploratory and not adjusted for previous model search.</p><IntervalPlot rows={intervals} label="Paired Sharpe-difference intervals" positiveLabel="favours HMM + Trend" negativeLabel="favours control" /><div className="table-wrap"><table><thead><tr><th>Comparison</th><th>Observed difference</th><th>Paired 95% interval</th></tr></thead><tbody>{d.bootstrap.map(row => <tr key={row.control}><th>{row.candidate} vs {row.control}</th><td>{num(row.observed_sharpe_difference, 4)}</td><td>[{num(row.lower, 4)}, {num(row.upper, 4)}]</td></tr>)}</tbody></table></div></section>
+    <section className="sources"><h2>Baseline results and data</h2>{artifact('performance', 'Performance CSV')}{artifact('daily-backtests', 'Daily decisions, costs & returns')}{artifact('bootstrap', 'Bootstrap CSV')}</section>
+  </>;
+}
+
+function OccupancyTable({ rows }) {
+  const years = [...new Set(rows.map(row => row.fold_id))];
+  return <><div className="table-wrap"><table className="occupancy-table"><thead><tr><th>Outer fold</th>{[0, 1, 2, 3, 4].map(index => <th key={index}>Local state {index}<br /><small>count · within-fold fraction</small></th>)}<th>Empty</th><th>Dominant</th></tr></thead><tbody>{years.map(fold => { const states = rows.filter(row => row.fold_id === fold).sort((a, b) => a.local_state_id.localeCompare(b.local_state_id)); const empty = states.filter(row => row.hard_count === 0).length; const dominant = Math.max(...states.map(row => row.hard_fraction)); return <tr key={fold}><th>{fold.replace('outer_', '')}</th>{states.map(state => <td key={state.local_state_id} className={state.hard_count === 0 ? 'zero-cell' : 'occupied-cell'} style={state.hard_count === 0 ? undefined : { background: `rgba(45, 212, 191, ${0.035 + state.hard_fraction * 0.28})` }} title={`${fold} · ${state.local_state_id} (fold-local) · count ${state.hard_count} · fraction ${pct(state.hard_fraction, 2)} · rare ${state.rare ? 'yes' : 'no'} · aligned ID ${state.aligned_state_id || 'ambiguous / blank'}`}><span className="occupancy-value">{state.hard_count} · {pct(state.hard_fraction, 1)}</span>{state.rare && <small className="rare-mark">◆ rare</small>}</td>)}<td><span className={empty ? 'tag negative' : 'tag'}>{empty}/5</span></td><td>{pct(dominant, 1)}</td></tr>; })}</tbody></table></div><div className="legend occupancy-legend"><span><i className="occupied-swatch" />Teal intensity: nonzero within-fold fraction</span><span><i className="zero-swatch" />Red: exactly zero assignments</span><span><i className="rare-swatch" />◆ Rare heuristic, separate from zero</span></div></>;
+}
+
+function AlignmentBars({ rows }) {
+  const subsequent = rows.filter(row => row.reference_fold_id != null);
+  return <div className="alignment-bars" aria-label="Adjacent-year state-alignment outcomes">{subsequent.map(row => { const counts = row.alignment_status_counts; return <div className={`alignment-row ${row.fold_id === 'outer_2025' ? 'alignment-alert' : ''}`} key={row.fold_id}><span>{row.fold_id.replace('outer_', '')}</span><div className="alignment-track">{[['accepted', counts.accepted || 0], ['ambiguous', counts.ambiguous || 0], ['new_unmatched', counts.new_unmatched || 0]].map(([status, count]) => count > 0 && <span key={status} className={`alignment-segment ${status}`} style={{ width: `${count / 5 * 100}%` }} title={`${row.fold_id}: ${status} ${count}/5`}>{count}</span>)}</div><small>5 states</small></div>; })}</div>;
+}
+
+function Task4FoldTable({ rows }) {
+  return <div className="table-wrap"><table><thead><tr><th>Year</th><th>Selected K=5 form</th><th>Seed</th><th>Form changed</th><th>Alignment agreement</th><th>Accepted</th><th>Ambiguous</th><th>Unmatched</th></tr></thead><tbody>{rows.map(row => { const changed = row.candidate_changed === true || row.candidate_changed === 'True'; const counts = row.alignment_status_counts; return <tr key={row.fold_id} className={row.fold_id === 'outer_2025' ? 'highlight-row' : ''}><th>{row.fold_id.replace('outer_', '')}{row.fold_id === 'outer_2025' && <span className="tag warning row-tag">5 AMBIGUOUS</span>}</th><td>{modelName(row.selected_candidate_id)}</td><td>{row.selected_seed}</td><td>{row.reference_fold_id == null ? '—' : changed ? <span className="change-marker">◆ Yes</span> : 'No'}</td><td>{row.alignment_agreement == null ? '—' : num(row.alignment_agreement, 2)}</td><td>{row.reference_fold_id == null ? '—' : counts.accepted || 0}</td><td>{row.reference_fold_id == null ? '—' : counts.ambiguous || 0}</td><td>{row.reference_fold_id == null ? '—' : counts.new_unmatched || 0}</td></tr>; })}</tbody></table></div>;
+}
+
+function SelectionDiagnostics({ diagnostics, seedFrequency }) {
+  return <section><div className="section-head"><h2>Selection-margin & seed diagnostics</h2><span className="tag warning">INNER VALIDATION ONLY</span></div><div className="stats compact-stats"><div><small>NEAR-TIE FOLDS</small><strong>{diagnostics.near_tie_folds}/{diagnostics.fold_count}</strong><span>best–runner-up gap &lt; {diagnostics.margin_threshold}</span></div>{['2', '42', '7'].map(seed => <div key={seed}><small>Selected seed {seed}</small><strong>{seedFrequency[seed] || 0} folds</strong><span>selection frequency, not agreement</span></div>)}</div><p>Each gap is derived from rank 1 minus rank 2 in the verified candidate-ranking CSV, in raw-space log-density units per observation. Counterfactual single-seed winners agreed on the exact candidate in {diagnostics.folds_where_all_single_seed_winners_agree}/{diagnostics.fold_count} folds; {diagnostics.single_seed_winner_match_count}/{diagnostics.single_seed_winner_match_denominator} fold-seed winners matched the multi-seed selection.</p><div className="table-wrap"><table><thead><tr><th>Fold</th><th>Best candidate</th><th>Runner-up</th><th>Best score</th><th>Runner-up score</th><th>Gap / observation</th><th>&lt;0.005?</th></tr></thead><tbody>{diagnostics.margins.map(row => <tr key={row.fold_id}><th>{row.fold_id.replace('outer_', '')}</th><td>{modelName(row.best_candidate_id)}</td><td>{modelName(row.runner_up_candidate_id)}</td><td>{num(row.best_score, 6)}</td><td>{num(row.runner_up_score, 6)}</td><td>{num(row.score_gap, 7)}</td><td>{row.near_tie ? <span className="tag warning">Near tie</span> : 'No'}</td></tr>)}</tbody></table></div><p className="footnote">A small density-score margin does not invalidate the deterministic selection, but it cautions against a sharply identified exact-form interpretation. Selected-seed frequency is not seed agreement.</p></section>;
+}
+
+function Task4Discovery({ d, error }) {
+  if (!d) return <><header><p className="eyebrow">REGIME DISCOVERY & MODEL STABILITY / 03</p><h1>Regime Discovery & Model Stability</h1></header>{error ? <ErrorState title="Unable to verify discovery artifacts" error={error}><p>No baseline result is substituted. Baseline pages remain independently accessible.</p></ErrorState> : <p className="loading" role="status">Loading verified discovery artifacts…</p>}</>;
+  const s = d.summary, o = d.occupancy, st = d.stability, r = d.reproducibility, a = st.alignment_counts;
+  return <>
+    <header><p className="eyebrow">REGIME DISCOVERY & MODEL STABILITY / 03</p><h1>Five components. Mixed reliability.</h1><p className="lead">Close-only daily return and 20-day volatility, chronological inner selection, 14 annual outer folds, and causal out-of-sample continuation.</p></header>
+    <div className="notice research-conclusion"><strong>Research conclusion</strong><p>{d.conclusion}</p></div>
+    <section><div className="section-head"><h2>Discovery design & model selection</h2><span className="tag">K=5 IN {s.outer_folds} / {s.outer_folds} FOLDS</span></div><div className="stats"><div><small>OUTER ANNUAL FOLDS</small><strong>{s.outer_folds}</strong><span>{s.outer_year_start}–{s.outer_year_end}</span></div><div><small>INNER CANDIDATE ATTEMPTS</small><strong>{integer(s.inner_candidate_attempts)}</strong><span>12 candidates · 3 seeds · 3 inner folds</span></div><div><small>SELECTED OUTER REFITS</small><strong>{s.selected_outer_refits}</strong><span>one per annual outer fold</span></div><div><small>TOTAL RETAINED ATTEMPTS</small><strong>{integer(s.total_retained_attempts)}</strong><span>completed recovery run</span></div></div><p className="fit-status"><strong>{integer(s.accepted_attempts)} accepted · {integer(s.converged_attempts)} converged · {s.rejected_attempts} rejected · {s.failed_attempts} failed · {s.nonconverged_attempts} nonconverged.</strong></p><div className="measure-grid">{Object.entries(s.selected_candidate_frequency).map(([id, count]) => <div key={id}><span>{modelName(id)}</span><strong>{count} folds</strong></div>)}<div><span>Features</span><strong>Close-only return + volatility 20</strong></div><div><span>Selection metric</span><strong>Inner raw-space predictive log density</strong></div><div><span>Outer inference</span><strong>Causal terminal-filtered continuation</strong></div></div></section>
+    <SelectionDiagnostics diagnostics={d.selection_diagnostics} seedFrequency={s.selected_seed_frequency} />
+    <section><div className="section-head"><h2>State occupancy by outer fold</h2><span className="tag negative">{o.zero_hard_assignments} EMPTY FOLD-STATE CELLS</span></div><div className="stats compact-stats"><div><small>FOLD-STATE OBSERVATIONS</small><strong>{o.fold_state_observations}</strong><span>14 folds × 5 fold-local states</span></div><div><small>ZERO HARD ASSIGNMENTS</small><strong>{o.zero_hard_assignments}/{o.fold_state_observations}</strong><span>exactly empty</span></div><div><small>YEARS WITH AN EMPTY CELL</small><strong>{o.years_with_empty_state}/{s.outer_folds}</strong><span>at least one empty fold-state cell</span></div><div><small>RARE HEURISTIC FLAGS</small><strong>{o.rare_fold_states}/{o.fold_state_observations}</strong><span>rare ≠ empty</span></div></div><p>Local state IDs are fold-local: State 0 in 2012 is not asserted to be State 0 in 2025. Colour intensity is occupancy only, never an economic classification.</p><p className="definition"><strong>Rare definition:</strong> <code>hard_count &lt; 100 OR hard_fraction &lt; 5%</code>. Rare is not the same as empty and was not an outer-model selection threshold.</p><OccupancyTable rows={o.rows} /><p className="footnote">Hover a cell for count, exact fraction, rare flag, and aligned-ID status.</p></section>
+    <section><div className="section-head"><h2>Temporal alignment across folds</h2><span className="tag warning">{st.subsequent_fold_pairs} SUBSEQUENT PAIRS</span></div><div className="stats compact-stats"><div><small>ACCEPTED</small><strong>{a.accepted}</strong><span>training-only profile matches</span></div><div><small>AMBIGUOUS</small><strong>{a.ambiguous}</strong><span>not forced</span></div><div><small>NEW / UNMATCHED</small><strong>{a.new_unmatched}</strong><span>new structural IDs</span></div><div><small>MODEL / SEED CHANGES</small><strong>{st.candidate_changes}/{st.subsequent_fold_pairs} · {st.seed_changes}/{st.subsequent_fold_pairs}</strong><span>form changes · seed changes</span></div></div><p>The 2012 fold initializes five structural IDs and is excluded from subsequent-pair totals. Bars below show all five states in each of the {st.subsequent_fold_pairs} subsequent comparisons. Agreement is not a probability of true economic identity.</p><div className="legend"><span><i className="accepted-swatch" />Accepted ({a.accepted})</span><span><i className="ambiguous-swatch" />Ambiguous ({a.ambiguous})</span><span><i className="unmatched-swatch" />New / unmatched ({a.new_unmatched})</span></div><AlignmentBars rows={st.folds} /><Task4FoldTable rows={st.folds} /><div className="notice warning-notice"><strong>2025:</strong> all five mappings were ambiguous; none was forced into a prior state identity.</div></section>
+    <section><div className="section-head"><h2>Reproducibility & recovery</h2><span className="tag">VERIFIED COMPARISONS</span></div><div className="stats compact-stats"><div><small>CORE FOLD ARTIFACTS</small><strong>{r.core_artifacts_matched}/{r.core_artifacts_total}</strong><span>seven artifacts × 14 folds, byte-identical</span></div><div><small>GLOBAL FOLD OBJECTS</small><strong>{r.global_fold_objects_matched}/{r.global_fold_objects_total}</strong><span>selection, diagnostics, alignment</span></div><div><small>RECOVERY COVERAGE</small><strong>{s.total_retained_attempts}/{s.total_retained_attempts}</strong><span>expected attempts in completed recovery</span></div><div><small>INITIAL GLOBAL ATTEMPTS</small><strong>Unavailable</strong><span>not reconstructed</span></div></div><div className="notice"><strong>Completed recovery versus initial failure.</strong> The completed recovery run contains all 1,526 expected attempt records. The initial failed execution lost its in-memory global candidate-attempt list during aggregation. Those original records were not reconstructed; recovery coverage is verified against the frozen experiment design, not against a recovered copy of the lost list.</div><p>The 98 comparisons cover seven core artifacts in each of 14 folds. The 42 comparisons cover global selection, diagnostic, and alignment objects against their preserved per-fold counterparts. They do not recover or compare the lost initial global candidate list.</p></section>
+    <section><h2>Scope and non-claims</h2><p>The five-state discovery experiment did not test forecasting, allocation, strategy performance, trading edge, or prospective investment usefulness. Historical baseline strategy and forecasting experiments belong to different experiment directories.</p></section>
+    <section className="sources"><h2>Results and data</h2>{artifact('task4-results-report', 'Results report')}{artifact('task4-aggregate', 'Aggregate results')}{artifact('task4-occupancy', 'Occupancy CSV')}{artifact('task4-model-path', 'Selected model path')}{artifact('task4-candidate-rankings', 'Candidate rankings')}{artifact('task4-seed-sensitivity', 'Seed sensitivity')}<h2>Reproducibility and provenance</h2>{artifact('task4-reproducibility', 'Reproducibility comparison')}{artifact('task4-run-manifest', 'Run manifest')}{artifact('task4-analysis-manifest', 'Analysis manifest')}{artifact('task4-protocol', 'Frozen protocol manifest')}<h2>Recovery history</h2>{artifact('task4-failed-run', 'Initial failure record')}</section>
+  </>;
+}
+
+function GridTable({ rows }) {
+  const groups = {};
+  rows.forEach(row => { const key = `${row.features}|${row.k}|${row.covariance}`; (groups[key] ||= []).push(row); });
+  return <div className="table-wrap"><table><thead><tr><th>Features</th><th>States</th><th>Covariance</th><th>Accepted folds</th><th>Mean log density</th><th>Zero-occupancy folds</th><th>Seed agreement</th></tr></thead><tbody>{Object.entries(groups).map(([key, values]) => { const [feature, k, covariance] = key.split('|'); const accepted = values.filter(row => row.status === 'accepted'); const n = accepted.reduce((sum, row) => sum + row.test_n, 0); const score = n ? accepted.reduce((sum, row) => sum + row.mean_log_density * row.test_n, 0) / n : null; const agreement = accepted.filter(row => row.seed_train_label_agreement != null); return <tr key={key}><th>{feature.toUpperCase()}</th><td>{k}</td><td>{covariance}</td><td>{accepted.length}/{values.length}</td><td>{num(score, 3)}</td><td>{accepted.filter(row => row.min_test_occupancy === 0).length}</td><td>{agreement.length ? pct(agreement.reduce((sum, row) => sum + row.seed_train_label_agreement, 0) / agreement.length, 1) : '—'}</td></tr>; })}</tbody></table></div>;
+}
+
+function Validation({ d, t, error, task4Error }) {
+  const forecastIntervals = d?.forecast_intervals.map(row => ({ id: `${row.horizon}-${row.model}`, label: `${row.horizon} / ${row.model.replaceAll('_', ' ')}`, value: row.mean_squared_error_improvement, lower: row.simultaneous_95_lower, upper: row.simultaneous_95_upper })) || [];
+  return <>
+    <header><p className="eyebrow">PREDICTIVE EVALUATION & VALIDATION / 05</p><h1>Trace every result.</h1><p className="lead">Dataset provenance, feature definitions, causal timing, model comparisons, uncertainty, and known limitations.</p></header>
+    {error && <ErrorState title="Baseline artifacts unavailable" error={error}><p>Discovery provenance below remains independent.</p></ErrorState>}
+    {task4Error && <ErrorState title="Discovery artifacts unavailable" error={task4Error} />}
+    {!d && !error && <p className="loading" role="status">Loading verified baseline and predictive-evaluation artifacts…</p>}
+    {!t && !task4Error && <p className="loading" role="status">Loading verified discovery provenance…</p>}
+    {d && <>
+      <section><h2>Dataset and baseline timing</h2><div className="measure-grid">{[['Experiment', d.experiment_id], ['Source type', d.metadata.data_source.kind], ['Price rows analyzed', integer(d.metadata.data_rows_analyzed)], ['Primary baseline', d.metadata.primary_model], ['First OOS signal', d.metadata.first_signal_date], ['First earned return', d.metadata.first_return_date]].map(([key, value]) => <div key={key}><span>{key}</span><strong>{value}</strong></div>)}</div><p>At close <em>t</em>, the baseline observes features through <em>t</em>. Execution occurs at the next session close and first earns the subsequent close-to-close return. Features and scaling are causal; annual fits use prior observations only.</p><details className="provenance-details"><summary>Baseline hashes and technical metadata</summary><div className="measure-grid">{[['Data SHA-256', d.analysis.provenance.data_sha256], ['Signals SHA-256', d.analysis.provenance.signals_sha256], ['Python', d.metadata.python]].map(([key, value]) => <div key={key}><span>{key}</span><strong className="break">{value}</strong></div>)}</div></details></section>
+      <section><h2>Feature definitions and interpretation</h2><p>Primary baseline HMM inputs: {d.analysis.provenance.inputs.join(', ')}. Other indicators are post-fit diagnostics. This is a price index, not a dividend-aware investable total-return series.</p><p>Gaussian HMMs imply geometric state durations. Ordering local state ranks by volatility after each refit is a heuristic, not evidence of reproducible economic identity.</p></section>
+      <section><h2>Exploratory model grid</h2>{d.grid ? <><p>Joint RV/RVD, state-count, and covariance comparison. Raw-space log densities are comparable only within the same feature set. Seed agreement is training-label agreement after alignment, not outer state identity.</p><p>{d.grid.filter(row => row.status === 'accepted').length} accepted specification-folds of {d.grid.length} attempted.</p><GridTable rows={d.grid} /><p>{artifact('grid-folds', 'Grid fold scores')} · {artifact('grid-fits', 'Seed fits and rejections')} · {artifact('grid-config', 'Grid configuration')}</p></> : <p>Model-grid artifact unavailable.</p>}</section>
+      <section><h2>Forecasting metrics and uncertainty</h2>{d.forecast_metrics ? <><p>Expanding annual ridge fits use past filtered OOS signals and labels mature strictly before each test year. These are close-return forecasts, not implementable portfolio returns.</p><div className="table-wrap"><table><thead><tr><th>Horizon</th><th>Model</th><th>OOS R²</th><th>RMSE</th><th>Observations</th></tr></thead><tbody>{d.forecast_metrics.filter(row => row.year === 'all').map(row => <tr key={`${row.horizon}-${row.model}`}><th>{row.horizon} sessions</th><td>{row.model.replaceAll('_', ' ')}</td><td>{num(row.oos_r2_vs_expanding_mean, 3)}</td><td>{pct(row.rmse)}</td><td>{integer(row.n)}</td></tr>)}</tbody></table></div><h3>Simultaneous 95% intervals · MSE improvement</h3><p>Positive MSE improvement favours adding regime information; negative favours the indicator-only baseline. Units are squared-return MSE improvement—not return, Sharpe, or strategy improvement.</p><IntervalPlot rows={forecastIntervals} scientific label="Forecast simultaneous MSE-improvement intervals" positiveLabel="favours regime additions" negativeLabel="favours indicators only" /><div className="table-wrap"><table><thead><tr><th>Horizon / model</th><th>MSE improvement</th><th>Simultaneous 95% interval</th></tr></thead><tbody>{d.forecast_intervals.map(row => <tr key={`${row.horizon}-${row.model}`}><th>{row.horizon} / {row.model.replaceAll('_', ' ')}</th><td>{num(row.mean_squared_error_improvement, 7)}</td><td>[{num(row.simultaneous_95_lower, 7)}, {num(row.simultaneous_95_upper, 7)}]</td></tr>)}</tbody></table></div><p>{artifact('forecast-metrics', 'Metrics by fold')} · {artifact('forecast-intervals', 'Simultaneous intervals')} · {artifact('forecast-predictions', 'OOS predictions')} · {artifact('forecast-config', 'Forecast configuration')}</p></> : <p>Forecast experiment unavailable.</p>}</section>
+    </>}
+    {t && <section><div className="section-head"><h2>Discovery provenance</h2><span className="tag">SEPARATE EXPERIMENT</span></div><p>The API verifies both immutable inventories and the analysis-to-run manifest link before serving discovery records.</p><div className="measure-grid">{[['Discovery run', t.experiment_id], ['Protocol', t.protocol_version], ['Recovery source', t.provenance.run_source_commit], ['Analysis source', t.provenance.analysis_source_commit]].map(([key, value]) => <div key={key}><span>{key}</span><strong className="break">{value}</strong></div>)}</div><details className="provenance-details"><summary>Discovery dataset, protocol, and engine hashes</summary><div className="measure-grid">{[['Protocol SHA-256', t.provenance.protocol_manifest_sha256], ['Dataset SHA-256', t.provenance.dataset_sha256], ['Feature SHA-256', t.provenance.feature_sha256], ['Engine freeze SHA-256', t.provenance.engine_freeze_sha256]].map(([key, value]) => <div key={key}><span>{key}</span><strong className="break">{value}</strong></div>)}</div></details><p>{artifact('task4-run-manifest', 'Run manifest')} · {artifact('task4-analysis-manifest', 'Analysis manifest')} · {artifact('task4-results-report', 'Discovery results report')} · <Link to="/task4">Open Regime Discovery & Model Stability</Link></p></section>}
+    <section><h2>Known limitations and missing E7 protocol</h2><ul>{(d?.limitations || [error ? 'Baseline limitations are unavailable because their verified response failed.' : 'Loading verified baseline limitations…']).map(item => <li key={item}>{item}</li>)}<li>The discovery experiment does not establish five stable economic regimes or any investment use.</li><li>The exact historical E7 specifications and protocol were not supplied; E7 remains incomplete.</li></ul></section>
+    {d && <section className="sources"><h2>Baseline source artifacts</h2>{artifact('config', 'Configuration')}{artifact('data-quality', 'Data quality by year')}{artifact('signals', 'Filtered probabilities')}{artifact('characterization', 'State analysis')}{artifact('report', 'Full run report')}</section>}
+  </>;
+}
+
+async function fetchJson(url, label) {
+  const response = await fetch(url);
+  if (!response.ok) {
+    let detail = `${label} returned ${response.status}`;
+    try { const body = await response.json(); if (body.detail) detail = body.detail; } catch { /* retain HTTP status */ }
+    throw Error(detail);
+  }
+  return response.json();
+}
 
 export default function App() {
-  return (
-    <div className="app-shell">
-      <Sidebar />
-      <main className="main-content">
-        <Topbar />
-        <div className="page-body">
-          <Routes>
-            <Route path="/" element={<StrategyLab />} />
-            <Route path="/performance" element={<Performance />} />
-            <Route path="/data" element={<DataExplorer />} />
-            <Route path="/regimes" element={<RegimeExplorer />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </div>
-        <Footer />
-      </main>
-    </div>
-  );
+  const [baseline, setBaseline] = useState(null), [baselineError, setBaselineError] = useState(null);
+  const [task4, setTask4] = useState(null), [task4Error, setTask4Error] = useState(null);
+  useEffect(() => { fetchJson('/api/research', 'Baseline API').then(setBaseline).catch(error => setBaselineError(error.message)); }, []);
+  useEffect(() => { fetchJson('/api/task4/discovery', 'Discovery API').then(setTask4).catch(error => setTask4Error(error.message)); }, []);
+  return <div className="shell"><aside><div className="brand"><span className="brand-mark">M<span>R</span></span><div><b>MARKET REGIME</b><small>RESEARCH PLATFORM</small></div></div><p className="nav-label">RESEARCH SECTIONS</p><nav><NavLink to="/" end aria-label="Overview"><b className="nav-number">01</b> <span>Overview</span></NavLink><NavLink to="/regimes" aria-label="Historical Baseline Regimes"><b className="nav-number">02</b> <span><i className="long-label">Historical Baseline </i>Regimes</span></NavLink><NavLink to="/task4" aria-label="Regime Discovery & Model Stability"><b className="nav-number">03</b> <span><i className="long-label">Regime </i>Discovery<i className="long-label"> & Model Stability</i></span></NavLink><NavLink to="/strategies" aria-label="Historical Strategy Evaluation"><b className="nav-number">04</b> <span><i className="long-label">Historical </i>Strategy<i className="long-label"> Evaluation</i></span></NavLink><NavLink to="/validation" aria-label="Predictive Evaluation & Validation"><b className="nav-number">05</b> <span><i className="long-label">Predictive Evaluation & </i>Validation</span></NavLink></nav><div className="side-note"><span className="dot" /> RETROSPECTIVE RESEARCH<br /><small>Not investment advice · no prospective validation</small></div></aside><main><div className="topline"><span>QUANTITATIVE RESEARCH / NIFTY 50</span><span>READ-ONLY ARTIFACT API</span></div><article><Routes><Route path="/" element={<Overview d={baseline} t={task4} error={baselineError} task4Error={task4Error} />} /><Route path="/regimes" element={<BaselineGate d={baseline} error={baselineError} title="Historical Baseline Regimes">{data => <Regimes d={data} />}</BaselineGate>} /><Route path="/task4" element={<Task4Discovery d={task4} error={task4Error} />} /><Route path="/strategies" element={<BaselineGate d={baseline} error={baselineError} title="Historical Strategy Evaluation">{data => <Strategies d={data} />}</BaselineGate>} /><Route path="/validation" element={<Validation d={baseline} t={task4} error={baselineError} task4Error={task4Error} />} /><Route path="*" element={<p>Page not found. Use the research navigation.</p>} /></Routes></article><footer>MARKET REGIME RESEARCH <span>Evidence before narrative · historical analysis only</span></footer></main></div>;
 }

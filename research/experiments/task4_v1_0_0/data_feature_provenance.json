@@ -1,0 +1,75 @@
+{
+  "canonical_path": "research/data/nifty_index.csv",
+  "complete_end": "2026-10-22",
+  "complete_feature_sha256": "e00dbde54886443dd3b0b80c84ef9b7e99d965d61591ba01a0892df68a6c72a9",
+  "complete_rows": 4664,
+  "complete_start": "2007-10-16",
+  "dataset": {
+    "columns": [
+      "Date",
+      "Close",
+      "High",
+      "Low",
+      "Open"
+    ],
+    "end_date": "2026-10-22",
+    "newline_style": "CRLF",
+    "parsed_sha256": "826e89327af5b44d40c74e3ea9396a4c8f953db11493be4f7818c14f382b2be9",
+    "raw_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+    "rows": 4684,
+    "start_date": "2007-09-17"
+  },
+  "feature_contract_version": "f10-close-features-v1",
+  "feature_manifest": {
+    "annualization_sessions": 252,
+    "columns": [
+      "daily_return",
+      "volatility_20"
+    ],
+    "family": "rv",
+    "imputation": false,
+    "internal_gap_policy": "reject",
+    "return_type": "simple_close_to_close",
+    "schema": "f10-close-features-v1",
+    "specs": [
+      {
+        "availability": "known after Close[t]",
+        "first_valid_position": 1,
+        "formula": "Close[t] / Close[t-1] - 1",
+        "inputs": [
+          "Close"
+        ],
+        "lookback_sessions": 1,
+        "missing_value_policy": "first row missing; no imputation",
+        "name": "daily_return",
+        "version": "daily-return-f10-v1"
+      },
+      {
+        "availability": "known after Close[t] using returns through t",
+        "first_valid_position": 20,
+        "formula": "sample_std(daily_return[t-19:t+1], ddof=1) * sqrt(252)",
+        "inputs": [
+          "daily_return"
+        ],
+        "lookback_sessions": 20,
+        "missing_value_policy": "20 nonmissing returns required; no imputation",
+        "name": "volatility_20",
+        "version": "realized-vol20-f10-v1"
+      }
+    ],
+    "volatility_ddof": 1,
+    "warmup_policy": "retain missing rows; trim only common leading warm-up for fitting"
+  },
+  "feature_manifest_sha256": "552f25dddf194933ab95a2e9e26341bcdad4042ef59b91c5290e92a6be3ddda1",
+  "internal_gap_imputation": false,
+  "limitations": [
+    "hash identity is not vendor verification",
+    "not total-return data",
+    "calendar completeness/corporate actions/licensing unverified"
+  ],
+  "ordered_feature_names": [
+    "daily_return",
+    "volatility_20"
+  ],
+  "schema": "task4-data-feature-provenance-v1"
+}

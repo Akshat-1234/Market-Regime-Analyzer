@@ -1,0 +1,142 @@
+{
+  "agreement": 1.0,
+  "current_fold_id": "outer_2020",
+  "current_to_aligned": {
+    "local_0": "structure_outer_2014_local_1",
+    "local_1": "structure_outer_2012_local_4",
+    "local_2": "structure_outer_2014_local_4",
+    "local_3": "structure_outer_2019_local_3",
+    "local_4": "structure_outer_2012_local_1"
+  },
+  "distance_matrix": [
+    [
+      0.008705731985236555,
+      1.7881284174634706,
+      4.052764880971702,
+      0.4673220081260879,
+      0.6573081797493924
+    ],
+    [
+      4.05872145144589,
+      2.2638287342580377,
+      0.004662601492078281,
+      4.514321838858751,
+      3.393628470087027
+    ],
+    [
+      1.79916840835783,
+      0.002769866040079866,
+      2.2636822336174984,
+      2.256389716033411,
+      1.1358792431248295
+    ],
+    [
+      0.4390117823214725,
+      2.2342469427918927,
+      4.49732986824509,
+      0.019970055192307167,
+      1.101565774047132
+    ],
+    [
+      0.6711747998922725,
+      1.129126603093324,
+      3.3909602719528693,
+      1.1257034485320931,
+      0.014206847129297557
+    ]
+  ],
+  "maximum_accepted_distance": 2.0,
+  "method": "training-posterior-profile-hungarian-v1",
+  "minimum_margin": 0.25,
+  "outer_test_used": false,
+  "records": [
+    {
+      "aligned_state_id": "structure_outer_2014_local_1",
+      "confidence": 0.9913694036732568,
+      "distance": 0.008705731985236555,
+      "local_state_id": "local_0",
+      "margin": 0.4303060503362359,
+      "proposed_reference_aligned_id": "structure_outer_2014_local_1",
+      "proposed_reference_local_id": "local_0",
+      "stability": {
+        "expected_duration_abs_difference": 4.6492162946585225,
+        "self_transition_abs_difference": 0.0041139425851342,
+        "training_episode_mean_duration_abs_difference": 4.413436692506458,
+        "training_posterior_occupancy_abs_difference": 0.02376045825402423,
+        "training_profile_distance": 0.008705731985236555
+      },
+      "status": "accepted"
+    },
+    {
+      "aligned_state_id": "structure_outer_2012_local_4",
+      "confidence": 0.9953590374667539,
+      "distance": 0.004662601492078281,
+      "local_state_id": "local_1",
+      "margin": 2.2590196321254203,
+      "proposed_reference_aligned_id": "structure_outer_2012_local_4",
+      "proposed_reference_local_id": "local_2",
+      "stability": {
+        "expected_duration_abs_difference": 0.009178861685477102,
+        "self_transition_abs_difference": 1.6526914246028923e-05,
+        "training_episode_mean_duration_abs_difference": 0.0,
+        "training_posterior_occupancy_abs_difference": 0.002768735584173135,
+        "training_profile_distance": 0.004662601492078281
+      },
+      "status": "accepted"
+    },
+    {
+      "aligned_state_id": "structure_outer_2014_local_4",
+      "confidence": 0.99723778492565,
+      "distance": 0.002769866040079866,
+      "local_state_id": "local_2",
+      "margin": 1.1263567370532441,
+      "proposed_reference_aligned_id": "structure_outer_2014_local_4",
+      "proposed_reference_local_id": "local_1",
+      "stability": {
+        "expected_duration_abs_difference": 0.05990939434145304,
+        "self_transition_abs_difference": 5.1893362457478e-05,
+        "training_episode_mean_duration_abs_difference": 2.855555555555558,
+        "training_posterior_occupancy_abs_difference": 0.008715726366623919,
+        "training_profile_distance": 0.002769866040079866
+      },
+      "status": "accepted"
+    },
+    {
+      "aligned_state_id": "structure_outer_2019_local_3",
+      "confidence": 0.9804209397220568,
+      "distance": 0.019970055192307167,
+      "local_state_id": "local_3",
+      "margin": 0.4190417271291653,
+      "proposed_reference_aligned_id": "structure_outer_2019_local_3",
+      "proposed_reference_local_id": "local_3",
+      "stability": {
+        "expected_duration_abs_difference": 4.18599011797253,
+        "self_transition_abs_difference": 0.0018199616996715795,
+        "training_episode_mean_duration_abs_difference": 1.3961538461538439,
+        "training_posterior_occupancy_abs_difference": 0.04116515611566118,
+        "training_profile_distance": 0.019970055192307167
+      },
+      "status": "accepted"
+    },
+    {
+      "aligned_state_id": "structure_outer_2012_local_1",
+      "confidence": 0.9859921601106225,
+      "distance": 0.014206847129297557,
+      "local_state_id": "local_4",
+      "margin": 0.6431013326200948,
+      "proposed_reference_aligned_id": "structure_outer_2012_local_1",
+      "proposed_reference_local_id": "local_4",
+      "stability": {
+        "expected_duration_abs_difference": 1.4213538190805473,
+        "self_transition_abs_difference": 0.0017580022503989046,
+        "training_episode_mean_duration_abs_difference": 0.49407114624505866,
+        "training_posterior_occupancy_abs_difference": 0.005920235910837901,
+        "training_profile_distance": 0.014206847129297557
+      },
+      "status": "accepted"
+    }
+  ],
+  "reference_fold_id": "outer_2019",
+  "schema": "task4-state-alignment-v1",
+  "unmatched_frequency": 0.0
+}

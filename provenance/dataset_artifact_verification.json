@@ -1,0 +1,1009 @@
+{
+  "1c_manifest_reconciliation": {
+    "declared_entries": 313,
+    "interpretation": "DISCREPANCY, not silently repaired: this older archive manifest is not a complete manifest of the newer 1c tracked tree. Separate Task 1 JSONL inventories cover every tracked 1c blob.",
+    "missing_by_top_level_directory": {
+      "data": 1,
+      "results": 36,
+      "runs": 162
+    },
+    "missing_from_tracked_1c": [
+      "data/raw/nifty_index.csv",
+      "results/nifty_2012_delayed/bootstrap.csv",
+      "results/nifty_2012_delayed/daily_backtests.csv",
+      "results/nifty_2012_delayed/daily_returns.csv",
+      "results/nifty_2012_delayed/data_quality.csv",
+      "results/nifty_2012_delayed/empirical_transitions.csv",
+      "results/nifty_2012_delayed/equity_curves.csv",
+      "results/nifty_2012_delayed/figures/equity_drawdown.png",
+      "results/nifty_2012_delayed/figures/regime_probabilities.png",
+      "results/nifty_2012_delayed/fits.csv",
+      "results/nifty_2012_delayed/metadata.json",
+      "results/nifty_2012_delayed/performance.csv",
+      "results/nifty_2012_delayed/regime_strategy_sharpe.csv",
+      "results/nifty_2012_delayed/regime_summary.csv",
+      "results/nifty_2012_delayed/report.md",
+      "results/nifty_2012_delayed/run_config.yaml",
+      "results/nifty_2012_delayed/signals.csv",
+      "results/nifty_2012_delayed/train_state_calibration.csv",
+      "results/nifty_2012_delayed/train_transition_matrices.csv",
+      "results/nifty_2012_same_close/bootstrap.csv",
+      "results/nifty_2012_same_close/daily_backtests.csv",
+      "results/nifty_2012_same_close/daily_returns.csv",
+      "results/nifty_2012_same_close/data_quality.csv",
+      "results/nifty_2012_same_close/empirical_transitions.csv",
+      "results/nifty_2012_same_close/equity_curves.csv",
+      "results/nifty_2012_same_close/figures/equity_drawdown.png",
+      "results/nifty_2012_same_close/figures/regime_probabilities.png",
+      "results/nifty_2012_same_close/fits.csv",
+      "results/nifty_2012_same_close/metadata.json",
+      "results/nifty_2012_same_close/performance.csv",
+      "results/nifty_2012_same_close/regime_strategy_sharpe.csv",
+      "results/nifty_2012_same_close/regime_summary.csv",
+      "results/nifty_2012_same_close/report.md",
+      "results/nifty_2012_same_close/run_config.yaml",
+      "results/nifty_2012_same_close/signals.csv",
+      "results/nifty_2012_same_close/train_state_calibration.csv",
+      "results/nifty_2012_same_close/train_transition_matrices.csv",
+      "runs/run_20261030_080824_12346d/attribution.csv",
+      "runs/run_20261030_080824_12346d/attribution_bootstrap.csv",
+      "runs/run_20261030_080824_12346d/attribution_control_daily_means.csv",
+      "runs/run_20261030_080824_12346d/attribution_periods.csv",
+      "runs/run_20261030_080824_12346d/attribution_simulations.csv",
+      "runs/run_20261030_080824_12346d/bootstrap.csv",
+      "runs/run_20261030_080824_12346d/cash_sensitivity.csv",
+      "runs/run_20261030_080824_12346d/config.yaml",
+      "runs/run_20261030_080824_12346d/daily_backtests.csv",
+      "runs/run_20261030_080824_12346d/daily_returns.csv",
+      "runs/run_20261030_080824_12346d/data_manifest.json",
+      "runs/run_20261030_080824_12346d/data_quality.csv",
+      "runs/run_20261030_080824_12346d/data_quality_annual.csv",
+      "runs/run_20261030_080824_12346d/data_quality_flags.csv",
+      "runs/run_20261030_080824_12346d/data_quality_summary.json",
+      "runs/run_20261030_080824_12346d/data_quality_weekday_candidates.csv",
+      "runs/run_20261030_080824_12346d/empirical_transitions.csv",
+      "runs/run_20261030_080824_12346d/equity_curves.csv",
+      "runs/run_20261030_080824_12346d/feature_correlations.csv",
+      "runs/run_20261030_080824_12346d/feature_distributions.csv",
+      "runs/run_20261030_080824_12346d/figures/attribution_sharpe.png",
+      "runs/run_20261030_080824_12346d/figures/equity_drawdown.png",
+      "runs/run_20261030_080824_12346d/figures/regime_probabilities.png",
+      "runs/run_20261030_080824_12346d/fits.csv",
+      "runs/run_20261030_080824_12346d/fold_aggregate.csv",
+      "runs/run_20261030_080824_12346d/fold_metrics.csv",
+      "runs/run_20261030_080824_12346d/holdout_freeze.json",
+      "runs/run_20261030_080824_12346d/holdout_retrospective.csv",
+      "runs/run_20261030_080824_12346d/inputs/prices.csv",
+      "runs/run_20261030_080824_12346d/inputs/rbi_tbill_91_yields.csv",
+      "runs/run_20261030_080824_12346d/logs/research.log",
+      "runs/run_20261030_080824_12346d/metadata.json",
+      "runs/run_20261030_080824_12346d/model_diagnostics.csv",
+      "runs/run_20261030_080824_12346d/model_occupancy.csv",
+      "runs/run_20261030_080824_12346d/pca_loadings.csv",
+      "runs/run_20261030_080824_12346d/pca_variance.csv",
+      "runs/run_20261030_080824_12346d/performance.csv",
+      "runs/run_20261030_080824_12346d/rbi_aligned_rates.csv",
+      "runs/run_20261030_080824_12346d/regime_strategy_sharpe.csv",
+      "runs/run_20261030_080824_12346d/regime_summary.csv",
+      "runs/run_20261030_080824_12346d/report.md",
+      "runs/run_20261030_080824_12346d/reports/data_quality.md",
+      "runs/run_20261030_080824_12346d/reports/hmm_attribution.md",
+      "runs/run_20261030_080824_12346d/reports/holdout.md",
+      "runs/run_20261030_080824_12346d/reports/model_diagnostics.md",
+      "runs/run_20261030_080824_12346d/reports/overall.md",
+      "runs/run_20261030_080824_12346d/reports/strategy_comparison.md",
+      "runs/run_20261030_080824_12346d/reports/stress_periods.md",
+      "runs/run_20261030_080824_12346d/reports/walk_forward.md",
+      "runs/run_20261030_080824_12346d/run_config.yaml",
+      "runs/run_20261030_080824_12346d/run_status.json",
+      "runs/run_20261030_080824_12346d/signals.csv",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/__init__.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/__main__.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/attribution.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/cli.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/config.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/data.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/diagnostics.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/execution.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/experiment_tracking.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/features.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/hmm.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/holdout.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/metrics.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/pipeline.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/reporting.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/research_metrics.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/research_reports.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/research_run.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/risk_free.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/strategies.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/stress_testing.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/validation.py",
+      "runs/run_20261030_080824_12346d/source/regime_backtester/walkforward.py",
+      "runs/run_20261030_080824_12346d/state_allocation_diagnostics.csv",
+      "runs/run_20261030_080824_12346d/state_cross_model_matching.csv",
+      "runs/run_20261030_080824_12346d/state_stability.csv",
+      "runs/run_20261030_080824_12346d/stress_periods.csv",
+      "runs/run_20261030_080824_12346d/train_state_calibration.csv",
+      "runs/run_20261030_080824_12346d/train_transition_matrices.csv",
+      "runs/run_20261030_081436_12ea5b/attribution.csv",
+      "runs/run_20261030_081436_12ea5b/attribution_bootstrap.csv",
+      "runs/run_20261030_081436_12ea5b/attribution_control_daily_means.csv",
+      "runs/run_20261030_081436_12ea5b/attribution_periods.csv",
+      "runs/run_20261030_081436_12ea5b/attribution_simulations.csv",
+      "runs/run_20261030_081436_12ea5b/bootstrap.csv",
+      "runs/run_20261030_081436_12ea5b/cash_sensitivity.csv",
+      "runs/run_20261030_081436_12ea5b/config.yaml",
+      "runs/run_20261030_081436_12ea5b/daily_backtests.csv",
+      "runs/run_20261030_081436_12ea5b/daily_returns.csv",
+      "runs/run_20261030_081436_12ea5b/data_manifest.json",
+      "runs/run_20261030_081436_12ea5b/data_quality.csv",
+      "runs/run_20261030_081436_12ea5b/data_quality_annual.csv",
+      "runs/run_20261030_081436_12ea5b/data_quality_flags.csv",
+      "runs/run_20261030_081436_12ea5b/data_quality_summary.json",
+      "runs/run_20261030_081436_12ea5b/data_quality_weekday_candidates.csv",
+      "runs/run_20261030_081436_12ea5b/empirical_transitions.csv",
+      "runs/run_20261030_081436_12ea5b/equity_curves.csv",
+      "runs/run_20261030_081436_12ea5b/feature_correlations.csv",
+      "runs/run_20261030_081436_12ea5b/feature_distributions.csv",
+      "runs/run_20261030_081436_12ea5b/figures/attribution_sharpe.png",
+      "runs/run_20261030_081436_12ea5b/figures/equity_drawdown.png",
+      "runs/run_20261030_081436_12ea5b/figures/regime_probabilities.png",
+      "runs/run_20261030_081436_12ea5b/fits.csv",
+      "runs/run_20261030_081436_12ea5b/fold_aggregate.csv",
+      "runs/run_20261030_081436_12ea5b/fold_metrics.csv",
+      "runs/run_20261030_081436_12ea5b/holdout_freeze.json",
+      "runs/run_20261030_081436_12ea5b/holdout_retrospective.csv",
+      "runs/run_20261030_081436_12ea5b/inputs/prices.csv",
+      "runs/run_20261030_081436_12ea5b/inputs/rbi_tbill_91_yields.csv",
+      "runs/run_20261030_081436_12ea5b/logs/research.log",
+      "runs/run_20261030_081436_12ea5b/metadata.json",
+      "runs/run_20261030_081436_12ea5b/model_diagnostics.csv",
+      "runs/run_20261030_081436_12ea5b/model_occupancy.csv",
+      "runs/run_20261030_081436_12ea5b/pca_loadings.csv",
+      "runs/run_20261030_081436_12ea5b/pca_variance.csv",
+      "runs/run_20261030_081436_12ea5b/performance.csv",
+      "runs/run_20261030_081436_12ea5b/rbi_aligned_rates.csv",
+      "runs/run_20261030_081436_12ea5b/regime_strategy_sharpe.csv",
+      "runs/run_20261030_081436_12ea5b/regime_summary.csv",
+      "runs/run_20261030_081436_12ea5b/report.md",
+      "runs/run_20261030_081436_12ea5b/reports/data_quality.md",
+      "runs/run_20261030_081436_12ea5b/reports/hmm_attribution.md",
+      "runs/run_20261030_081436_12ea5b/reports/holdout.md",
+      "runs/run_20261030_081436_12ea5b/reports/model_diagnostics.md",
+      "runs/run_20261030_081436_12ea5b/reports/overall.md",
+      "runs/run_20261030_081436_12ea5b/reports/strategy_comparison.md",
+      "runs/run_20261030_081436_12ea5b/reports/stress_periods.md",
+      "runs/run_20261030_081436_12ea5b/reports/walk_forward.md",
+      "runs/run_20261030_081436_12ea5b/run_config.yaml",
+      "runs/run_20261030_081436_12ea5b/run_status.json",
+      "runs/run_20261030_081436_12ea5b/signals.csv",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/__init__.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/__main__.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/attribution.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/cli.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/config.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/data.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/diagnostics.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/execution.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/experiment_tracking.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/features.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/hmm.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/holdout.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/metrics.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/pipeline.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/reporting.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/research_metrics.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/research_reports.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/research_run.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/risk_free.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/strategies.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/stress_testing.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/validation.py",
+      "runs/run_20261030_081436_12ea5b/source/regime_backtester/walkforward.py",
+      "runs/run_20261030_081436_12ea5b/state_allocation_diagnostics.csv",
+      "runs/run_20261030_081436_12ea5b/state_cross_model_matching.csv",
+      "runs/run_20261030_081436_12ea5b/state_stability.csv",
+      "runs/run_20261030_081436_12ea5b/stress_periods.csv",
+      "runs/run_20261030_081436_12ea5b/train_state_calibration.csv",
+      "runs/run_20261030_081436_12ea5b/train_transition_matrices.csv"
+    ],
+    "missing_from_tracked_1c_count": 199,
+    "present_and_hash_match_count": 110,
+    "present_but_hash_mismatch": [
+      {
+        "actual_sha256": "b212ce4ce1c01ae1c98ae3138eb26f85447964f1b1e94c5658ddc5962e280d81",
+        "expected_sha256": "40023146e25115d2c1b22c49ad4a91ff7770952a58c207e48d2fb4e08a4d1cf3",
+        "path": ".github/workflows/tests.yml"
+      },
+      {
+        "actual_sha256": "447d4f64b19e4839ce129748d93b9cf0443a68ff98483077b60d7e466561ec13",
+        "expected_sha256": "ccb7ed60f2e2144ce1ab9e61653e7327865f165f3e912cd905e35b1e0e80eeaa",
+        "path": "README.md"
+      },
+      {
+        "actual_sha256": "0eb19ba52089f1e7d3cb097bfb6742f32a9660f77e8e9116fc170f70b6045852",
+        "expected_sha256": "c28894da4dc60f4d15ad3ed51d202a15f95f3f371a7511f544e34943dacffb94",
+        "path": "src/regime_backtester/features.py"
+      },
+      {
+        "actual_sha256": "79921761b5a0265e6c2103b131f36c25fdf55ac4011ef47a2cb284d59aac1b22",
+        "expected_sha256": "1020f6a67c4ddbff13d9c2ca62cc87c5a6e1756d58841aa88436e2c24828fc28",
+        "path": "tests/test_api.py"
+      }
+    ],
+    "present_but_hash_mismatch_count": 4,
+    "tracked_but_not_listed_count_excluding_manifest_itself": 98,
+    "tracked_but_not_listed_excluding_manifest_itself": [
+      "docs/RESEARCH_REPORT.md",
+      "docs/VERIFICATION.md",
+      "research_outputs/LATEST",
+      "research_outputs/study_20261030T102052Z/EXPERIMENT_REGISTER.csv",
+      "research_outputs/study_20261030T102052Z/allocation/matched_controls.csv",
+      "research_outputs/study_20261030T102052Z/allocation/matched_controls_summary.json",
+      "research_outputs/study_20261030T102052Z/allocation/paired_bootstrap.csv",
+      "research_outputs/study_20261030T102052Z/allocation/performance.csv",
+      "research_outputs/study_20261030T102052Z/allocation/reality_check.json",
+      "research_outputs/study_20261030T102052Z/allocation/reality_check_ranking.csv",
+      "research_outputs/study_20261030T102052Z/audit/baseline_probability_diagnostics.json",
+      "research_outputs/study_20261030T102052Z/audit/data_summary.json",
+      "research_outputs/study_20261030T102052Z/audit/execution_timing_sensitivity.csv",
+      "research_outputs/study_20261030T102052Z/audit/feature_correlations.csv",
+      "research_outputs/study_20261030T102052Z/audit/feature_redundancy_top_pairs.csv",
+      "research_outputs/study_20261030T102052Z/audit/feature_vif.csv",
+      "research_outputs/study_20261030T102052Z/discovery/seed_stability.csv",
+      "research_outputs/study_20261030T102052Z/discovery/selection.json",
+      "research_outputs/study_20261030T102052Z/discovery/state_alignment.csv",
+      "research_outputs/study_20261030T102052Z/discovery/state_count_folds.csv",
+      "research_outputs/study_20261030T102052Z/discovery/state_count_sweep.csv",
+      "research_outputs/study_20261030T102052Z/emissions/duration_diagnostics.csv",
+      "research_outputs/study_20261030T102052Z/emissions/emission_comparison.csv",
+      "research_outputs/study_20261030T102052Z/emissions/selection.json",
+      "research_outputs/study_20261030T102052Z/features/feature_ablation.csv",
+      "research_outputs/study_20261030T102052Z/features/selection.json",
+      "research_outputs/study_20261030T102052Z/manifest.json",
+      "research_outputs/study_20261030T102052Z/predictive/entropy_conditioning.csv",
+      "research_outputs/study_20261030T102052Z/predictive/expanding_oos.csv",
+      "research_outputs/study_20261030T102052Z/predictive/hac_regressions.csv",
+      "research_outputs/study_20261030T102052Z/predictive/predictive_summary.json",
+      "research_outputs/study_20261030T102052Z/predictive/state_forward_characteristics.csv",
+      "research_outputs/study_20261030T104848Z/EXPERIMENT_REGISTER.csv",
+      "research_outputs/study_20261030T104848Z/allocation/matched_controls.csv",
+      "research_outputs/study_20261030T104848Z/allocation/matched_controls_summary.json",
+      "research_outputs/study_20261030T104848Z/allocation/paired_bootstrap.csv",
+      "research_outputs/study_20261030T104848Z/allocation/performance.csv",
+      "research_outputs/study_20261030T104848Z/allocation/reality_check.json",
+      "research_outputs/study_20261030T104848Z/allocation/reality_check_ranking.csv",
+      "research_outputs/study_20261030T104848Z/audit/baseline_probability_diagnostics.json",
+      "research_outputs/study_20261030T104848Z/audit/data_summary.json",
+      "research_outputs/study_20261030T104848Z/audit/execution_timing_sensitivity.csv",
+      "research_outputs/study_20261030T104848Z/audit/feature_correlations.csv",
+      "research_outputs/study_20261030T104848Z/audit/feature_redundancy_top_pairs.csv",
+      "research_outputs/study_20261030T104848Z/audit/feature_vif.csv",
+      "research_outputs/study_20261030T104848Z/discovery/seed_stability.csv",
+      "research_outputs/study_20261030T104848Z/discovery/selection.json",
+      "research_outputs/study_20261030T104848Z/discovery/state_alignment.csv",
+      "research_outputs/study_20261030T104848Z/discovery/state_count_folds.csv",
+      "research_outputs/study_20261030T104848Z/discovery/state_count_sweep.csv",
+      "research_outputs/study_20261030T104848Z/emissions/duration_diagnostics.csv",
+      "research_outputs/study_20261030T104848Z/emissions/emission_comparison.csv",
+      "research_outputs/study_20261030T104848Z/emissions/selection.json",
+      "research_outputs/study_20261030T104848Z/features/feature_ablation.csv",
+      "research_outputs/study_20261030T104848Z/features/selection.json",
+      "research_outputs/study_20261030T104848Z/manifest.json",
+      "research_outputs/study_20261030T104848Z/predictive/entropy_conditioning.csv",
+      "research_outputs/study_20261030T104848Z/predictive/expanding_oos.csv",
+      "research_outputs/study_20261030T104848Z/predictive/hac_regressions.csv",
+      "research_outputs/study_20261030T104848Z/predictive/predictive_summary.json",
+      "research_outputs/study_20261030T104848Z/predictive/state_forward_characteristics.csv",
+      "research_outputs/study_20261030T111521Z/EXPERIMENT_REGISTER.csv",
+      "research_outputs/study_20261030T111521Z/allocation/daily_returns.csv",
+      "research_outputs/study_20261030T111521Z/allocation/matched_controls.csv",
+      "research_outputs/study_20261030T111521Z/allocation/matched_controls_summary.json",
+      "research_outputs/study_20261030T111521Z/allocation/paired_bootstrap.csv",
+      "research_outputs/study_20261030T111521Z/allocation/performance.csv",
+      "research_outputs/study_20261030T111521Z/allocation/reality_check.json",
+      "research_outputs/study_20261030T111521Z/allocation/reality_check_ranking.csv",
+      "research_outputs/study_20261030T111521Z/audit/baseline_probability_diagnostics.json",
+      "research_outputs/study_20261030T111521Z/audit/data_summary.json",
+      "research_outputs/study_20261030T111521Z/audit/execution_timing_sensitivity.csv",
+      "research_outputs/study_20261030T111521Z/audit/feature_correlations.csv",
+      "research_outputs/study_20261030T111521Z/audit/feature_redundancy_top_pairs.csv",
+      "research_outputs/study_20261030T111521Z/audit/feature_vif.csv",
+      "research_outputs/study_20261030T111521Z/discovery/seed_stability.csv",
+      "research_outputs/study_20261030T111521Z/discovery/selection.json",
+      "research_outputs/study_20261030T111521Z/discovery/state_alignment.csv",
+      "research_outputs/study_20261030T111521Z/discovery/state_count_folds.csv",
+      "research_outputs/study_20261030T111521Z/discovery/state_count_sweep.csv",
+      "research_outputs/study_20261030T111521Z/emissions/duration_diagnostics.csv",
+      "research_outputs/study_20261030T111521Z/emissions/emission_comparison.csv",
+      "research_outputs/study_20261030T111521Z/emissions/selection.json",
+      "research_outputs/study_20261030T111521Z/features/feature_ablation.csv",
+      "research_outputs/study_20261030T111521Z/features/selection.json",
+      "research_outputs/study_20261030T111521Z/manifest.json",
+      "research_outputs/study_20261030T111521Z/predictive/entropy_conditioning.csv",
+      "research_outputs/study_20261030T111521Z/predictive/expanding_oos.csv",
+      "research_outputs/study_20261030T111521Z/predictive/hac_regressions.csv",
+      "research_outputs/study_20261030T111521Z/predictive/predictive_summary.json",
+      "research_outputs/study_20261030T111521Z/predictive/state_forward_characteristics.csv",
+      "src/regime_backtester/allocation.py",
+      "src/regime_backtester/discovery.py",
+      "src/regime_backtester/emhmm.py",
+      "src/regime_backtester/predictive.py",
+      "src/regime_backtester/significance.py",
+      "src/regime_backtester/study.py",
+      "tests/test_research_discovery.py"
+    ],
+    "tracked_raw_data_paths": [
+      "data/raw/.gitkeep",
+      "data/raw/README.md"
+    ],
+    "tracked_results_paths": [
+      "results/.gitkeep"
+    ],
+    "tracked_runs_paths": []
+  },
+  "1c_research_studies": {
+    "latest_pointer": "study_20261030T111521Z",
+    "source_snapshot_limitation": "The three study manifests declare data/config/package versions but no top-level content-addressed source snapshot field; the complete exact 1c tree is instead covered by the Task 1 source inventory and immutable Git commit.",
+    "studies": [
+      {
+        "created_utc": "2026-10-30T10:20:52.232807+00:00",
+        "data_hash_matches_canonical": true,
+        "declared_data_path": "/home/user/Market-Regime-Analyzer/market-regime-platform/data/raw/nifty_index.csv",
+        "declared_data_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+        "manifest_has_content_addressed_source_snapshot": false,
+        "stage_statuses": {
+          "allocation": "completed",
+          "audit": "completed",
+          "discovery": "completed",
+          "emissions": "completed",
+          "features": "completed",
+          "predictive": "completed",
+          "register": "completed"
+        },
+        "study": "study_20261030T102052Z",
+        "tracked_artifact_count_including_manifest": 29
+      },
+      {
+        "created_utc": "2026-10-30T10:48:48.250688+00:00",
+        "data_hash_matches_canonical": true,
+        "declared_data_path": "/home/user/Market-Regime-Analyzer/market-regime-platform/data/raw/nifty_index.csv",
+        "declared_data_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+        "manifest_has_content_addressed_source_snapshot": false,
+        "stage_statuses": {
+          "allocation": "completed",
+          "audit": "completed",
+          "discovery": "completed",
+          "emissions": "completed",
+          "features": "completed",
+          "predictive": "completed",
+          "register": "completed"
+        },
+        "study": "study_20261030T104848Z",
+        "tracked_artifact_count_including_manifest": 29
+      },
+      {
+        "created_utc": "2026-10-30T11:15:21.832903+00:00",
+        "data_hash_matches_canonical": true,
+        "declared_data_path": "/home/user/Market-Regime-Analyzer/market-regime-platform/data/raw/nifty_index.csv",
+        "declared_data_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+        "manifest_has_content_addressed_source_snapshot": false,
+        "stage_statuses": {
+          "allocation": "completed",
+          "audit": "completed",
+          "discovery": "completed",
+          "emissions": "completed",
+          "features": "completed",
+          "predictive": "completed",
+          "register": "completed"
+        },
+        "study": "study_20261030T111521Z",
+        "tracked_artifact_count_including_manifest": 30
+      }
+    ]
+  },
+  "archives": {
+    "archive_core_source_file_count": 23,
+    "archive_core_source_sha256": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e",
+    "archive_main_run_expected_files_missing": [
+      "signals.csv",
+      "daily_backtests.csv",
+      "performance.csv",
+      "run_status.json",
+      "holdout_freeze.json"
+    ],
+    "archive_main_run_member_count": 37,
+    "archive_preliminary_run_expected_files_present": [
+      "signals.csv",
+      "daily_backtests.csv",
+      "performance.csv",
+      "run_status.json",
+      "holdout_freeze.json"
+    ],
+    "archived_freeze": {
+      "baseline_data_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+      "evaluation_decision_date_strictly_after": "2026-10-30",
+      "frozen_at_exchange_date": "2026-10-30",
+      "frozen_at_utc": "2026-10-30T08:09:44.766563+00:00",
+      "frozen_config": {
+        "backtest": {
+          "annual_risk_free_rate": 0.065,
+          "execution_delay_sessions": 1,
+          "initial_capital": 1000.0,
+          "mean_reversion_entry_band": 0.02,
+          "mean_reversion_window": 20,
+          "momentum_window": 20,
+          "trading_days_per_year": 252,
+          "transaction_cost_bps": 10.0,
+          "trend_weight_in_blend": 0.5,
+          "trend_window": 50,
+          "vol_target": 0.12
+        },
+        "bootstrap": {
+          "block_length": 20,
+          "confidence": 0.95,
+          "samples": 1000,
+          "seed": 42
+        },
+        "data": {
+          "csv": "<data-input>",
+          "date_column": "Date",
+          "price_column": "Close"
+        },
+        "hmm": {
+          "covariance_type": "diag",
+          "min_covar": 0.001,
+          "min_state_fraction": 0.02,
+          "models": [
+            {
+              "features": [
+                "daily_return",
+                "volatility_20"
+              ],
+              "n_states": 2,
+              "name": "rv_2"
+            },
+            {
+              "features": [
+                "daily_return",
+                "volatility_20"
+              ],
+              "n_states": 3,
+              "name": "rv_3"
+            },
+            {
+              "features": [
+                "daily_return",
+                "volatility_20",
+                "drawdown_252"
+              ],
+              "n_states": 2,
+              "name": "rvd_2"
+            },
+            {
+              "features": [
+                "daily_return",
+                "volatility_20",
+                "drawdown_252"
+              ],
+              "n_states": 3,
+              "name": "rvd_3"
+            }
+          ],
+          "n_iter": 250,
+          "primary_model": "rvd_3",
+          "seeds": [
+            2,
+            42
+          ],
+          "target_volatility": 0.12,
+          "tol": 0.05,
+          "volatility_floor": 0.03
+        },
+        "output": {
+          "directory": "<run-output>"
+        },
+        "walkforward": {
+          "end_date": null,
+          "max_train_days": null,
+          "min_train_days": 504,
+          "start_date": "2012-01-01"
+        }
+      },
+      "frozen_config_sha256": "65b1f03fc3c4040713b7766035838712434f7f775f2781b7ef1f96dcc8a8ce1d",
+      "last_original_data_date": "2026-10-22",
+      "rules": "Fixed specs, hyperparameters, lag and costs; scheduled annual refits may use only prior observations. Decisions must be after both freeze day and original data end.",
+      "source_code_sha256": "11094a4003ab033719771e6e9cbd2da4370b28de74b14d8010d9806935e1c69f",
+      "status": "PENDING \u2014 no post-freeze data evaluated",
+      "warning": "Frozen after extensive historical examination. 2023\u20132026 is retrospective, not untouched."
+    },
+    "arena_zip": {
+      "byte_identical_across_f10_1c_original_and_worktree": true,
+      "contains_1351_members_including_historical_environment": true,
+      "crc_passed": true,
+      "members": 1351,
+      "path_1c": "market-regime-platform.zip",
+      "path_f10": "historical/arena-market-regime-platform.zip",
+      "sha256": "bdf7b9136f8fd9b52dc6eedd34fd916c74f8baaaccc8815b3bd170dfc948d4b1"
+    },
+    "original_project_zip": {
+      "all_members_match_manifest_and_original_git": true,
+      "crc_passed": true,
+      "members": 68,
+      "path": "historical/original-project-31902b7.zip",
+      "sha256": "cb9e89db36e9114f47424eb3b64a1165c2958baeaf612c848e5215128c779e01"
+    }
+  },
+  "checks": [
+    {
+      "detail": null,
+      "name": "f10 canonical data Git blob equals clean working-tree bytes",
+      "status": "verified"
+    },
+    {
+      "detail": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+      "name": "f10 canonical data SHA-256 matches Task 0",
+      "status": "verified"
+    },
+    {
+      "detail": "cf384a63c9137ec9b7f73d398c7ec5fc55ccdcccf89a514b824ad5341f409e59",
+      "name": "1c root data SHA-256 matches Task 0 LF variant",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "f10 CRLF data normalizes exactly to 1c root LF bytes",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "f10 and 1c root parsed CSV rows are exactly equal",
+      "status": "verified"
+    },
+    {
+      "detail": {
+        "crlf_count": 4685,
+        "data_rows": 4684,
+        "date_end": "2026-10-22",
+        "date_start": "2007-09-17",
+        "duplicate_date_count": 0,
+        "header": [
+          "Date",
+          "Close",
+          "High",
+          "Low",
+          "Open"
+        ],
+        "high_below_low_count": 0,
+        "high_below_open_or_close_count": 0,
+        "lf_count": 4685,
+        "low_above_open_or_close_count": 0,
+        "missing_cell_count": 0,
+        "nonfinite_numeric_cell_count": 0,
+        "nonpositive_close_count": 0,
+        "nonpositive_open_count": 0,
+        "strictly_increasing_dates": true
+      },
+      "name": "canonical row count and date range match Task 0",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "canonical dates are strictly increasing and unique",
+      "status": "verified"
+    },
+    {
+      "detail": {
+        "crlf_count": 0,
+        "data_rows": 4682,
+        "date_end": "2026-10-16",
+        "date_start": "2007-09-17",
+        "duplicate_date_count": 0,
+        "header": [
+          "Date",
+          "Close",
+          "High",
+          "Low",
+          "Open"
+        ],
+        "high_below_low_count": 0,
+        "high_below_open_or_close_count": 0,
+        "lf_count": 4682,
+        "low_above_open_or_close_count": 0,
+        "missing_cell_count": 0,
+        "nonfinite_numeric_cell_count": 0,
+        "nonpositive_close_count": 0,
+        "nonpositive_open_count": 0,
+        "strictly_increasing_dates": true
+      },
+      "name": "1c backend stale dataset discrepancy is reproduced",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "Arena ZIP CRC check passes",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "Arena archive raw data is byte-identical to f10 canonical data",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "original-project ZIP CRC check passes",
+      "status": "verified"
+    },
+    {
+      "detail": {
+        "archive": 68,
+        "git_without_separate_zip": 68,
+        "manifest": 68
+      },
+      "name": "original archive, manifest, and original Git tree have identical 68-file path sets",
+      "status": "verified"
+    },
+    {
+      "detail": [],
+      "name": "all original archive members match the preservation manifest",
+      "status": "verified"
+    },
+    {
+      "detail": [],
+      "name": "all original archive members are byte-identical to original Git blobs",
+      "status": "verified"
+    },
+    {
+      "detail": "bdf7b9136f8fd9b52dc6eedd34fd916c74f8baaaccc8815b3bd170dfc948d4b1",
+      "name": "f10 Arena ZIP SHA-256 matches declared hash",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "Arena ZIP is byte-identical in f10, 1c, original commit, and working tree",
+      "status": "verified"
+    },
+    {
+      "detail": {
+        "count": 12
+      },
+      "name": "all 12 f10 artifact-manifest hashes match Git and working tree",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "f10 baseline input snapshot and declared data hashes match canonical bytes",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "f10 baseline metadata agrees with canonical dataset shape",
+      "status": "verified"
+    },
+    {
+      "detail": {
+        "declared": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e",
+        "files": 23,
+        "legacy": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e",
+        "snapshot": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e"
+      },
+      "name": "f10 baseline core-source hash reproduces for saved snapshot and active legacy copy",
+      "status": "verified"
+    },
+    {
+      "detail": {
+        "files": 23
+      },
+      "name": "f10 saved source snapshot and active legacy package are byte-identical",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "characterization analysis-source hash matches source",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "characterization input hashes match baseline and canonical data",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "model-grid source and data hashes match",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "forecast source, signal, and data hashes match",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "1c tracked MANIFEST.sha256 is byte-identical to the older Arena archive manifest",
+      "status": "verified"
+    },
+    {
+      "detail": {
+        "raw": [
+          "data/raw/.gitkeep",
+          "data/raw/README.md"
+        ],
+        "results": [
+          "results/.gitkeep"
+        ],
+        "runs": []
+      },
+      "name": "1c tracked-tree raw-data/runs discrepancy is reproduced",
+      "status": "verified"
+    },
+    {
+      "detail": {
+        "current_1c": "643edb36962597432f16e0ad553e38715a3d52040491186e6d9930e0ee4f6846",
+        "freeze": "11094a4003ab033719771e6e9cbd2da4370b28de74b14d8010d9806935e1c69f"
+      },
+      "name": "1c current source hash differs from archived prospective freeze",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "all three 1c study manifests declare the canonical data hash",
+      "status": "verified"
+    },
+    {
+      "detail": null,
+      "name": "1c LATEST resolves to the retained reference study",
+      "status": "verified"
+    }
+  ],
+  "datasets": {
+    "1c_backend_stale_variant": {
+      "crlf_count": 0,
+      "data_rows": 4682,
+      "date_end": "2026-10-16",
+      "date_start": "2007-09-17",
+      "duplicate_date_count": 0,
+      "header": [
+        "Date",
+        "Close",
+        "High",
+        "Low",
+        "Open"
+      ],
+      "high_below_low_count": 0,
+      "high_below_open_or_close_count": 0,
+      "lf_count": 4682,
+      "low_above_open_or_close_count": 0,
+      "missing_cell_count": 0,
+      "nonfinite_numeric_cell_count": 0,
+      "nonpositive_close_count": 0,
+      "nonpositive_open_count": 0,
+      "path": "backend/nifty_index.csv",
+      "sha256": "af910f00995930925f7bb30efeaf00e4e7cc8737d3b0d7d36c807f7abcda0416",
+      "strictly_increasing_dates": true
+    },
+    "1c_root_lf_variant": {
+      "crlf_count": 0,
+      "data_rows": 4684,
+      "date_end": "2026-10-22",
+      "date_start": "2007-09-17",
+      "duplicate_date_count": 0,
+      "header": [
+        "Date",
+        "Close",
+        "High",
+        "Low",
+        "Open"
+      ],
+      "high_below_low_count": 0,
+      "high_below_open_or_close_count": 0,
+      "lf_count": 4685,
+      "low_above_open_or_close_count": 0,
+      "missing_cell_count": 0,
+      "nonfinite_numeric_cell_count": 0,
+      "nonpositive_close_count": 0,
+      "nonpositive_open_count": 0,
+      "parsed_rows_equal_f10": true,
+      "path": "nifty_index.csv",
+      "sha256": "cf384a63c9137ec9b7f73d398c7ec5fc55ccdcccf89a514b824ad5341f409e59",
+      "strictly_increasing_dates": true
+    },
+    "external_vendor_and_rights_status": "UNVERIFIED: historical docs attribute the user-supplied file to Yahoo Finance ^NSEI, but no independent vendor verification, total-return confirmation, exchange-calendar certification, or redistribution/license clearance was supplied or performed.",
+    "f10_canonical": {
+      "crlf_count": 4685,
+      "data_rows": 4684,
+      "date_end": "2026-10-22",
+      "date_start": "2007-09-17",
+      "duplicate_date_count": 0,
+      "header": [
+        "Date",
+        "Close",
+        "High",
+        "Low",
+        "Open"
+      ],
+      "high_below_low_count": 0,
+      "high_below_open_or_close_count": 0,
+      "lf_count": 4685,
+      "low_above_open_or_close_count": 0,
+      "missing_cell_count": 0,
+      "nonfinite_numeric_cell_count": 0,
+      "nonpositive_close_count": 0,
+      "nonpositive_open_count": 0,
+      "path": "research/data/nifty_index.csv",
+      "sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+      "strictly_increasing_dates": true
+    },
+    "interpretation": "Hash and parsed-row equality establish byte/logical relationships only; OHLC anomalies are recorded, not repaired."
+  },
+  "discrepancies": [
+    {
+      "finding": "f10 canonical CSV is CRLF with SHA ea6dff\u2026; 1c root CSV is LF with SHA cf384a\u2026; parsed rows are identical.",
+      "id": "T1-D01",
+      "status": "recorded"
+    },
+    {
+      "finding": "1c backend/nifty_index.csv has 4,682 rows ending 2026-10-16 and is not the canonical 4,684-row input.",
+      "id": "T1-D02",
+      "status": "recorded"
+    },
+    {
+      "finding": "1c tracked data/raw has only .gitkeep/README and results has only .gitkeep; no tracked runs/ tree, despite older docs/manifest describing populated paths.",
+      "id": "T1-D03",
+      "status": "recorded"
+    },
+    {
+      "finding": "1c MANIFEST.sha256 matches the older archive, not the newer tracked tree; missing/mismatched/unlisted counts are preserved above.",
+      "id": "T1-D04",
+      "status": "recorded"
+    },
+    {
+      "finding": "The archived main run lacks expected tables/status/freeze; preliminary-run files and raw input are available only in the historical ZIP, not the newer 1c tracked platform tree.",
+      "id": "T1-D05",
+      "status": "recorded"
+    },
+    {
+      "finding": "Archived freeze source hash does not match current 1c source; canonical data ends before the freeze decision boundary.",
+      "id": "T1-D06",
+      "status": "recorded"
+    },
+    {
+      "finding": "1c study manifests lack complete content-addressed source snapshots; exact Git commit plus new inventory supplies workspace provenance but does not retroactively change historical manifests.",
+      "id": "T1-D07",
+      "status": "recorded"
+    },
+    {
+      "finding": "f10 older research record says E7 was not found; Task 0 later locates an ambiguous E7 proposal in 1c. The later audit governs; ambiguity remains deferred.",
+      "id": "T1-D08",
+      "status": "recorded"
+    },
+    {
+      "finding": "1c historical reports call abe195ac\u2026 the current core hash, but exact-tip Git recomputation and direct execution of its core_source_sha256() both produce 643edb36962597432f16e0ad553e38715a3d52040491186e6d9930e0ee4f6846. The archived 11094a40\u2026 freeze still does not match; the validity conclusion is unchanged.",
+      "id": "T1-D09",
+      "status": "recorded"
+    }
+  ],
+  "f10_artifacts": {
+    "artifact_manifest_entries": [
+      {
+        "actual_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+        "expected_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+        "path": "research/experiments/baseline_20261104/inputs/prices.csv",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "92b5698c3ea6212220c976b626b55f71ebca510bcc398b4d465cfb45bcc36975",
+        "expected_sha256": "92b5698c3ea6212220c976b626b55f71ebca510bcc398b4d465cfb45bcc36975",
+        "path": "research/experiments/baseline_20261104/signals.csv",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "63fac04d2a28b47485277036bced6e69a52dfa7d18b2b6efed73163e954daca4",
+        "expected_sha256": "63fac04d2a28b47485277036bced6e69a52dfa7d18b2b6efed73163e954daca4",
+        "path": "research/experiments/baseline_20261104/metadata.json",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "9054268149d48b0cf1f3770960eb402b5237baf868889e07e7a1b9df980f73d6",
+        "expected_sha256": "9054268149d48b0cf1f3770960eb402b5237baf868889e07e7a1b9df980f73d6",
+        "path": "research/experiments/baseline_20261104/performance.csv",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "2beddbc1106e0c9933a43273acceabb2fa00245055429138b1ffff5560a22c08",
+        "expected_sha256": "2beddbc1106e0c9933a43273acceabb2fa00245055429138b1ffff5560a22c08",
+        "path": "research/experiments/baseline_20261104/bootstrap.csv",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "f090863a0c8dc7683c441bf913ec2f258ac6581713e12c4bb6682e1624a53f7c",
+        "expected_sha256": "f090863a0c8dc7683c441bf913ec2f258ac6581713e12c4bb6682e1624a53f7c",
+        "path": "research/experiments/baseline_20261104/equity_curves.csv",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "68a30d5ebb8747429d4c7fa4e9f88de48ab50a8aef5c62fdb1fbceff19a43c74",
+        "expected_sha256": "68a30d5ebb8747429d4c7fa4e9f88de48ab50a8aef5c62fdb1fbceff19a43c74",
+        "path": "research/experiments/characterization_20261104/analysis.json",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "f8c3a0aac1790ba0719b529be0ff482a5b37456a4d768193a1cc466203d0a727",
+        "expected_sha256": "f8c3a0aac1790ba0719b529be0ff482a5b37456a4d768193a1cc466203d0a727",
+        "path": "research/experiments/model_grid_20261104/config.json",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "15b44e24886b695a175f83cea8ed665703c63d73807e5d8582c4ff27e6019862",
+        "expected_sha256": "15b44e24886b695a175f83cea8ed665703c63d73807e5d8582c4ff27e6019862",
+        "path": "research/experiments/model_grid_20261104/fold_scores.csv",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "51f97aa7379942722de61f59b04c1a48d2abfa22678e50516560482071e3306e",
+        "expected_sha256": "51f97aa7379942722de61f59b04c1a48d2abfa22678e50516560482071e3306e",
+        "path": "research/experiments/forecast_20261104/config.json",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "ffb0f92db291df8009040d89aebbcb7d2bfe9d22b8fcb5e50bc5cc6c64fb61ee",
+        "expected_sha256": "ffb0f92db291df8009040d89aebbcb7d2bfe9d22b8fcb5e50bc5cc6c64fb61ee",
+        "path": "research/experiments/forecast_20261104/metrics.csv",
+        "status": "verified"
+      },
+      {
+        "actual_sha256": "bedc80e2e50f1b0fff3ff0f41f5fb5f4bc7efb919da7709410297888f408a15a",
+        "expected_sha256": "bedc80e2e50f1b0fff3ff0f41f5fb5f4bc7efb919da7709410297888f408a15a",
+        "path": "research/experiments/forecast_20261104/simultaneous_intervals.csv",
+        "status": "verified"
+      }
+    ],
+    "baseline_core_source": {
+      "active_legacy_recomputed": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e",
+      "declared": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e",
+      "python_file_count": 23,
+      "snapshot_recomputed": "c163aa675d12902f42957722320db88f94e6038679b36c3d128a52202c445a3e"
+    },
+    "characterization_provenance": {
+      "analysis_source_sha256": "1195c6a04cbe15964281577a3c506d3542910b981dc142c1bc9b5e131af7cc80",
+      "data_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+      "diagnostics": "All other measures are post-fit; full-sample percentile and forward outcomes are descriptive only.",
+      "forward_warning": "Overlapping forward returns; descriptive only, no confidence intervals or causal claims.",
+      "inference": "Filtered OOS probabilities, yearly refits; rank alignment is a volatility heuristic, not state identity.",
+      "inputs": [
+        "daily_return",
+        "volatility_20",
+        "drawdown_252"
+      ],
+      "run": "baseline_20261104",
+      "signals_sha256": "92b5698c3ea6212220c976b626b55f71ebca510bcc398b4d465cfb45bcc36975"
+    },
+    "forecast_declared_source_sha256": "719ccdc95a3160a4fb48b68a4392d8dbf7b6d86ee99bb33b88c3f3b4da1e44a9",
+    "model_grid_declared_source_sha256": "cc77016d2f26d56a7761a7cfebda6176bee96581059adbc780477c7c81262445"
+  },
+  "method": "read-only Python standard-library checks against exact Git blobs and existing ZIP/JSON manifests; no research experiment, model fit, build, or general test suite",
+  "prospective_status": {
+    "archived_freeze_source_code_sha256": "11094a4003ab033719771e6e9cbd2da4370b28de74b14d8010d9806935e1c69f",
+    "canonical_last_observation": "2026-10-22",
+    "current_1c_core_source_file_count": 29,
+    "current_1c_core_source_sha256": "643edb36962597432f16e0ad553e38715a3d52040491186e6d9930e0ee4f6846",
+    "evaluation_decision_date_strictly_after": "2026-10-30",
+    "freeze_matches_current_1c_source": false,
+    "historical_1c_reports_claimed_current_source_prefix": "abe195ac\u2026",
+    "historical_report_hash_claim_status": "STALE AT EXACT 1c TIP: direct execution of the exact core_source_sha256() function and independent Git-blob recomputation both produce 643edb36962597432f16e0ad553e38715a3d52040491186e6d9930e0ee4f6846.",
+    "status": "INVALID FOR CURRENT SOURCE / NO QUALIFYING POST-FREEZE OBSERVATION IN CANONICAL DATA; no prospective evaluation was run."
+  },
+  "schema": "market-regime-task1-artifact-verification-v1",
+  "source_commits": {
+    "1c": "c46541e9ab8611330489a920c46cdb00342931d5",
+    "f10": "9bb7f92d5785462462971d0479595c1d4166868c",
+    "original_f10_ancestor": "31902b7cdec9409f805784d9634d3bfd5f25c03f"
+  },
+  "summary": {
+    "discrepancy_count": 9,
+    "failed_check_count": 0,
+    "unverified_external_provenance": true,
+    "verified_check_count": 30
+  },
+  "verified_at_utc": "2026-11-05T13:49:11.759621+00:00"
+}
