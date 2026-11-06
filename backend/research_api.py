@@ -90,8 +90,35 @@ def task4_check():
             stability['schema'] != 'task4-stability-analysis-v1' or
             reproducibility['schema'] != 'task4-reproducibility-comparison-v1'):
             raise ValueError('Task 4 summary records are inconsistent')
+        ranking_groups = {}
+        for row in records(TASK4_ANALYSIS/'candidate_rankings.csv'):
+            ranking_groups.setdefault(row['fold_id'], []).append(row)
+        margins = []
+        for fold_id, rows in sorted(ranking_groups.items()):
+            ordered = sorted(rows, key=lambda row:row['rank'])
+            if len(ordered) < 2 or [ordered[0]['rank'], ordered[1]['rank']] != [1, 2]:
+                raise ValueError(f'Task 4 candidate ranks are incomplete: {fold_id}')
+            best, runner_up = ordered[:2]
+            gap = float(best['mean_inner_raw_log_density_per_observation'] - runner_up['mean_inner_raw_log_density_per_observation'])
+            if gap < 0:
+                raise ValueError(f'Task 4 candidate ranks have the wrong score order: {fold_id}')
+            margins.append({'fold_id':fold_id, 'best_candidate_id':best['candidate_id'],
+                            'runner_up_candidate_id':runner_up['candidate_id'],
+                            'best_score':best['mean_inner_raw_log_density_per_observation'],
+                            'runner_up_score':runner_up['mean_inner_raw_log_density_per_observation'],
+                            'score_gap':gap, 'near_tie':gap < 0.005})
+        seed_sensitivity = records(TASK4_ANALYSIS/'seed_sensitivity.csv')
+        if len(margins) != run['folds'] or len(seed_sensitivity) != run['folds'] * 3:
+            raise ValueError('Task 4 ranking or seed-sensitivity coverage is inconsistent')
+        selection_diagnostics = {
+            'margin_threshold':0.005, 'near_tie_folds':sum(row['near_tie'] for row in margins),
+            'fold_count':len(margins), 'margins':margins, 'seed_sensitivity':seed_sensitivity,
+            'single_seed_winner_match_count':stability['model_path']['single_seed_winner_match_count'],
+            'single_seed_winner_match_denominator':stability['model_path']['single_seed_winner_match_denominator'],
+            'folds_where_all_single_seed_winners_agree':stability['model_path']['folds_where_all_single_seed_winners_agree']}
         return {'run':run, 'analysis':analysis, 'coverage':coverage, 'aggregate':aggregate,
-                'stability':stability, 'reproducibility':reproducibility}
+                'stability':stability, 'reproducibility':reproducibility,
+                'selection_diagnostics':selection_diagnostics}
     except (OSError, ValueError, KeyError, TypeError) as exc:
         raise HTTPException(503, f'Task 4 artifacts missing or inconsistent: {exc}') from exc
 
@@ -99,13 +126,18 @@ def task4_check():
 @app.get('/api/research')
 def research():
     analysis, meta = check()
-    curves = pd.read_csv(RUN/'equity_curves.csv')
-    # Keep endpoints bounded without constructing fictitious observations.
-    curves = curves.iloc[sorted(set(range(0,len(curves),10)) | {len(curves)-1})]
+    saved_curves = pd.read_csv(RUN/'equity_curves.csv')
+    # Sample saved observations only; never synthesize an initial point or interpolate new values.
+    curves = saved_curves.iloc[sorted(set(range(0,len(saved_curves),10)) | {len(saved_curves)-1})]
+    curve_sampling = {'stride':10, 'final_observation_included':True,
+                      'saved_rows':int(len(saved_curves)), 'displayed_rows':int(len(curves)),
+                      'start_date':str(saved_curves['Date'].iloc[0]), 'end_date':str(saved_curves['Date'].iloc[-1]),
+                      'initial_capital_assumption':1000, 'value_column_unit':'account equity'}
     grid = records(GRID/'fold_scores.csv') if (GRID/'fold_scores.csv').exists() else None
     return {'experiment_id':'baseline_20261104', 'metadata':meta,
             'analysis':analysis, 'performance':records(RUN/'performance.csv'),
             'bootstrap':records(RUN/'bootstrap.csv'), 'curves':curves.to_dict(orient='records'),
+            'curve_sampling':curve_sampling,
             'forecast_metrics': records(FORECAST/'metrics.csv') if (FORECAST/'metrics.csv').exists() else None,
             'forecast_intervals': records(FORECAST/'simultaneous_intervals.csv') if (FORECAST/'simultaneous_intervals.csv').exists() else None,
             'grid':grid, 'grid_config':json.loads((GRID/'config.json').read_text()) if grid is not None else None,
@@ -159,7 +191,13 @@ def task4_discovery():
             'selected_state_count_frequency':aggregate['selected_state_count_frequency'],
             'selected_candidate_frequency':aggregate['selected_candidate_frequency'],
             'selected_seed_frequency':aggregate['selected_seed_frequency'],
-            'fit_status_counts':coverage['candidate_fit_status_counts']},
+            'fit_status_counts':coverage['candidate_fit_status_counts'],
+            'accepted_attempts':coverage['candidate_fit_status_counts'].get('accepted', 0),
+            'converged_attempts':coverage['converged_counts'].get('True', 0),
+            'rejected_attempts':coverage['candidate_fit_status_counts'].get('rejected', 0),
+            'failed_attempts':coverage['candidate_fit_status_counts'].get('failed', 0),
+            'nonconverged_attempts':coverage['actual_attempts'] - coverage['converged_counts'].get('True', 0)},
+        'selection_diagnostics':verified['selection_diagnostics'],
         'occupancy':{
             'fold_state_observations':stability['outer_occupancy']['fold_state_rows'],
             'zero_hard_assignments':stability['outer_occupancy']['zero_hard_assignment_fold_state_rows'],
@@ -207,6 +245,7 @@ TASK4_RUN_ARTIFACTS = {'task4-aggregate':'aggregate_results.json', 'task4-alignm
                        'task4-run-manifest':'run_manifest.json', 'task4-protocol':'protocol_manifest.json'}
 TASK4_ANALYSIS_ARTIFACTS = {'task4-coverage':'coverage_verification.json', 'task4-stability':'stability_analysis.json',
                             'task4-occupancy':'state_occupancy.csv', 'task4-model-path':'selected_model_path.csv',
+                            'task4-candidate-rankings':'candidate_rankings.csv', 'task4-seed-sensitivity':'seed_sensitivity.csv',
                             'task4-reproducibility':'reproducibility_comparison.json',
                             'task4-analysis-manifest':'analysis_manifest.json'}
 
@@ -248,14 +287,6 @@ def artifact(name: str):
     if name not in ARTIFACTS:
         raise HTTPException(404, 'Unknown artifact')
     return FileResponse(RUN/ARTIFACTS[name], filename=ARTIFACTS[name])
-
-
-@app.api_route('/api/download', methods=['GET', 'HEAD'])
-def download_project():
-    archive = ROOT / 'Market-Regime-Research.zip'
-    if not archive.is_file():
-        raise HTTPException(404, 'Project archive has not been created')
-    return FileResponse(archive, media_type='application/zip', filename=archive.name)
 
 
 # Serve the production dashboard on the same origin as its API. The Vite dev

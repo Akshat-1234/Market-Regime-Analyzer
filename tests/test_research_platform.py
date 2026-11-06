@@ -116,6 +116,18 @@ def test_task4_api_serves_verified_results_and_rejects_tampering(tmp_path, monke
     assert data['reproducibility']['global_fold_objects_matched'] == 42
     assert data['reproducibility']['initial_failure']['candidate_attempt_records_lost_in_memory'] is True
     assert client.get('/api/artifacts/task4-occupancy').status_code == 200
+    assert client.get('/api/artifacts/task4-candidate-rankings').status_code == 200
+    assert client.get('/api/artifacts/task4-seed-sensitivity').status_code == 200
+    original_analysis = api.TASK4_ANALYSIS
+    copied_analysis = tmp_path/'task4-analysis'
+    shutil.copytree(original_analysis, copied_analysis)
+    with (copied_analysis/'candidate_rankings.csv').open('a') as handle:
+        handle.write(' ')
+    monkeypatch.setattr(api, 'TASK4_ANALYSIS', copied_analysis)
+    rejected_analysis = client.get('/api/task4/discovery')
+    assert rejected_analysis.status_code == 503
+    assert 'candidate_rankings.csv' in rejected_analysis.json()['detail']
+    monkeypatch.setattr(api, 'TASK4_ANALYSIS', original_analysis)
     copied = tmp_path/'task4-run'
     shutil.copytree(api.TASK4_RUN, copied)
     with (copied/'aggregate_results.json').open('a') as handle:
@@ -191,14 +203,92 @@ def test_dashboard_build_assets_when_available():
     assert 'javascript' in response.headers['content-type']
 
 
-def test_project_download(tmp_path, monkeypatch):
+def test_equity_api_samples_only_saved_rows():
+    data = TestClient(app).get('/api/research').json()
+    saved = pd.read_csv(RUN/'equity_curves.csv')
+    indices = sorted(set(range(0, len(saved), 10)) | {len(saved)-1})
+    expected = saved.iloc[indices].reset_index(drop=True)
+    actual = pd.DataFrame(data['curves'])
+    sampling = data['curve_sampling']
+    assert sampling == {
+        'stride': 10, 'final_observation_included': True,
+        'saved_rows': 3632, 'displayed_rows': 365,
+        'start_date': '2012-01-05', 'end_date': '2026-10-22',
+        'initial_capital_assumption': 1000, 'value_column_unit': 'account equity'}
+    assert actual['Date'].tolist() == expected['Date'].tolist()
+    for column in ('Buy & Hold', 'Trend 50', 'HMM Ensemble', 'HMM + Trend'):
+        np.testing.assert_allclose(actual[column], expected[column], rtol=0, atol=1e-12)
+
+
+def test_task4_selection_diagnostics_match_verified_rankings():
+    data = TestClient(app).get('/api/task4/discovery').json()
+    diagnostics = data['selection_diagnostics']
+    rankings = pd.read_csv(ROOT/'research/experiments/task4_v1_0_0_analysis/candidate_rankings.csv')
+    expected_margins = []
+    for fold_id, rows in rankings.groupby('fold_id', sort=True):
+        ordered = rows.sort_values('rank').iloc[:2]
+        best, runner_up = ordered.iloc[0], ordered.iloc[1]
+        gap = best.mean_inner_raw_log_density_per_observation - runner_up.mean_inner_raw_log_density_per_observation
+        expected_margins.append((fold_id, best.candidate_id, runner_up.candidate_id, gap))
+    assert len(diagnostics['margins']) == len(expected_margins) == 14
+    for actual, expected in zip(diagnostics['margins'], expected_margins):
+        fold_id, best, runner_up, gap = expected
+        assert actual['fold_id'] == fold_id
+        assert actual['best_candidate_id'] == best
+        assert actual['runner_up_candidate_id'] == runner_up
+        assert actual['score_gap'] == pytest.approx(gap)
+        assert actual['near_tie'] == (gap < 0.005)
+    assert diagnostics['near_tie_folds'] == sum(gap < 0.005 for *_, gap in expected_margins) == 11
+    assert len(diagnostics['seed_sensitivity']) == 42
+    assert data['summary']['selected_seed_frequency'] == {'2': 3, '42': 7, '7': 4}
+    assert data['summary']['accepted_attempts'] == data['summary']['converged_attempts'] == 1526
+    assert data['summary']['rejected_attempts'] == 0
+    assert data['summary']['failed_attempts'] == data['summary']['nonconverged_attempts'] == 0
+
+
+def test_task4_occupancy_and_alignment_preserve_saved_semantics():
+    data = TestClient(app).get('/api/task4/discovery').json()
+    saved = pd.read_csv(ROOT/'research/experiments/task4_v1_0_0_analysis/state_occupancy.csv')
+    outer = saved[saved['sample'] == 'outer_test'].reset_index(drop=True)
+    actual = pd.DataFrame(data['occupancy']['rows'])
+    assert len(actual) == len(outer) == 70
+    for column in ('fold_id', 'sample', 'local_state_id', 'rare'):
+        assert actual[column].tolist() == outer[column].tolist()
+    assert actual['aligned_state_id'].fillna('').tolist() == outer['aligned_state_id'].fillna('').tolist()
+    for column in ('hard_count', 'hard_fraction', 'posterior_weight', 'effective_sample_size'):
+        np.testing.assert_allclose(actual[column], outer[column], rtol=0, atol=1e-12)
+    assert (outer['hard_count'] == 0).sum() == 26
+    assert outer['rare'].sum() == 58
+    folds = data['stability']['folds']
+    assert len(folds) == 14
+    assert folds[0]['reference_fold_id'] is None
+    assert folds[0]['alignment_status_counts'] == {'initial_unaligned': 5}
+    subsequent_counts = {}
+    for row in folds[1:]:
+        for status, count in row['alignment_status_counts'].items():
+            subsequent_counts[status] = subsequent_counts.get(status, 0) + count
+    assert subsequent_counts == {'accepted': 41, 'ambiguous': 16, 'new_unmatched': 8}
+    assert sum(subsequent_counts.values()) == 13 * 5
+
+
+def test_baseline_and_task4_failures_are_independent(monkeypatch):
+    from fastapi import HTTPException
     import backend.research_api as api
-    monkeypatch.setattr(api, 'ROOT', tmp_path)
     client = TestClient(app)
-    assert client.head('/api/download').status_code == 404
-    (tmp_path/'Market-Regime-Research.zip').write_bytes(b'archive')
-    assert client.head('/api/download').status_code == 200
-    result = client.get('/api/download')
-    assert result.status_code == 200
-    assert result.headers['content-type'] == 'application/zip'
-    assert result.content == b'archive'
+    monkeypatch.setattr(api, 'check', lambda: (_ for _ in ()).throw(HTTPException(503, 'forced baseline failure')))
+    assert client.get('/api/research').status_code == 503
+    task4_response = client.get('/api/task4/discovery')
+    assert task4_response.status_code == 200
+    assert task4_response.json()['summary']['total_retained_attempts'] == 1526
+    monkeypatch.undo()
+    monkeypatch.setattr(api, 'task4_check', lambda: (_ for _ in ()).throw(HTTPException(503, 'forced Task 4 failure')))
+    assert client.get('/api/task4/discovery').status_code == 503
+    baseline_response = client.get('/api/research')
+    assert baseline_response.status_code == 200
+    assert len(baseline_response.json()['performance']) == 9
+
+
+def test_removed_project_download_route():
+    client = TestClient(app)
+    assert client.get('/api/download').status_code == 404
+    assert '/api/download' not in {route.path for route in app.routes}

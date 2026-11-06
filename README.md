@@ -21,7 +21,9 @@ cd frontend && npm ci && npm run build && cd ..
 python -m uvicorn backend.research_api:app --host 0.0.0.0 --port 8000
 ```
 
-Open the app at `http://localhost:8000`. The API serves the built frontend and the browser uses same-origin `/api` URLs. For frontend development, start `cd frontend && npm run dev -- --host 0.0.0.0` in another terminal and open port 5173; Vite proxies `/api` to port 8000. This local read-only API has no authentication; do not expose publicly. The dashboard fails closed if displayed artifacts, data, signals or analysis source do not match their recorded hashes. Reports and source artifacts are downloadable from the UI. The legacy backend and frontend are preserved in the historical archive and are not the current application.
+Open the app at `http://localhost:8000`. The API serves the built frontend and the browser uses same-origin `/api` URLs. For frontend development, start `cd frontend && npm run dev -- --host 0.0.0.0` in another terminal and open port 5173; Vite proxies `/api` to port 8000. This local read-only API has no authentication; do not expose publicly. The dashboard fails closed if displayed artifacts, data, signals or analysis source do not match their recorded hashes. Baseline and Task 4 requests fail independently, and Overview supports partial data.
+
+The five-section dashboard uses a responsive system-font dark theme, dated assignment/equity charts, empirical and occupancy heatmaps, alignment summaries, and interval plots. It displays only saved observations: the equity view samples every tenth saved row plus the final row and discloses that sampling. Reports and explicitly listed source artifacts are downloadable; there is no project-ZIP control or endpoint. The legacy backend and frontend are preserved in the historical archive and are not the current application.
 
 After setup, the exact production launch command from the repository root is:
 
@@ -32,10 +34,10 @@ After setup, the exact production launch command from the repository root is:
 ## Six-minute dashboard demo
 
 1. **Overview (0:00–0:45):** frame the research question and distinguish the historical baseline from Task 4.
-2. **Baseline Regimes (0:45–1:45):** show the three-state, 15-refit RVD characterization; explain that local ranks and this feature set are not Task 4.
-3. **Task 4 Discovery (1:45–4:15):** explain chronological inner selection and causal outer continuation; show K=5 selection, the occupancy table, 2025's five ambiguous mappings, and the 98/98 plus 42/42 reproducibility result.
-4. **Baseline Strategy (4:15–5:15):** show the existing historical comparison and its bootstrap interval; state that Task 4 ran no strategy evaluation and that no HMM edge is established.
-5. **Data & Validation (5:15–6:00):** show baseline and Task 4 provenance, source hashes, artifact downloads, and limitations.
+2. **Baseline Regimes (0:45–1:45):** show the dated local-rank timeline and empirical within-year transition heatmap; explain that local ranks and this three-state, 15-refit RVD feature set are not Task 4.
+3. **Task 4 Discovery (1:45–4:15):** explain chronological inner selection and causal outer continuation; show K=5 selection, all 14 best/runner-up margins (11 below 0.005), selected-seed frequencies (2 = 3 folds, 42 = 7, 7 = 4), occupancy, 2025's five ambiguous mappings, and the 98/98 plus 42/42 reproducibility result.
+4. **Baseline Strategy (4:15–5:15):** show the four saved account-equity curves, all nine performance rows, and bootstrap Sharpe intervals; state that Task 4 ran no strategy evaluation and that no HMM edge is established.
+5. **Data & Validation (5:15–6:00):** show all eight simultaneous MSE-improvement intervals, baseline and Task 4 provenance, source hashes, grouped artifact downloads, and limitations.
 
 ## Reproduce
 
