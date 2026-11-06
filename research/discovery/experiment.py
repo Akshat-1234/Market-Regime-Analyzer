@@ -44,6 +44,11 @@ def _write(path, payload):
         handle.write(payload)
 
 
+def _append(path, payload):
+    with path.open("ab") as handle:
+        handle.write(payload)
+
+
 def _regularization(model):
     if model is None:
         return None
@@ -289,6 +294,9 @@ def run_experiment(output_dir, source_commit):
     _write(output / "data_feature_provenance.json", canonical_json_bytes(data_manifest))
     _write(output / "outer_fold_manifest.json", canonical_json_bytes(
         {"schema": "task4-outer-fold-manifest-v1", "folds": [fold.as_dict() for fold in outer], "inner_folds": inner_manifest}))
+    for name in ("candidate_fits.jsonl", "inner_selection_records.jsonl",
+                 "fold_diagnostics.jsonl", "state_alignments.jsonl"):
+        _write(output / name, b"")
     attempts, selections, fold_records, alignment_records = [], [], [], []
     previous = None
     grid = candidate_grid()
@@ -297,6 +305,7 @@ def run_experiment(output_dir, source_commit):
         test = features.loc[outer_fold.test_start:outer_fold.test_end]
         inner_attempts, scores = evaluate_inner_fold(outer_fold, features, grid=grid)
         attempts.extend(inner_attempts)
+        _append(output / "candidate_fits.jsonl", _json_lines(inner_attempts))
         try:
             selection = select_using_inner_evidence(scores, outer_fold.fold_id)
             selection_record = _selection_record(selection, outer_fold)
@@ -304,19 +313,26 @@ def run_experiment(output_dir, source_commit):
             selection_record = {"schema": "task4-inner-selection-v1", "fold_id": outer_fold.fold_id,
                                 "status": "inconclusive", "reason": str(exc), "outer_test_used": False}
             selections.append(selection_record)
-            fold_records.append({"schema": "task4-fold-diagnostics-v1", "fold_id": outer_fold.fold_id,
-                                 "status": "inconclusive", "reason": str(exc), "boundaries": outer_fold.as_dict()})
+            _append(output / "inner_selection_records.jsonl", _json_line(selection_record))
+            inconclusive = {"schema": "task4-fold-diagnostics-v1", "fold_id": outer_fold.fold_id,
+                            "status": "inconclusive", "reason": str(exc), "boundaries": outer_fold.as_dict()}
+            fold_records.append(inconclusive)
+            _append(output / "fold_diagnostics.jsonl", _json_line(inconclusive))
             previous = None
             continue
         selections.append(selection_record)
+        _append(output / "inner_selection_records.jsonl", _json_line(selection_record))
         candidate = next(item for item in grid if item.candidate_id == selection_record["selected_candidate_id"])
         seed = selection_record["selected_seed"]
         record, _score, payload = fit_attempt(candidate, seed, train, test, outer_fold, role="outer_refit")
         attempts.append(record)
+        _append(output / "candidate_fits.jsonl", _json_line(record))
         if payload is None or record["status"] != "accepted":
-            fold_records.append({"schema": "task4-fold-diagnostics-v1", "fold_id": outer_fold.fold_id,
-                                 "status": "inconclusive", "reason": "selected outer refit was not accepted",
-                                 "selection": selection_record, "outer_refit": record, "boundaries": outer_fold.as_dict()})
+            inconclusive = {"schema": "task4-fold-diagnostics-v1", "fold_id": outer_fold.fold_id,
+                            "status": "inconclusive", "reason": "selected outer refit was not accepted",
+                            "selection": selection_record, "outer_refit": record, "boundaries": outer_fold.as_dict()}
+            fold_records.append(inconclusive)
+            _append(output / "fold_diagnostics.jsonl", _json_line(inconclusive))
             previous = None
             continue
         result, transform, raw = payload
@@ -338,12 +354,10 @@ def run_experiment(output_dir, source_commit):
                                                train, test, candidate, train_metrics, outer_metrics, transitions)
         fold_records.append(diagnostics)
         alignment_records.append(preliminary)
+        _append(output / "fold_diagnostics.jsonl", _json_line(diagnostics))
+        _append(output / "state_alignments.jsonl", _json_line(preliminary))
         previous = {"profiles": profiles, "alignment": preliminary, **current}
     aggregate = aggregate_results(fold_records, attempts, selections, alignment_records)
-    _write(output / "candidate_fits.jsonl", _json_lines(attempts))
-    _write(output / "inner_selection_records.jsonl", _json_lines(selections))
-    _write(output / "state_alignments.jsonl", _json_lines(alignment_records))
-    _write(output / "fold_diagnostics.jsonl", _json_lines(fold_records))
     _write(output / "aggregate_results.json", canonical_json_bytes(aggregate))
     artifacts = {path.relative_to(output).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
                  for path in output.rglob("*") if path.is_file()}

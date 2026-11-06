@@ -1,0 +1,107 @@
+{
+  "agreement": 0.0,
+  "current_fold_id": "outer_2025",
+  "current_to_aligned": {
+    "local_0": null,
+    "local_1": null,
+    "local_2": null,
+    "local_3": null,
+    "local_4": null
+  },
+  "distance_matrix": [
+    [
+      1.1682476322278943,
+      0.5354306975991249,
+      0.07451226188776147,
+      4.726745511580327,
+      2.314858655085397
+    ],
+    [
+      0.081726144365192,
+      0.7172647185558654,
+      1.1751062848259346,
+      3.4775720687035605,
+      1.0658940996855153
+    ],
+    [
+      0.8772110218568241,
+      0.242251691084425,
+      0.21926164258850211,
+      4.435029133436244,
+      2.0231660265745206
+    ],
+    [
+      1.9627165532618833,
+      2.5971214400174283,
+      3.056631085554036,
+      1.5958252764370657,
+      0.816086403670039
+    ],
+    [
+      0.5503892764374881,
+      0.08553906396544403,
+      0.5462655696063818,
+      4.107365642280337,
+      1.695568283606626
+    ]
+  ],
+  "maximum_accepted_distance": 2.0,
+  "method": "training-posterior-profile-hungarian-v1",
+  "minimum_margin": 0.25,
+  "outer_test_used": false,
+  "records": [
+    {
+      "aligned_state_id": null,
+      "confidence": 0.9306548054120348,
+      "distance": 0.07451226188776147,
+      "local_state_id": "local_0",
+      "margin": 0.14474938070074064,
+      "proposed_reference_aligned_id": "structure_outer_2019_local_3",
+      "proposed_reference_local_id": "local_2",
+      "status": "ambiguous"
+    },
+    {
+      "aligned_state_id": null,
+      "confidence": 0.4840519173525047,
+      "distance": 1.0658940996855153,
+      "local_state_id": "local_1",
+      "margin": -0.9841679553203233,
+      "proposed_reference_aligned_id": "structure_outer_2023_local_2",
+      "proposed_reference_local_id": "local_4",
+      "status": "ambiguous"
+    },
+    {
+      "aligned_state_id": null,
+      "confidence": 0.8049898480130455,
+      "distance": 0.242251691084425,
+      "local_state_id": "local_2",
+      "margin": -0.15671262711898098,
+      "proposed_reference_aligned_id": "structure_outer_2022_local_2",
+      "proposed_reference_local_id": "local_1",
+      "status": "ambiguous"
+    },
+    {
+      "aligned_state_id": null,
+      "confidence": 0.38523394046480786,
+      "distance": 1.5958252764370657,
+      "local_state_id": "local_3",
+      "margin": -0.7797388727670267,
+      "proposed_reference_aligned_id": "structure_outer_2023_local_0",
+      "proposed_reference_local_id": "local_3",
+      "status": "ambiguous"
+    },
+    {
+      "aligned_state_id": null,
+      "confidence": 0.644999301270851,
+      "distance": 0.5503892764374881,
+      "local_state_id": "local_4",
+      "margin": -0.46866313207229615,
+      "proposed_reference_aligned_id": "structure_outer_2023_local_3",
+      "proposed_reference_local_id": "local_0",
+      "status": "ambiguous"
+    }
+  ],
+  "reference_fold_id": "outer_2024",
+  "schema": "task4-state-alignment-v1",
+  "unmatched_frequency": 1.0
+}

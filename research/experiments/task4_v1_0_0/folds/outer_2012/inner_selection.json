@@ -1,0 +1,118 @@
+{
+  "candidate_scores": {
+    "k2_gaussian_diag": 3.7645821650934477,
+    "k2_gaussian_full": 3.7643925797327435,
+    "k2_student_t_diag": 3.7915590764103593,
+    "k3_gaussian_diag": 4.080762050889722,
+    "k3_gaussian_full": 4.105244858374789,
+    "k3_student_t_diag": 4.080295309343438,
+    "k4_gaussian_diag": 4.502258737504525,
+    "k4_gaussian_full": 4.505227713783774,
+    "k4_student_t_diag": 4.501591522546625,
+    "k5_gaussian_diag": 4.5042792685451,
+    "k5_gaussian_full": 4.512179938406446,
+    "k5_student_t_diag": 4.50325136872069
+  },
+  "covariance_type": "full",
+  "eligible_candidates": [
+    "k2_gaussian_diag",
+    "k2_gaussian_full",
+    "k2_student_t_diag",
+    "k3_gaussian_diag",
+    "k3_gaussian_full",
+    "k3_student_t_diag",
+    "k4_gaussian_diag",
+    "k4_gaussian_full",
+    "k4_student_t_diag",
+    "k5_gaussian_diag",
+    "k5_gaussian_full",
+    "k5_student_t_diag"
+  ],
+  "emission": "gaussian",
+  "fold_id": "outer_2012",
+  "mean_inner_raw_log_density_per_observation": 4.512179938406446,
+  "outer_test_used": false,
+  "schema": "task4-inner-selection-v1",
+  "seed_scores": {
+    "k2_gaussian_diag": {
+      "2": 3.7645181405633488,
+      "42": 3.7647102141536455,
+      "7": 3.7645181405633488
+    },
+    "k2_gaussian_full": {
+      "2": 3.764434704190121,
+      "42": 3.764308330817988,
+      "7": 3.764434704190121
+    },
+    "k2_student_t_diag": {
+      "2": 3.7915654088787103,
+      "42": 3.7915464114736577,
+      "7": 3.7915654088787103
+    },
+    "k3_gaussian_diag": {
+      "2": 4.080836479555586,
+      "42": 4.080719715054854,
+      "7": 4.080729958058725
+    },
+    "k3_gaussian_full": {
+      "2": 4.081230020350477,
+      "42": 4.117122449028677,
+      "7": 4.1173821057452145
+    },
+    "k3_student_t_diag": {
+      "2": 4.079913569628495,
+      "42": 4.080377848667099,
+      "7": 4.0805945097347225
+    },
+    "k4_gaussian_diag": {
+      "2": 4.502162073855025,
+      "42": 4.502318579686565,
+      "7": 4.502295558971984
+    },
+    "k4_gaussian_full": {
+      "2": 4.505938242158384,
+      "42": 4.506412436995741,
+      "7": 4.503332462197196
+    },
+    "k4_student_t_diag": {
+      "2": 4.501348623439749,
+      "42": 4.502072427476228,
+      "7": 4.5013535167238965
+    },
+    "k5_gaussian_diag": {
+      "2": 4.504360972024895,
+      "42": 4.504247197667677,
+      "7": 4.504229635942727
+    },
+    "k5_gaussian_full": {
+      "2": 4.5122692545784195,
+      "42": 4.5122974260950155,
+      "7": 4.5119731345459035
+    },
+    "k5_student_t_diag": {
+      "2": 4.5034169704252385,
+      "42": 4.503160243565631,
+      "7": 4.503176892171198
+    }
+  },
+  "selected_candidate_id": "k5_gaussian_full",
+  "selected_candidate_seed_scores": {
+    "2": 4.5122692545784195,
+    "42": 4.5122974260950155,
+    "7": 4.5119731345459035
+  },
+  "selected_seed": 42,
+  "state_count": 5,
+  "status": "selected",
+  "validation_fold_ids": [
+    "outer_2012_inner_01",
+    "outer_2012_inner_02",
+    "outer_2012_inner_03",
+    "outer_2012_inner_01",
+    "outer_2012_inner_02",
+    "outer_2012_inner_03",
+    "outer_2012_inner_01",
+    "outer_2012_inner_02",
+    "outer_2012_inner_03"
+  ]
+}

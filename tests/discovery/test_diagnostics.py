@@ -49,7 +49,7 @@ def test_aggregate_preserves_inconclusive_folds_and_status_counts():
                                       "mean_max_posterior_confidence": 0.8}},
              {"status": "inconclusive"}]
     attempts = [{"candidate_id": "a", "status": "accepted"}, {"candidate_id": "a", "status": "failed"}]
-    selections = [{"status": "selected", "candidate_id": "a", "state_count": 2, "emission": "gaussian",
+    selections = [{"status": "selected", "selected_candidate_id": "a", "state_count": 2, "emission": "gaussian",
                    "covariance_type": "diag", "selected_seed": 2, "selected_candidate_seed_scores": {"2": 1.0}}]
     result = aggregate_results(folds, attempts, selections, [])
     assert result["fold_counts"] == {"total": 2, "accepted": 1, "rejected_or_inconclusive": 1}

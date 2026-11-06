@@ -1,0 +1,97 @@
+{
+  "artifacts": {
+    "diagnostics.json": "1524d4f046c96fde65d8465554e93ab23bcdf4816b3b8f36da604181eea66e1f",
+    "inner_selection.json": "c28f663c354d2dc848f956f2a5682492bcb22f3a76cf63536bf970a38d5a0702",
+    "outer_density.csv": "e3e35ea95a9b19246952332ac4d7f489a31915d4cce1803a04a2e7ef15d7bb10",
+    "outer_filtered.csv": "3412c5e54143ec425436d95e50613d357ecf46055fc68c630089d91a2de61a36",
+    "selected_model.json": "682d4abf559640d9dcc9f48f361e2a3ad3a5bc4bd50082fedc2a6a6e736c4803",
+    "state_alignment.json": "7bc82fec1a9686a5c40402ab6b02ca1ef090207a80c729537852456a9dedda95",
+    "transform.json": "3db1be6550af547f55876b9f4eeb5929be9fa6e88480aac8afd06dfe7722ff2e"
+  },
+  "dataset": {
+    "columns": [
+      "Date",
+      "Close",
+      "High",
+      "Low",
+      "Open"
+    ],
+    "end_date": "2026-10-22",
+    "newline_style": "CRLF",
+    "parsed_sha256": "826e89327af5b44d40c74e3ea9396a4c8f953db11493be4f7818c14f382b2be9",
+    "raw_sha256": "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4",
+    "rows": 4684,
+    "start_date": "2007-09-17"
+  },
+  "dependencies": {
+    "hmmlearn": "0.3.3",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "python": "3.11.2",
+    "scikit-learn": "1.6.1",
+    "scipy": "1.17.1"
+  },
+  "execution": {
+    "command": "python -m research.discovery.experiment --run",
+    "finished_utc": "2026-11-06T09:15:45.938055+00:00",
+    "python": "/home/user/mra-task4-venv/bin/python",
+    "started_utc": "2026-11-06T08:26:34.896370+00:00"
+  },
+  "experiment_id": "outer_2025",
+  "feature_spec": {
+    "columns": [
+      "daily_return",
+      "volatility_20"
+    ],
+    "family": "rv",
+    "version": "f10-close-features-v1"
+  },
+  "fit_records": [
+    {
+      "converged": true,
+      "fit_id": "outer_2025_selected",
+      "fold_id": "outer_2025",
+      "status": "accepted"
+    }
+  ],
+  "folds": [
+    {
+      "fold_id": "outer_2025",
+      "test_end": "2025-12-31",
+      "test_rows": 249,
+      "test_start": "2025-01-01",
+      "train_end": "2024-12-31",
+      "train_rows": 4218,
+      "train_start": "2007-10-16"
+    }
+  ],
+  "model_spec": {
+    "covariance_type": "diag",
+    "emission": "student_t",
+    "feature_family": "rv",
+    "feature_names": [
+      "daily_return",
+      "volatility_20"
+    ],
+    "feature_version": "f10-close-features-v1",
+    "model_version": "task3-hmm-engine-v1.1",
+    "name": "k5_student_t_diag",
+    "seed": 42,
+    "state_count": 5,
+    "transformation": "training-only-zscore-ddof0-with-raw-jacobian-v1"
+  },
+  "schema_version": "task2-experiment-manifest-v1",
+  "seeds": [
+    2,
+    42,
+    7
+  ],
+  "source": {
+    "commit": "123ca1975c4d3a8f332dbcd2ac7ef47c736a7f9d",
+    "source_inventory_sha256": "53f61c24e75ddda81e374ce4629cb88cf1fb521a5dc8c1d91d1a68ce95cd0ea9"
+  },
+  "status": "completed",
+  "warnings": [
+    "All unsuccessful candidate attempts are retained at the parent run level."
+  ]
+}
