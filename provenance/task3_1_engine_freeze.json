@@ -1,0 +1,82 @@
+{
+  "claims": "serialization/diagnostic hardening and numerical parity only; no research validity claim",
+  "engine_files": [
+    {
+      "path": "research/hmm/__init__.py",
+      "sha256": "5a80b7cd92e3af0fed0fb03162f6f1347d1ebd81f45dc45715ea93174815ab78",
+      "size_bytes": 1019
+    },
+    {
+      "path": "research/hmm/adapter.py",
+      "sha256": "6899e04bb43dfcbfc3cd300c550903dc5c6e597548436c61ac2188906d65ad3b",
+      "size_bytes": 7409
+    },
+    {
+      "path": "research/hmm/config.py",
+      "sha256": "47d34391a4a93cb86cf064041574207a42f8059dd36150c7f3f02c21f0435f15",
+      "size_bytes": 2093
+    },
+    {
+      "path": "research/hmm/em.py",
+      "sha256": "d418417c0dd935d6d5411d414851cf3021cb7a85f3c927c4224b712579d0914e",
+      "size_bytes": 7953
+    },
+    {
+      "path": "research/hmm/emissions.py",
+      "sha256": "4cbb595d9dfa833d46f4fe70f06809bd5da700fab36e85accb99993d1fe7792d",
+      "size_bytes": 4358
+    },
+    {
+      "path": "research/hmm/forward_backward.py",
+      "sha256": "2973840a20d3c20b471302e28847f6e3da4fd457d80a16fa221ca42e78fa70fe",
+      "size_bytes": 5441
+    },
+    {
+      "path": "research/hmm/inference.py",
+      "sha256": "bff26dbca5f1bfb16aaf876a5b1b4f48af0219dabdb2d4080b64738d29ff1702",
+      "size_bytes": 583
+    },
+    {
+      "path": "research/hmm/parameters.py",
+      "sha256": "2ad8c5dbdbac59d4ad088e1079933b221c289c1d366ca717825889f9a1107dcf",
+      "size_bytes": 9417
+    },
+    {
+      "path": "research/hmm/serialization.py",
+      "sha256": "9addfd51b3b8a51a353edb973723abc80bb224a25239f360cb0829e59201b1b3",
+      "size_bytes": 18325
+    },
+    {
+      "path": "research/hmm/smoke.py",
+      "sha256": "1037c62b10e35b2287a554cf88d209c7589f83ea14a6ca92b5c3bd0326177ead",
+      "size_bytes": 7544
+    },
+    {
+      "path": "research/hmm/version.py",
+      "sha256": "aff8e41db88b89dc6b48cd4947e62948e7410e26eac077d62ea804610fc3add2",
+      "size_bytes": 317
+    }
+  ],
+  "engine_version": "task3-hmm-engine-v1.1",
+  "freeze_scope": "Task 4 may use but must not modify these engine files; discovery logic is separate",
+  "legacy_model_schema": "task3-hmm-model-v1",
+  "model_schema": "task3-hmm-model-v2",
+  "numerical_parity": {
+    "path": "provenance/task3_1_parity.json",
+    "sha256": "333b821e0d685b1fabfb9850e27f76491f2026108fb2766636d4669b34d1e5f8",
+    "size_bytes": 12694
+  },
+  "original_valid_input_tolerance": {
+    "atol": 0.0,
+    "rtol": 0.0
+  },
+  "python": "3.11.2",
+  "schema": "task3-1-engine-freeze-v1",
+  "source_commit": "c46541e9ab8611330489a920c46cdb00342931d5",
+  "source_emhmm_sha256": "181d251fb8b3b78c907c6518a1714898041dbcb048275f82bd5dd308c2d1f6c9",
+  "verification": {
+    "focused_hmm": "94 passed",
+    "full": "179 passed, 1 skipped, 1 pre-existing warning",
+    "task2": "72 passed"
+  }
+}

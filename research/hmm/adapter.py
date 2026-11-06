@@ -11,6 +11,7 @@ from .config import EMConfig
 from .em import fit_config
 from .inference import smooth
 from .parameters import HMMFit, StateOccupancyError
+from .version import ENGINE_VERSION
 
 @dataclass
 class FitAdapterResult:
@@ -42,6 +43,8 @@ def fit_model(train_x, train_dates, spec: ModelSpec, *, test_x=None, test_dates=
               settings=None, min_state_fraction=0.0, include_smoothed=False,
               space="raw", state_ids=None) -> FitAdapterResult:
     """Fit training data only and conditionally attach accepted OOS filtering."""
+    if spec.model_version != ENGINE_VERSION:
+        raise ValueError(f"ModelSpec.model_version must be {ENGINE_VERSION}")
     config = _settings_for(spec, settings)
     dates = validate_date_index(train_dates)
     values = np.asarray(train_x, dtype=float)
@@ -77,8 +80,12 @@ def fit_model(train_x, train_dates, spec: ModelSpec, *, test_x=None, test_dates=
     if include_smoothed:
         smoothed_block = ProbabilityBlock(dates, smooth(model, values).gamma, ids, InferenceKind.SMOOTHED)
     parameters: Mapping[str, Any] = model.parameter_dict()
-    diagnostics = {"engine_version": "task3-hmm-engine-v1", "config": asdict(config),
+    diagnostics = {"engine_version": ENGINE_VERSION, "config": asdict(config),
                    "space": space, "regularization_events": model.regularization_events,
+                   "regularization_applications": model.regularization_applications,
+                   "diagonal_variance_floor_hits": model.diagonal_variance_floor_hits,
+                   "eigenvalue_clipping_events": model.eigenvalue_clipping_events,
+                   "full_covariance_floor_applications": model.full_covariance_floor_applications,
                    "history": list(model.history), "returned_log_likelihood": model.loglik,
                    "min_state_fraction": min_state_fraction}
     below = [item.state_id for item in occupancy if item.hard_fraction < min_state_fraction]

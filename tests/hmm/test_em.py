@@ -140,3 +140,55 @@ def test_nonfinite_training_data_is_rejected(bad):
 def test_low_sample_fit_is_rejected():
     with pytest.raises(ValueError, match="Training observations"):
         fit_hmm(np.zeros((3, 2)), 2)
+
+
+def test_diagonal_diagnostics_count_only_actual_variance_floor_hits():
+    x = synthetic()
+    config = EMConfig(2, seed=2, min_covar=1e-12)
+    initial = initialize_parameters(x, config)
+    step = e_step(initial.emission_logprob(x), initial.startprob, initial.transmat)
+    _, clean = m_step(x, step, initial, config, return_diagnostics=True)
+    assert clean.as_dict() == {"regularization_applications": 0, "diagonal_variance_floor_hits": 0,
+                               "eigenvalue_clipping_events": 0, "full_covariance_floor_applications": 0}
+    zero = np.zeros((6, 2))
+    gamma = np.full((6, 2), 0.5)
+    updated, hits = m_step(zero, synthetic_estep(zero, gamma), initial, config, return_diagnostics=True)
+    assert hits.as_dict() == {"regularization_applications": 4, "diagonal_variance_floor_hits": 4,
+                              "eigenvalue_clipping_events": 0, "full_covariance_floor_applications": 0}
+    _, legacy = m_step(zero, synthetic_estep(zero, gamma), initial, config)
+    assert legacy == 4
+
+
+def test_full_covariance_floor_is_not_eigenvalue_clipping():
+    x = synthetic()
+    config = EMConfig(2, covariance_type="full", seed=2, min_covar=1e-12)
+    initial = initialize_parameters(x, config)
+    step = e_step(initial.emission_logprob(x), initial.startprob, initial.transmat)
+    _, diagnostics = m_step(x, step, initial, config, return_diagnostics=True)
+    assert diagnostics.full_covariance_floor_applications == 2
+    assert diagnostics.eigenvalue_clipping_events == 0
+    assert diagnostics.diagonal_variance_floor_hits == 0
+    assert diagnostics.regularization_applications == 2
+
+
+def test_full_covariance_eigenvalue_clipping_is_counted_separately():
+    x = np.zeros((6, 2))
+    gamma = np.full((6, 2), 0.5)
+    config = EMConfig(2, covariance_type="full", min_covar=1e-12)
+    initial = initialize_parameters(synthetic(), config)
+    updated, diagnostics = m_step(x, synthetic_estep(x, gamma), initial, config, return_diagnostics=True)
+    assert diagnostics.full_covariance_floor_applications == 2
+    assert diagnostics.eigenvalue_clipping_events == 4
+    assert diagnostics.regularization_applications == 6
+    _, legacy = m_step(x, synthetic_estep(x, gamma), initial, config)
+    assert legacy == 6
+    assert np.all(np.linalg.eigvalsh(updated.covars) >= 1e-8 - 1e-12)
+
+
+def test_fit_preserves_legacy_aggregate_and_detailed_counter_sum():
+    fit = fit_hmm(synthetic(), 2, covariance_type="full", n_iter=3, tol=0.0, seed=7)
+    assert fit.full_covariance_floor_applications == fit.n_iter * fit.n_states
+    assert fit.regularization_events == fit.regularization_applications
+    assert fit.regularization_applications == (fit.diagonal_variance_floor_hits
+                                                + fit.eigenvalue_clipping_events
+                                                + fit.full_covariance_floor_applications)
