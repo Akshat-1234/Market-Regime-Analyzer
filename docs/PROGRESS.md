@@ -17,6 +17,8 @@ Baseline allocation was reproduced against fixed and observable controls. Added 
 ## Phase 6 — product surface
 Added read-only `backend/research_api.py` and replaced the active frontend entry point with four research sections tied to saved artifacts, including provenance checks, state comparisons, grid results and historical strategy metrics. Legacy frontend files remain in Git for historical reference but are not loaded. The legacy backend's unrelated routes are not used by the new UI.
 
+Integrated the completed Task 4 nested discovery as a fifth dashboard section without rerunning research or changing frozen outputs. The read-only API verifies the recovery and analysis manifest inventories and serves compact selected-model, occupancy, alignment, stability and reproducibility records. Navigation and explanatory text distinguish the original three-state/15-refit baseline, Task 4's five-component/14-fold close-only RV experiment, and baseline-only strategy results.
+
 ## Phase 7 — partial verification, no release
 Tests and reproducibility commands are in `docs/TEST_AND_VALIDATION.md`. A release tag is intentionally not created: the requested research and acceptance criteria are incomplete, including E7, comprehensive forecasting, matched controls, full inference, browser E2E and a validated clean prospective holdout. This is a work-in-progress, not a complete release.
 

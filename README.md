@@ -3,6 +3,7 @@
 A historical NIFTY 50 latent-state research workspace. **Exploratory work in progress, not investment advice or a validated model.** The reproduced delayed baseline does not establish an incremental HMM Sharpe edge over trend. There is no untouched prospective holdout. The exact historical E7 specifications were not supplied, so E7 and several requested research phases remain incomplete.
 
 - [Methods, actual findings and unresolved research](docs/METHODOLOGY_AND_FINDINGS.md)
+- [Task 4 nested discovery results](docs/TASK4_RESULTS.md), [frozen protocol](docs/TASK4_PROTOCOL.md) and [analysis contracts](docs/TASK4_ANALYSIS.md)
 - [Audit and decision log](docs/RESEARCH_DECISIONS.md)
 - [Progress by phase](docs/PROGRESS.md)
 - [Tests and validation](docs/TEST_AND_VALIDATION.md)
@@ -22,6 +23,20 @@ python -m uvicorn backend.research_api:app --host 0.0.0.0 --port 8000
 
 Open the app at `http://localhost:8000`. The API serves the built frontend and the browser uses same-origin `/api` URLs. For frontend development, start `cd frontend && npm run dev -- --host 0.0.0.0` in another terminal and open port 5173; Vite proxies `/api` to port 8000. This local read-only API has no authentication; do not expose publicly. The dashboard fails closed if displayed artifacts, data, signals or analysis source do not match their recorded hashes. Reports and source artifacts are downloadable from the UI. The legacy backend and frontend are preserved in the historical archive and are not the current application.
 
+After setup, the exact production launch command from the repository root is:
+
+```bash
+.venv/bin/python -m uvicorn backend.research_api:app --host 0.0.0.0 --port 8000
+```
+
+## Six-minute dashboard demo
+
+1. **Overview (0:00–0:45):** frame the research question and distinguish the historical baseline from Task 4.
+2. **Baseline Regimes (0:45–1:45):** show the three-state, 15-refit RVD characterization; explain that local ranks and this feature set are not Task 4.
+3. **Task 4 Discovery (1:45–4:15):** explain chronological inner selection and causal outer continuation; show K=5 selection, the occupancy table, 2025's five ambiguous mappings, and the 98/98 plus 42/42 reproducibility result.
+4. **Baseline Strategy (4:15–5:15):** show the existing historical comparison and its bootstrap interval; state that Task 4 ran no strategy evaluation and that no HMM edge is established.
+5. **Data & Validation (5:15–6:00):** show baseline and Task 4 provenance, source hashes, artifact downloads, and limitations.
+
 ## Reproduce
 
 The supplied file is `research/data/nifty_index.csv`; its SHA-256 is recorded in the experiment. The archived source has been copied unchanged to `research/legacy` to make reproduction possible. Use a **new**, empty output path; no historical results are overwritten.
@@ -38,7 +53,7 @@ python research/analysis/forecast.py --run /tmp/nifty-reproduction \
   --output /tmp/nifty-forecast
 ```
 
-Numerical libraries and optimization may produce small differences across platforms; the new baseline's exact versions, input and source snapshot are saved. `model_grid.py` runs 360 seed fits, typically several minutes. `characterize.py` verifies the probability sums and refuses to overwrite output. It describes saved OOS probabilities, not retraining. For unchanged supplied outputs, the four-section dashboard reads `research/experiments/baseline_20261104`, `characterization_20261104`, `model_grid_20261104`, and `forecast_20261104`; it does not silently swap to a newly generated run.
+Numerical libraries and optimization may produce small differences across platforms; the new baseline's exact versions, input and source snapshot are saved. `model_grid.py` runs 360 seed fits, typically several minutes. `characterize.py` verifies the probability sums and refuses to overwrite output. It describes saved OOS probabilities, not retraining. For unchanged supplied outputs, the five-section dashboard reads `research/experiments/baseline_20261104`, `characterization_20261104`, `model_grid_20261104`, and `forecast_20261104`; it does not silently swap to a newly generated run. The separate **Task 4 — Nested Regime Discovery** page reads the completed `task4_v1_0_0_recovery1` and `task4_v1_0_0_analysis` inventories, verifies both manifests before serving their compact records, and does not rerun research. Its K=5 close-only RV results are explicitly distinguished from the older three-state, 15-refit baseline and from baseline-only strategy performance.
 
 ## Verification
 
