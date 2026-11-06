@@ -280,7 +280,7 @@ def compare_with_preserved_run(root, preserved):
                                 "preserved_sha256": hashlib.sha256(previous).hexdigest() if previous is not None else None})
     selections = {record["fold_id"]: record for record in _jsonl(root / "inner_selection_records.jsonl")}
     diagnostics = {record["fold_id"]: record for record in _jsonl(root / "fold_diagnostics.jsonl")}
-    alignments = {record["fold_id"]: record for record in _jsonl(root / "state_alignments.jsonl")}
+    alignments = {record["current_fold_id"]: record for record in _jsonl(root / "state_alignments.jsonl")}
     object_checks = []
     for fold_id in sorted(root_folds & preserved_folds):
         for name, current in (("inner_selection.json", selections.get(fold_id)),
