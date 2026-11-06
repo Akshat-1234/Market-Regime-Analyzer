@@ -13,6 +13,7 @@ from research.contracts.model import FitStatus, ModelSpec
 from .adapter import fit_model
 from .config import EMConfig
 from .serialization import save_model
+from .version import ENGINE_VERSION
 
 CANONICAL_DATA_SHA256 = "ea6dfffb93e5eabd8b6a2f96cd40d6b3ec5c7f47f2f9e6c0cbd3ca9a5f2ac5e4"
 TRAIN_ROWS = 756
@@ -39,7 +40,7 @@ def run_smoke(data_path, output_dir):
         raise ValueError("training-only feature scale is degenerate")
     train = (train_frame.to_numpy(dtype=float) - mean) / scale
     oos = (oos_frame.to_numpy(dtype=float) - mean) / scale
-    spec = ModelSpec("canonical-rv-task3-smoke", "task3-hmm-engine-v1", "rv", FEATURE_CONTRACT_VERSION,
+    spec = ModelSpec("canonical-rv-task3-smoke", ENGINE_VERSION, "rv", FEATURE_CONTRACT_VERSION,
                      ("daily_return", "volatility_20"), 3, "gaussian", "diag",
                      "training-only-zscore-ddof0-v1", 42)
     config = EMConfig(n_states=3, covariance_type="diag", emission="gaussian",
@@ -80,6 +81,10 @@ def run_smoke(data_path, output_dir):
                 "iterations": None if result.model is None else result.model.n_iter,
                 "training_log_likelihood_scaled": None if result.model is None else result.model.loglik,
                 "regularization_events": None if result.model is None else result.model.regularization_events,
+                "regularization_applications": None if result.model is None else result.model.regularization_applications,
+                "diagonal_variance_floor_hits": None if result.model is None else result.model.diagonal_variance_floor_hits,
+                "eigenvalue_clipping_events": None if result.model is None else result.model.eigenvalue_clipping_events,
+                "full_covariance_floor_applications": None if result.model is None else result.model.full_covariance_floor_applications,
                 "rejection_reason": result.record.rejection_reason, "failure_reason": result.record.failure_reason,
                 "state_occupancy": [asdict(item) for item in result.occupancy],
                 "oos_block_present": result.record.oos_filtered is not None,

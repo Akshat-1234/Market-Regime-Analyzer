@@ -5,7 +5,7 @@ from scipy.special import gammaln
 from .config import EMConfig
 from .emissions import emission_logprob, _mahalanobis_sq
 from .forward_backward import e_step, EStep
-from .parameters import HMMFit, HMMParameters, StateOccupancyError
+from .parameters import HMMFit, HMMParameters, RegularizationDiagnostics, StateOccupancyError
 
 NEAREST_PD_EPSILON = 1e-8
 TRANSITION_FLOOR = 1e-10
@@ -63,8 +63,12 @@ def _update_dof(x, means, covars, gamma, current):
     return float(grid[int(np.argmax(scores))]) if max(scores) > -np.inf else current
 
 
-def m_step(x, step, parameters, config):
-    """Apply one original EM update and count actual covariance-floor events."""
+def m_step(x, step, parameters, config, *, return_diagnostics=False):
+    """Apply one original EM update without changing its numerical equations.
+
+    By default the historical integer aggregate is returned for compatibility.
+    ``return_diagnostics=True`` returns the precise operation counters instead.
+    """
     values = _training_array(x, config.n_states)
     n, d = values.shape
     k = config.n_states
@@ -79,7 +83,8 @@ def m_step(x, step, parameters, config):
     transmat /= transmat.sum(axis=1, keepdims=True)
     means = np.empty((k, d))
     covars = np.empty((k, d) if config.covariance_type == "diag" else (k, d, d))
-    regularization_events = 0
+    diagnostics = {"regularization_applications": 0, "diagonal_variance_floor_hits": 0,
+                   "eigenvalue_clipping_events": 0, "full_covariance_floor_applications": 0}
     for j in range(k):
         w = step.gamma[:, j] * u[:, j]
         total = w.sum()
@@ -89,20 +94,27 @@ def m_step(x, step, parameters, config):
         diff = values - means[j]
         if config.covariance_type == "diag":
             raw = (w[:, None] * diff ** 2).sum(axis=0) / total
-            regularization_events += int((raw < config.min_covar).sum())
+            hits = int((raw < config.min_covar).sum())
+            diagnostics["diagonal_variance_floor_hits"] += hits
+            diagnostics["regularization_applications"] += hits
             covars[j] = np.maximum(raw, config.min_covar)
         else:
             covars[j] = ((w[:, None, None] * (diff[:, :, None] * diff[:, None, :])).sum(axis=0) / total)
             covars[j] += np.eye(d) * config.min_covar
-            regularization_events += 1
+            diagnostics["full_covariance_floor_applications"] += 1
+            diagnostics["regularization_applications"] += 1
             eigenvalues = np.linalg.eigvalsh((covars[j] + covars[j].T) / 2)
-            regularization_events += int((eigenvalues < NEAREST_PD_EPSILON).sum())
+            clipped = int((eigenvalues < NEAREST_PD_EPSILON).sum())
+            diagnostics["eigenvalue_clipping_events"] += clipped
+            diagnostics["regularization_applications"] += clipped
             covars[j] = _nearest_positive_definite(covars[j])
     dof = parameters.dof
     if parameters.emission == "student_t":
         dof = _update_dof(values, means, covars, step.gamma, parameters.dof)
-    return HMMParameters(startprob, transmat, means, covars, config.covariance_type,
-                         config.emission, dof), regularization_events
+    result = RegularizationDiagnostics(**diagnostics)
+    parameters = HMMParameters(startprob, transmat, means, covars, config.covariance_type,
+                               config.emission, dof)
+    return parameters, result if return_diagnostics else result.legacy_events
 
 
 def fit_config(x, config):
@@ -112,14 +124,14 @@ def fit_config(x, config):
     history = []
     converged = False
     previous = -np.inf
-    regularization_events = 0
+    regularization = RegularizationDiagnostics()
     for iteration in range(1, config.n_iter + 1):
         log_emit = emission_logprob(values, parameters.means, parameters.covars,
                                     parameters.covariance_type, parameters.emission, parameters.dof)
         step = e_step(log_emit, parameters.startprob, parameters.transmat)
         loglik = step.loglik
-        parameters, events = m_step(values, step, parameters, config)
-        regularization_events += events
+        parameters, events = m_step(values, step, parameters, config, return_diagnostics=True)
+        regularization = regularization + events
         history.append(float(loglik))
         if np.isfinite(previous) and abs(loglik - previous) < config.tol * max(1.0, abs(loglik)):
             converged = True
@@ -132,7 +144,8 @@ def fit_config(x, config):
                        covariance_type=config.covariance_type, emission=config.emission,
                        dof=None if parameters.dof is None else float(parameters.dof),
                        loglik=float(history[-1]), n_iter=iteration, converged=converged,
-                       history=history, seed=config.seed, regularization_events=regularization_events)
+                       history=history, seed=config.seed, regularization_events=regularization.legacy_events,
+                       **regularization.as_dict())
     final_fit.loglik = final_fit.predictive_loglik(values)[0]
     return final_fit
 

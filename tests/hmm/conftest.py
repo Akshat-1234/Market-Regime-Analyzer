@@ -36,7 +36,7 @@ def diag_fit():
     return HMMFit(startprob=np.array([0.6, 0.4]), transmat=np.array([[0.9, 0.1], [0.2, 0.8]]),
                   means=np.array([[-1.0, 0.0], [1.0, 1.0]]), covars=np.array([[0.5, 0.8], [0.7, 1.2]]),
                   covariance_type="diag", loglik=-123.25, n_iter=2, converged=True,
-                  history=[-130.0, -123.25], seed=3)
+                  history=[-123.250001, -123.25], seed=7)
 
 @pytest.fixture
 def full_fit():
@@ -47,15 +47,13 @@ def full_fit():
 
 @pytest.fixture
 def student_fit(diag_fit):
-    values = diag_fit.parameter_dict()
-    values.pop("dof")
-    values["emission"] = "student_t"
-    return HMMFit(**values, dof=6.0, seed=3)
+    from dataclasses import replace
+    return replace(diag_fit, emission="student_t", dof=6.0)
 
 @pytest.fixture
 def make_spec():
     def factory(states=2, emission="gaussian", covariance="diag", seed=7):
-        return ModelSpec("task3-synthetic", "task3-hmm-engine-v1", "rv", "f10-close-features-v1",
+        return ModelSpec("task3-synthetic", "task3-hmm-engine-v1.1", "rv", "f10-close-features-v1",
                          ("daily_return", "volatility_20"), states, emission, covariance, "identity", seed)
     return factory
 

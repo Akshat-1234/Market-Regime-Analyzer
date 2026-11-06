@@ -103,6 +103,47 @@ class HMMParameters:
         _, log_pred, final_alpha = self.filter(x, previous_log_alpha)
         return float(log_pred.sum()), final_alpha
 
+@dataclass(frozen=True)
+class RegularizationDiagnostics:
+    """Precise covariance-operation counters; none is an instability score.
+
+    ``regularization_applications`` is the legacy-compatible sum of diagonal
+    variance floor hits, full-covariance floor applications, and clipped
+    eigenvalues. Full covariance matrices always receive the configured
+    diagonal floor, whether or not eigenvalue clipping is subsequently needed.
+    """
+    regularization_applications: int = 0
+    diagonal_variance_floor_hits: int = 0
+    eigenvalue_clipping_events: int = 0
+    full_covariance_floor_applications: int = 0
+
+    def __post_init__(self) -> None:
+        for name in ("regularization_applications", "diagonal_variance_floor_hits",
+                     "eigenvalue_clipping_events", "full_covariance_floor_applications"):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+                raise ValueError(f"{name} must be a nonnegative integer")
+        expected = (self.diagonal_variance_floor_hits + self.eigenvalue_clipping_events
+                    + self.full_covariance_floor_applications)
+        if self.regularization_applications != expected:
+            raise ValueError("regularization_applications must equal the sum of detailed counters")
+
+    @property
+    def legacy_events(self) -> int:
+        return self.regularization_applications
+
+    def as_dict(self) -> dict[str, int]:
+        return {name: getattr(self, name) for name in (
+            "regularization_applications", "diagonal_variance_floor_hits",
+            "eigenvalue_clipping_events", "full_covariance_floor_applications")}
+
+    def __add__(self, other: "RegularizationDiagnostics") -> "RegularizationDiagnostics":
+        if not isinstance(other, RegularizationDiagnostics):
+            return NotImplemented
+        return RegularizationDiagnostics(**{
+            name: getattr(self, name) + getattr(other, name) for name in self.as_dict()})
+
+
 @dataclass
 class HMMFit(HMMParameters):
     """Fitted parameters plus original-compatible convergence diagnostics."""
@@ -112,6 +153,10 @@ class HMMFit(HMMParameters):
     history: list[float] = field(default_factory=list)
     seed: int = 0
     regularization_events: int = 0
+    regularization_applications: int = 0
+    diagonal_variance_floor_hits: int = 0
+    eigenvalue_clipping_events: int = 0
+    full_covariance_floor_applications: int = 0
 
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -124,6 +169,11 @@ class HMMFit(HMMParameters):
         if (isinstance(self.regularization_events, bool) or
                 not isinstance(self.regularization_events, int) or self.regularization_events < 0):
             raise ValueError("regularization_events must be a nonnegative integer")
+        for name in ("regularization_applications", "diagonal_variance_floor_hits",
+                     "eigenvalue_clipping_events", "full_covariance_floor_applications"):
+            value = getattr(self, name)
+            if isinstance(value, bool) or not isinstance(value, int) or value < 0:
+                raise ValueError(f"{name} must be a nonnegative integer")
         if (isinstance(self.loglik, (bool, np.bool_)) or
                 not isinstance(self.loglik, (int, float, np.integer, np.floating))):
             raise ValueError("loglik must be numeric or NaN for an unfitted model")
