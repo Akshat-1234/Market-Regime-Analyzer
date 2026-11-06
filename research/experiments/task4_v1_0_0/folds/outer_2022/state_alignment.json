@@ -1,0 +1,114 @@
+{
+  "agreement": 0.2,
+  "current_fold_id": "outer_2022",
+  "current_to_aligned": {
+    "local_0": null,
+    "local_1": null,
+    "local_2": "structure_outer_2022_local_2",
+    "local_3": null,
+    "local_4": "structure_outer_2019_local_3"
+  },
+  "distance_matrix": [
+    [
+      0.5096471029561187,
+      0.8656297906807102,
+      0.16015282358447552,
+      0.4319418033306698,
+      2.072379576321454
+    ],
+    [
+      3.9755945766264196,
+      4.33151605532601,
+      3.6227543960931583,
+      3.0393653882714893,
+      1.3940771324433996
+    ],
+    [
+      0.01746592674572236,
+      0.3734486530147411,
+      0.33842604977189333,
+      0.9209004871477992,
+      2.564333257072068
+    ],
+    [
+      1.553798904354092,
+      1.9096285366421895,
+      1.202272175359468,
+      0.6178907081046693,
+      1.0280324662675135
+    ],
+    [
+      0.36300153674655355,
+      0.01249816661121031,
+      0.7182930330610618,
+      1.2998318131423727,
+      2.94428036855899
+    ]
+  ],
+  "maximum_accepted_distance": 2.0,
+  "method": "training-posterior-profile-hungarian-v1",
+  "minimum_margin": 0.25,
+  "outer_test_used": false,
+  "records": [
+    {
+      "aligned_state_id": null,
+      "confidence": 0.8619554076594339,
+      "distance": 0.16015282358447552,
+      "local_state_id": "local_0",
+      "margin": 0.1782732261874178,
+      "proposed_reference_aligned_id": null,
+      "proposed_reference_local_id": "local_2",
+      "status": "ambiguous"
+    },
+    {
+      "aligned_state_id": null,
+      "confidence": 0.4176974862039629,
+      "distance": 1.3940771324433996,
+      "local_state_id": "local_1",
+      "margin": -0.36604466617588605,
+      "proposed_reference_aligned_id": null,
+      "proposed_reference_local_id": "local_4",
+      "status": "ambiguous"
+    },
+    {
+      "aligned_state_id": "structure_outer_2022_local_2",
+      "confidence": 0.9828338951835117,
+      "distance": 0.01746592674572236,
+      "local_state_id": "local_2",
+      "margin": 0.320960123026171,
+      "proposed_reference_aligned_id": null,
+      "proposed_reference_local_id": "local_0",
+      "status": "new_unmatched"
+    },
+    {
+      "aligned_state_id": null,
+      "confidence": 0.6180887219331908,
+      "distance": 0.6178907081046693,
+      "local_state_id": "local_3",
+      "margin": -0.1859489047739995,
+      "proposed_reference_aligned_id": null,
+      "proposed_reference_local_id": "local_3",
+      "status": "ambiguous"
+    },
+    {
+      "aligned_state_id": "structure_outer_2019_local_3",
+      "confidence": 0.9876561093902608,
+      "distance": 0.01249816661121031,
+      "local_state_id": "local_4",
+      "margin": 0.3505033701353433,
+      "proposed_reference_aligned_id": "structure_outer_2019_local_3",
+      "proposed_reference_local_id": "local_1",
+      "stability": {
+        "expected_duration_abs_difference": 2.655618392950629,
+        "self_transition_abs_difference": 0.0014392696188521015,
+        "training_episode_mean_duration_abs_difference": 2.1616666666666617,
+        "training_posterior_occupancy_abs_difference": 0.007043570994680393,
+        "training_profile_distance": 0.01249816661121031
+      },
+      "status": "accepted"
+    }
+  ],
+  "reference_fold_id": "outer_2021",
+  "schema": "task4-state-alignment-v1",
+  "unmatched_frequency": 0.8
+}

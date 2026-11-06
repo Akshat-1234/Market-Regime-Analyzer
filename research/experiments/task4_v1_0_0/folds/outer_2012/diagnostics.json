@@ -1,0 +1,477 @@
+{
+  "alignment": {
+    "agreement": null,
+    "current_fold_id": "outer_2012",
+    "current_to_aligned": {
+      "local_0": "structure_outer_2012_local_0",
+      "local_1": "structure_outer_2012_local_1",
+      "local_2": "structure_outer_2012_local_2",
+      "local_3": "structure_outer_2012_local_3",
+      "local_4": "structure_outer_2012_local_4"
+    },
+    "distance_matrix": null,
+    "maximum_accepted_distance": 2.0,
+    "method": "training-posterior-profile-hungarian-v1",
+    "minimum_margin": 0.25,
+    "outer_test_used": false,
+    "records": [
+      {
+        "aligned_state_id": "structure_outer_2012_local_0",
+        "confidence": null,
+        "distance": null,
+        "local_state_id": "local_0",
+        "margin": null,
+        "proposed_reference_local_id": null,
+        "status": "initial_unaligned"
+      },
+      {
+        "aligned_state_id": "structure_outer_2012_local_1",
+        "confidence": null,
+        "distance": null,
+        "local_state_id": "local_1",
+        "margin": null,
+        "proposed_reference_local_id": null,
+        "status": "initial_unaligned"
+      },
+      {
+        "aligned_state_id": "structure_outer_2012_local_2",
+        "confidence": null,
+        "distance": null,
+        "local_state_id": "local_2",
+        "margin": null,
+        "proposed_reference_local_id": null,
+        "status": "initial_unaligned"
+      },
+      {
+        "aligned_state_id": "structure_outer_2012_local_3",
+        "confidence": null,
+        "distance": null,
+        "local_state_id": "local_3",
+        "margin": null,
+        "proposed_reference_local_id": null,
+        "status": "initial_unaligned"
+      },
+      {
+        "aligned_state_id": "structure_outer_2012_local_4",
+        "confidence": null,
+        "distance": null,
+        "local_state_id": "local_4",
+        "margin": null,
+        "proposed_reference_local_id": null,
+        "status": "initial_unaligned"
+      }
+    ],
+    "reference_fold_id": null,
+    "schema": "task4-state-alignment-v1",
+    "unmatched_frequency": 0.0
+  },
+  "boundaries": {
+    "fold_id": "outer_2012",
+    "test_end": "2012-12-31",
+    "test_rows": 242,
+    "test_start": "2012-01-03",
+    "train_end": "2011-12-30",
+    "train_rows": 1030,
+    "train_start": "2007-10-16"
+  },
+  "fit": {
+    "converged": true,
+    "failure_reason": null,
+    "iterations": 22,
+    "regularization": {
+      "diagonal_variance_floor_hits": 0,
+      "eigenvalue_clipping_events": 0,
+      "full_covariance_floor_applications": 110,
+      "regularization_applications": 110,
+      "regularization_events": 110
+    },
+    "rejection_reason": null,
+    "status": "accepted",
+    "training_scaled_log_likelihood": -1251.239115849648
+  },
+  "fold_id": "outer_2012",
+  "outer_density": {
+    "jacobian_included": true,
+    "raw_mean_per_observation": 5.130379260718073,
+    "raw_sum": 1241.5517810937738,
+    "scaled_mean_per_observation": -0.7133886267043017,
+    "scaled_sum": -172.64004766244102,
+    "units": "nats_per_observation"
+  },
+  "outer_state_metrics": {
+    "dates": {
+      "end": "2012-12-31",
+      "rows": 242,
+      "start": "2012-01-03"
+    },
+    "kind": "oos_filtered",
+    "mean_max_posterior_confidence": 0.9847806332853252,
+    "mean_posterior_entropy_nats": 0.03755451057151201,
+    "rare_state_fraction": 0.8,
+    "states": [
+      {
+        "effective_sample_size": 2.1940962413127427,
+        "hard_count": 0,
+        "hard_fraction": 0.0,
+        "local_state_id": "local_0",
+        "mean_max_posterior_confidence_on_hard_rows": null,
+        "mean_posterior_entropy_nats_on_hard_rows": null,
+        "posterior_weight": 4.0318973348147035e-07,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.02064867688485221,
+          "volatility_20": 0.24904849852559735
+        }
+      },
+      {
+        "effective_sample_size": 25.467512714000165,
+        "hard_count": 24,
+        "hard_fraction": 0.09917355371900827,
+        "local_state_id": "local_1",
+        "mean_max_posterior_confidence_on_hard_rows": 0.8899675375770842,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.2536109549273287,
+        "posterior_weight": 0.09256829858070222,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.003364403820320602,
+          "volatility_20": 0.22228815096995852
+        }
+      },
+      {
+        "effective_sample_size": 222.328685181695,
+        "hard_count": 218,
+        "hard_fraction": 0.9008264462809917,
+        "local_state_id": "local_2",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9952187722623791,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.013768480000229438,
+        "posterior_weight": 0.9074312982277914,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": 0.0008231715845055091,
+          "volatility_20": 0.14906537787389534
+        }
+      },
+      {
+        "effective_sample_size": 1.2838274359068325,
+        "hard_count": 0,
+        "hard_fraction": 0.0,
+        "local_state_id": "local_3",
+        "mean_max_posterior_confidence_on_hard_rows": null,
+        "mean_posterior_entropy_nats_on_hard_rows": null,
+        "posterior_weight": 1.468501574915635e-12,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.02689377004139052,
+          "volatility_20": 0.2546253839102675
+        }
+      },
+      {
+        "effective_sample_size": 3.430197175537352,
+        "hard_count": 0,
+        "hard_fraction": 0.0,
+        "local_state_id": "local_4",
+        "mean_max_posterior_confidence_on_hard_rows": null,
+        "mean_posterior_entropy_nats_on_hard_rows": null,
+        "posterior_weight": 3.0434939883257277e-13,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.010706096161195623,
+          "volatility_20": 0.2427955616898489
+        }
+      }
+    ]
+  },
+  "schema": "task4-fold-diagnostics-v1",
+  "selection": {
+    "candidate_scores": {
+      "k2_gaussian_diag": 3.7645821650934477,
+      "k2_gaussian_full": 3.7643925797327435,
+      "k2_student_t_diag": 3.7915590764103593,
+      "k3_gaussian_diag": 4.080762050889722,
+      "k3_gaussian_full": 4.105244858374789,
+      "k3_student_t_diag": 4.080295309343438,
+      "k4_gaussian_diag": 4.502258737504525,
+      "k4_gaussian_full": 4.505227713783774,
+      "k4_student_t_diag": 4.501591522546625,
+      "k5_gaussian_diag": 4.5042792685451,
+      "k5_gaussian_full": 4.512179938406446,
+      "k5_student_t_diag": 4.50325136872069
+    },
+    "covariance_type": "full",
+    "eligible_candidates": [
+      "k2_gaussian_diag",
+      "k2_gaussian_full",
+      "k2_student_t_diag",
+      "k3_gaussian_diag",
+      "k3_gaussian_full",
+      "k3_student_t_diag",
+      "k4_gaussian_diag",
+      "k4_gaussian_full",
+      "k4_student_t_diag",
+      "k5_gaussian_diag",
+      "k5_gaussian_full",
+      "k5_student_t_diag"
+    ],
+    "emission": "gaussian",
+    "fold_id": "outer_2012",
+    "mean_inner_raw_log_density_per_observation": 4.512179938406446,
+    "outer_test_used": false,
+    "schema": "task4-inner-selection-v1",
+    "seed_scores": {
+      "k2_gaussian_diag": {
+        "2": 3.7645181405633488,
+        "42": 3.7647102141536455,
+        "7": 3.7645181405633488
+      },
+      "k2_gaussian_full": {
+        "2": 3.764434704190121,
+        "42": 3.764308330817988,
+        "7": 3.764434704190121
+      },
+      "k2_student_t_diag": {
+        "2": 3.7915654088787103,
+        "42": 3.7915464114736577,
+        "7": 3.7915654088787103
+      },
+      "k3_gaussian_diag": {
+        "2": 4.080836479555586,
+        "42": 4.080719715054854,
+        "7": 4.080729958058725
+      },
+      "k3_gaussian_full": {
+        "2": 4.081230020350477,
+        "42": 4.117122449028677,
+        "7": 4.1173821057452145
+      },
+      "k3_student_t_diag": {
+        "2": 4.079913569628495,
+        "42": 4.080377848667099,
+        "7": 4.0805945097347225
+      },
+      "k4_gaussian_diag": {
+        "2": 4.502162073855025,
+        "42": 4.502318579686565,
+        "7": 4.502295558971984
+      },
+      "k4_gaussian_full": {
+        "2": 4.505938242158384,
+        "42": 4.506412436995741,
+        "7": 4.503332462197196
+      },
+      "k4_student_t_diag": {
+        "2": 4.501348623439749,
+        "42": 4.502072427476228,
+        "7": 4.5013535167238965
+      },
+      "k5_gaussian_diag": {
+        "2": 4.504360972024895,
+        "42": 4.504247197667677,
+        "7": 4.504229635942727
+      },
+      "k5_gaussian_full": {
+        "2": 4.5122692545784195,
+        "42": 4.5122974260950155,
+        "7": 4.5119731345459035
+      },
+      "k5_student_t_diag": {
+        "2": 4.5034169704252385,
+        "42": 4.503160243565631,
+        "7": 4.503176892171198
+      }
+    },
+    "selected_candidate_id": "k5_gaussian_full",
+    "selected_candidate_seed_scores": {
+      "2": 4.5122692545784195,
+      "42": 4.5122974260950155,
+      "7": 4.5119731345459035
+    },
+    "selected_seed": 42,
+    "state_count": 5,
+    "status": "selected",
+    "validation_fold_ids": [
+      "outer_2012_inner_01",
+      "outer_2012_inner_02",
+      "outer_2012_inner_03",
+      "outer_2012_inner_01",
+      "outer_2012_inner_02",
+      "outer_2012_inner_03",
+      "outer_2012_inner_01",
+      "outer_2012_inner_02",
+      "outer_2012_inner_03"
+    ]
+  },
+  "smoothed_probabilities_used": false,
+  "status": "accepted",
+  "training_state_metrics": {
+    "dates": {
+      "end": "2011-12-30",
+      "rows": 1030,
+      "start": "2007-10-16"
+    },
+    "kind": "training_filtered",
+    "mean_max_posterior_confidence": 0.9747485746594391,
+    "mean_posterior_entropy_nats": 0.06553046482106926,
+    "rare_state_fraction": 0.2,
+    "states": [
+      {
+        "effective_sample_size": 158.26672127612986,
+        "hard_count": 146,
+        "hard_fraction": 0.141747572815534,
+        "local_state_id": "local_0",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9506546999517613,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.1281649289784687,
+        "posterior_weight": 0.14231712263782653,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": 8.65125984188428e-05,
+          "volatility_20": 0.3447436266441387
+        }
+      },
+      {
+        "effective_sample_size": 273.15954353047255,
+        "hard_count": 265,
+        "hard_fraction": 0.25728155339805825,
+        "local_state_id": "local_1",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9696525670836855,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.08153473239515079,
+        "posterior_weight": 0.25468475835065735,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": 0.0008501882104626656,
+          "volatility_20": 0.25489266160051577
+        }
+      },
+      {
+        "effective_sample_size": 439.886203848112,
+        "hard_count": 433,
+        "hard_fraction": 0.4203883495145631,
+        "local_state_id": "local_2",
+        "mean_max_posterior_confidence_on_hard_rows": 0.9912006828602141,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.02556526328071403,
+        "posterior_weight": 0.4207898006976342,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": -0.000852247354519472,
+          "volatility_20": 0.16143595431182786
+        }
+      },
+      {
+        "effective_sample_size": 116.9260295295116,
+        "hard_count": 106,
+        "hard_fraction": 0.1029126213592233,
+        "local_state_id": "local_3",
+        "mean_max_posterior_confidence_on_hard_rows": 0.948220500676262,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.12644045983144248,
+        "posterior_weight": 0.10432161001760892,
+        "rare": false,
+        "raw_feature_profile": {
+          "daily_return": 5.754294008180503e-05,
+          "volatility_20": 0.42177584292270237
+        }
+      },
+      {
+        "effective_sample_size": 82.49774745557636,
+        "hard_count": 80,
+        "hard_fraction": 0.07766990291262135,
+        "local_state_id": "local_4",
+        "mean_max_posterior_confidence_on_hard_rows": 0.98170308348665,
+        "mean_posterior_entropy_nats_on_hard_rows": 0.033814341343098464,
+        "posterior_weight": 0.07788670829627234,
+        "rare": true,
+        "raw_feature_profile": {
+          "daily_return": 0.0015267139207448216,
+          "volatility_20": 0.6577870583998243
+        }
+      }
+    ]
+  },
+  "transition_metrics": {
+    "duration_note": "Implied geometric duration is not empirical persistence; hard episodes are descriptive and label-local.",
+    "empirical_episode_durations": {
+      "local_0": {
+        "episodes": 13,
+        "max": 37.0,
+        "mean": 11.23076923076923,
+        "median": 8.0,
+        "min": 1.0,
+        "std": 11.41018438467616
+      },
+      "local_1": {
+        "episodes": 13,
+        "max": 80.0,
+        "mean": 20.384615384615383,
+        "median": 18.0,
+        "min": 1.0,
+        "std": 20.8588049415527
+      },
+      "local_2": {
+        "episodes": 6,
+        "max": 171.0,
+        "mean": 72.16666666666667,
+        "median": 54.5,
+        "min": 20.0,
+        "std": 56.14059731305561
+      },
+      "local_3": {
+        "episodes": 9,
+        "max": 38.0,
+        "mean": 11.777777777777779,
+        "median": 11.0,
+        "min": 1.0,
+        "std": 11.088031585653264
+      },
+      "local_4": {
+        "episodes": 4,
+        "max": 39.0,
+        "mean": 20.0,
+        "median": 20.0,
+        "min": 1.0,
+        "std": 15.513435037626794
+      }
+    },
+    "expected_duration_sessions": {
+      "local_0": 14.427735243864015,
+      "local_1": 26.386049263626763,
+      "local_2": 72.18797794183752,
+      "local_3": 15.38585785374769,
+      "local_4": 25.557664985908453
+    },
+    "transition_matrix": [
+      [
+        0.9306890525021735,
+        0.034528320048836776,
+        6.837253290110528e-13,
+        0.02767434588655779,
+        0.007108281561748195
+      ],
+      [
+        0.01155057201171764,
+        0.9621011849857151,
+        0.02256874034434722,
+        0.003779502657803264,
+        4.1699780280876774e-13
+      ],
+      [
+        2.3235710424194735e-13,
+        0.013852722135469597,
+        0.9861472778638334,
+        2.3238612451605135e-13,
+        2.323545571236871e-13
+      ],
+      [
+        0.04641836170141777,
+        9.141862719474637e-13,
+        9.127830018304865e-13,
+        0.9350052490081715,
+        0.01857638928858367
+      ],
+      [
+        0.012734366070765012,
+        1.2786672264456161e-12,
+        1.2724956801013361e-12,
+        0.026392839035263325,
+        0.9608727948914205
+      ]
+    ]
+  }
+}

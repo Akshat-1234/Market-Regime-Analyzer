@@ -1,0 +1,11 @@
+{
+  "candidate_attempt_records_lost_in_memory": true,
+  "completed_fold_artifact_directories": 14,
+  "error": "KeyError: 'candidate_id' in aggregate_results; actual selection schema uses selected_candidate_id",
+  "finished_utc": "2026-11-06T09:16:54.798905+00:00",
+  "protocol_version": "task4-rv-nested-v1.0.0",
+  "recovery": "preserve this directory; fix aggregation and add incremental candidate/fold writes; execute a unique recovery run with unchanged protocol",
+  "schema": "task4-failed-run-v1",
+  "source_commit": "123ca1975c4d3a8f332dbcd2ac7ef47c736a7f9d",
+  "status": "failed"
+}

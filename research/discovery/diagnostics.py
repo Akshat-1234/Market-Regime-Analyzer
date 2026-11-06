@@ -105,7 +105,7 @@ def aggregate_results(fold_records, candidate_attempts, selection_records, align
     for name in ("training_profile_distance", "self_transition_abs_difference", "expected_duration_abs_difference",
                  "training_posterior_occupancy_abs_difference", "training_episode_mean_duration_abs_difference"):
         distributions[name] = summarize_values([item["stability"].get(name) for item in stability_records])
-    candidate_counts = Counter(record["candidate_id"] for record in selections)
+    candidate_counts = Counter(record["selected_candidate_id"] for record in selections)
     state_counts = Counter(str(record["state_count"]) for record in selections)
     emission_counts = Counter(record["emission"] for record in selections)
     covariance_counts = Counter(record["covariance_type"] for record in selections)
