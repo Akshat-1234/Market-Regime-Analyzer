@@ -94,6 +94,38 @@ def test_real_api_and_source_artifacts():
     assert client.get('/api/artifacts/../../README.md').status_code == 404
 
 
+def test_task4_api_serves_verified_results_and_rejects_tampering(tmp_path, monkeypatch):
+    import backend.research_api as api
+    import shutil
+    client = TestClient(app)
+    response = client.get('/api/task4/discovery')
+    assert response.status_code == 200
+    data = response.json()
+    assert data['summary']['inner_candidate_attempts'] == 1512
+    assert data['summary']['selected_outer_refits'] == 14
+    assert data['summary']['total_retained_attempts'] == 1526
+    assert data['summary']['selected_state_count_frequency'] == {'5': 14}
+    assert data['occupancy']['fold_state_observations'] == 70
+    assert data['occupancy']['zero_hard_assignments'] == 26
+    assert data['occupancy']['years_with_empty_state'] == 13
+    assert len(data['occupancy']['rows']) == 70
+    assert data['stability']['alignment_counts'] == {'accepted': 41, 'ambiguous': 16, 'new_unmatched': 8}
+    assert data['stability']['candidate_changes'] == 8
+    assert data['stability']['folds'][-1]['alignment_status_counts']['ambiguous'] == 5
+    assert data['reproducibility']['core_artifacts_matched'] == 98
+    assert data['reproducibility']['global_fold_objects_matched'] == 42
+    assert data['reproducibility']['initial_failure']['candidate_attempt_records_lost_in_memory'] is True
+    assert client.get('/api/artifacts/task4-occupancy').status_code == 200
+    copied = tmp_path/'task4-run'
+    shutil.copytree(api.TASK4_RUN, copied)
+    with (copied/'aggregate_results.json').open('a') as handle:
+        handle.write(' ')
+    monkeypatch.setattr(api, 'TASK4_RUN', copied)
+    rejected = client.get('/api/task4/discovery')
+    assert rejected.status_code == 503
+    assert 'hash mismatch' in rejected.json()['detail']
+
+
 def test_reproduced_performance_and_delay_consistent():
     perf=pd.read_csv(RUN/'performance.csv').set_index('strategy')
     assert perf.loc['Trend 50','sharpe'] == pytest.approx(.28588758063)
@@ -137,7 +169,7 @@ def test_dashboard_same_origin_routes_and_missing_build(tmp_path, monkeypatch):
     client = TestClient(app)
     assert client.get('/').status_code == 503
     (tmp_path/'index.html').write_text('<html>dashboard</html>')
-    for route in ('/', '/regimes', '/strategies', '/validation'):
+    for route in ('/', '/regimes', '/task4', '/strategies', '/validation'):
         response = client.get(route)
         assert response.status_code == 200
         assert response.headers['content-type'].startswith('text/html')
