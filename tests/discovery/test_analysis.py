@@ -94,12 +94,15 @@ def test_preserved_run_comparison_is_byte_exact(tmp_path):
         fold = root / "folds" / "outer_2020"
         fold.mkdir(parents=True)
         for name in CORE_FOLD_ARTIFACTS:
-            payload = json.dumps({"fold_id": "outer_2020"}) if name.endswith(".json") else name
+            key = "current_fold_id" if name == "state_alignment.json" else "fold_id"
+            payload = json.dumps({key: "outer_2020"}) if name.endswith(".json") else name
             (fold / name).write_text(payload)
         for name in ("inner_selection_records.jsonl", "fold_diagnostics.jsonl", "state_alignments.jsonl"):
-            (root / name).write_text(json.dumps({"fold_id": "outer_2020"}) + "\n")
+            key = "current_fold_id" if name == "state_alignments.jsonl" else "fold_id"
+            (root / name).write_text(json.dumps({key: "outer_2020"}) + "\n")
     result = compare_with_preserved_run(current, preserved)
     assert result["fold_sets_identical"]
     assert result["all_core_artifacts_byte_identical"]
+    assert result["all_global_fold_objects_identical"]
     assert len(result["core_artifact_comparisons"]) == len(CORE_FOLD_ARTIFACTS)
     assert not result["candidate_attempt_comparison_available"]
